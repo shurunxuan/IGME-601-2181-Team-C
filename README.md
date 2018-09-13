@@ -1,4 +1,4 @@
-# IGME-601 Fall 2018 Team *YOUR_TEAM_NAME* Overview
+# IGME-601 Fall 2018 Team Team C Overview
 This README contains basic information about the project and its artifacts. If kept up to date, it will act as a primary dashboard for the project.
 
 ## Team
@@ -6,7 +6,7 @@ This README contains basic information about the project and its artifacts. If k
 - MEMBER1
 - MEMBER2
 - MEMBER3
-- MEMBER4
+- Shantanu Jamble
 - MEMBER5
 
 ## Mission Statement
