@@ -1,0 +1,1 @@
+*Use this directory to manage overall project documentation (presentations, art, research/references, user manuals, test plans & results, etc.) Update this README as needed to describe how doc/ is organized.*
