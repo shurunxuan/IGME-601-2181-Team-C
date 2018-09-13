@@ -7,7 +7,7 @@ This README contains basic information about the project and its artifacts. If k
 
 - Alabhya Maheshwari
 - MEMBER2
-- MEMBER3
+- Jiayi Jiang
 - Shantanu Jamble
 - Victor Shu
 
