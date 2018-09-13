@@ -1,4 +1,4 @@
-# IGME-601 Fall 2018 Team *YOUR_TEAM_NAME* Overview
+# IGME-601 Fall 2018 Team C Overview
 This README contains basic information about the project and its artifacts. If kept up to date, it will act as a primary dashboard for the project.
 
 ## Team
@@ -7,7 +7,7 @@ This README contains basic information about the project and its artifacts. If k
 - MEMBER2
 - MEMBER3
 - MEMBER4
-- MEMBER5
+- Victor Shu
 
 ## Mission Statement
 *Replace this with the overall objectives that your team has agreed upon. What is the goal of the project (from a learning and product perspective)? Who is your target audience? How will you define success?*
