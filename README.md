@@ -4,7 +4,7 @@ This README contains basic information about the project and its artifacts. If k
 ## Team
 
 - MEMBER1
-- MEMBER2
+- Mark DelFavero
 - MEMBER3
 - MEMBER4
 - MEMBER5
