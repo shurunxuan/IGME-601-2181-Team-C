@@ -5,7 +5,7 @@ This README contains basic information about the project and its artifacts. If k
 
 ## Team
 
-- MEMBER1
+- Alabhya Maheshwari
 - MEMBER2
 - MEMBER3
 - Shantanu Jamble
