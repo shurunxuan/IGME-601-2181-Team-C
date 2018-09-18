@@ -25,7 +25,7 @@ After Game Design lectures every Monday, Wednesday and Friday.
 ### Trello
 This project will use Trello for sprint planning and to track user story status.
 
-*Once your group has a Trello team/board, add a link to it here.*
+https://trello.com/b/g8aDX0gp/drone-stealth-game
 
 ## Repository Overview
 *As the project progresses, add notes here about how the repository is organized, how branches are being used, etc.*
