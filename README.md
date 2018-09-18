@@ -12,15 +12,15 @@ This README contains basic information about the project and its artifacts. If k
 - Victor Shu
 
 ## Mission Statement
-*Replace this with the overall objectives that your team has agreed upon. What is the goal of the project (from a learning and product perspective)? Who is your target audience? How will you define success?*
+Make a game that uses three dimensional space to create interesting pure stealth gameplay scenarios.
 
 ## Communications
 
 ### Slack
-*Add info about how to join/use your team's Slack workspace. What is it? List the channels and how each should be used? etc.*
+http://2181-igme-601-teamc.slack.com
 
 ### Meeting Times
-*Set at least 1 out-of-class meeting time and note times when the entire group is usually free for additional meetings as needed.*
+After Game Design lectures every Monday, Wednesday and Friday.
 
 ### Trello
 This project will use Trello for sprint planning and to track user story status.
