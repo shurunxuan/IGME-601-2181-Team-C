@@ -12,9 +12,9 @@ Since this game will be a 3D pure stealth game with drones, so the target audien
 
 ### People who like stealth games
 
-In a stealth game, players usually plan their route of sneaking in, analyze their surroundings and respond to some unexpected situations quickly. So, our target players will be fans of stealth games, and they are obsessed with planning things, sticking to the plan and being vigilant to the environment and enemies. They want to gain a sense of achievement from sneaking and blending in the enemies and complete their goals unseen.
+In a stealth game, players usually plan their route of sneaking in, analyze their surroundings and respond to some unexpected situations quickly. So, our target players will be fans of stealth games, and they are obsessed with planning things, sticking to the plan and being vigilant to the environment and enemies. They want to gain a sense of achievement from sneaking, blending in, avoiding enemies, and completing their goals unseen.
 
-We want to provide such experience to our target and potential audience. We want to make the missions in our game challenging. This means that the player needs a thorough plan to infiltrate enemy basement. The player may also need some maneuver to pass through some parts of the level. 
+We want to provide such an experience to our target and potential audience. We want to make the missions in our game challenging. This means that the player needs a thorough plan to infiltrate enemy base. The player may also need some maneuverability to pass through some parts of the level. 
 
 ### Drone enthusiasts
 
