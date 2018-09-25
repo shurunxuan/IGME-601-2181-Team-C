@@ -34,16 +34,16 @@ There are many open-world games on the market nowadays, and they attract many pl
 
 ### Stealth game
 
-The ancestor of stealth games is generally considered to be Metal Gear (1987, Konami). Before this game, there were several games with some stealth elements like patrolling guards and assassination. Metal Gear introduced silenced firearms and noise detection. The enemy will also call for help if they are alerted. Metal Gear 2: Solid Snake (1990, Konami) introduced crouching and radar system.
+The ancestor of stealth games is generally considered to be _Metal Gear_ (1987, Konami). Before this game, there were several games with some stealth elements like patrolling guards and assassination. _Metal Gear_ introduced silenced firearms and noise detection. The enemy will also call for help if they are alerted. _Metal Gear 2: Solid Snake_ (1990, Konami) introduced crouching and radar system.
 
-Since then, stealth games became a genre. These games started to pursue a more realistic stealth experience. In the game Thief: The Dark Project (1998, Eidos Interactive), players can hide in shadows. In Splinter Cell (2002, Ubisoft), players can peek under doors. Metal Gear Solid 3: Snake Eater introduced a robust camouflage and disguise system.
+Since then, stealth games became a genre. These games started to pursue a more realistic stealth experience. In the game _Thief: The Dark Project_ (1998, Eidos Interactive), players can hide in shadows. In _Splinter Cell_ (2002, Ubisoft), players can peek under doors. _Metal Gear Solid 3: Snake Eater_ (2004, Konami) introduced a robust camouflage and disguise system.
 
-Recent stealth games emphasize more on giving players multiple options. Dishonored (2012, Bethesda) directly told players that they could choose their play style in the tutorial. Thief (2014, Square Enix) gives players room to decide how to sneak in and out. Players have options to go through the vents, the basement, and the roof to complete their tasks. Metal Gear Solid V: The Phantom Pain (2015, Konami) has a vast open world, in which players can get to a vantage point, recon the area and plan carefully before the infiltration start.
+Recent stealth games emphasize more on giving players multiple options. _Dishonored_ (2012, Bethesda) directly told players that they could choose their play style in the tutorial. _Thief_ (2014, Square Enix) gives players room to decide how to sneak in and out. Players have options to go through the vents, the basement, and the roof to complete their tasks. _Metal Gear Solid V: The Phantom Pain_ (2015, Konami) has a vast open world, in which players can get to a vantage point, recon the area and plan carefully before the infiltration start.
 
 
 ### Games with drones
 
-Those games with drones are rare in the market. Some indie games give players experience of controlling drones to race or shoot at each other. In some AAA games like Rainbow Six: Siege (2016, Ubisoft) and Ghost Recon: Wildlands (2017, Ubisoft), players can use drones to mark enemies, which is mostly the primary function of drones. 
+Those games with drones are rare in the market. Some indie games give players experience of controlling drones to race or shoot at each other. In some AAA games like _Rainbow Six: Siege_ (2016, Ubisoft) and _Ghost Recon: Wildlands_ (2017, Ubisoft), players can use drones to mark enemies, which is mostly the primary function of drones. 
 
 ## The niche in this market that your game will fill
 
