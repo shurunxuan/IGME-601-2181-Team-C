@@ -7,7 +7,7 @@ I will now detail what our architecture might look like, to have it have it take
 Generally, the idea is to make it so that all of the level design can be done in a data driven way without modifying the scripts themselves.
 I will avoid details on things that are already handled by Unity, and will presume that the reader is familiar with Unity.
 
-##Environment
+## Environment
 Static, non-interactive, environmental objects do not require much thought as they are handled by Unity sufficiently already.
 Objects with behaviors will need scripts that detail their behaviors.
 As much as possible, these EnvironmentBehavior Scripts should be data driven, general purpose, and specific to a single behavior.
@@ -16,7 +16,7 @@ Objects that detect a condition in the game and trigger a behavior, should also 
 These should implement a parent EnvironmentDetector script that knows how to interface with EnvironmentBehavior scripts when connected in the editor.
 Anything that could be considered to require detailed interfacing with the player, may require an additional script that denotes it as such, but it may be unnecesary.
 
-##Guards
+## Guards
 Guards should follow a pattern of movement that is predictable and involves simple paths or behaviors.
 These movement patterns should use a single movement pattern script that the main AI script uses to determine how it should follow its path.
 This pattern script should be data driven using handplaced pathfinding nodes.
@@ -27,7 +27,7 @@ Sound detection will check ask the manager what sounds it hears each frame and t
 Either detection will fill the alertness meter, if the alertness meter is filled and the guard has sight of the player, the main game manager will end the game.
 The alertness meter will empty over time, but as it does the guard will wander in the direction it thinks the sound came from for a time.
 
-##Player
+## Player
 Player has a PlayerControlComponent that looks at the keyboard input and acts as the hub for the Player's components to communicate.
 It has a DroneMovementComponent that knows how to move based on the input given by the PlayerControlComponent.
 It has an EnergyComponent that keeps track of how much energy the player has and has useful functions for manipulating the resource.
@@ -36,7 +36,7 @@ ToolComponents will be used to handle all of the functionality of the drone othe
 The modularity of ToolComponents will allow us to standardize them and make them easy to add and remove and/or allow the player to customize their loadout.
 The actual customization will be available through a menu that is not accessable while a level is in progress.
 
-##Managers
+## Managers
 A number of static manager classes will be used.
 These managers will need to handle score, victory conditions, loss conditions, menus, sound based detection, saving, loading, sound the user hears, heads up display, and possibly more things.
 For these managers, we should seperate their responsabilities when possible, but one manager could probably fulfill multiple roles if they are closely tied.
