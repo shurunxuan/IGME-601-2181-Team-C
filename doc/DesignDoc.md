@@ -47,7 +47,7 @@ This section describes the main features of the game.
 
 This section describes the application domain.
 
-![Domain Model](\Assets\domain.png)
+![Domain Model](Assets/domain.png)
 
 The overall domain for the Drone Stealth game is maneuvering in a three dimensional digital space while avoiding obstacles to achieve goals. 
 
@@ -60,7 +60,7 @@ This section describes the application architecture.
 ### Summary
 The following model shows a high-level view of the webapp's architecture.
 
-![Architecture Overview](\Assets\OverallArchitecture.png)
+![Architecture Overview](Assets/OverallArchitecture.png)
 
 Our architecture will need to connect to and build on top of Unity's existing architecture. This is how the overall architecture looks like.
 

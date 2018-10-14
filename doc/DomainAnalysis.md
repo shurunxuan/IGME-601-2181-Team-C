@@ -2,7 +2,7 @@
 
 The overall domain for the Drone Stealth game is maneuvering in a three dimensional digital space while avoiding obstacles to achieve goals.
 
-![OverallDomain](\Assets\domain.png)
+![OverallDomain](Assets/domain.png)
 
 ## Major Entities:
 
