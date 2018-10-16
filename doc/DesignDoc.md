@@ -23,6 +23,10 @@ The game we will be making is a stealth game in which the player controls a dron
 
 For more details, see [the full market & user analysis document](MarketUserAnalysis.md).
 
+#### Sell Sheet
+
+![SellSheet](Assets/SellSheet.png)
+
 ### Glossary and Acronyms
 > Provide a table of terms and acronyms.
 
