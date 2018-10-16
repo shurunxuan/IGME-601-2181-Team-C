@@ -58,11 +58,9 @@ For more details, see [the full domain document](DomainAnalysis.md).
 This section describes the application architecture.
 
 ### Summary
-The following model shows a high-level view of the webapp's architecture.
+Our architecture will need to connect to and build on top of Unity's existing architecture. This is how the overall architecture looks like.
 
 ![Architecture Overview](Assets/OverallArchitecture.png)
-
-Our architecture will need to connect to and build on top of Unity's existing architecture. This is how the overall architecture looks like.
 
 For more details, see [the full architecture document](architecture.md).
 
