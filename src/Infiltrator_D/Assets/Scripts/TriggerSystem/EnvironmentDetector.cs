@@ -5,10 +5,10 @@ using UnityEngine;
 /// <summary>
 /// A template for the trigger system.
 /// </summary>
-public class Trigger : MonoBehaviour
+public class EnvironmentDetector : MonoBehaviour
 {
 
-    public List<Behavior> Events;
+    public List<EnvironmentBehavior> Events;
 
     // Use this for initialization
     void Start()
@@ -22,7 +22,7 @@ public class Trigger : MonoBehaviour
 
     }
 
-    public void Activate()
+    public void Trigger()
     {
         for (int i = 0; i < Events.Count; i++)
         {
@@ -31,7 +31,7 @@ public class Trigger : MonoBehaviour
         }
     }
 
-    public void Activate(bool state)
+    public void Trigger(bool state)
     {
         for (int i = 0; i < Events.Count; i++)
         {
@@ -40,7 +40,7 @@ public class Trigger : MonoBehaviour
         }
     }
 
-    public void Activate(int state)
+    public void Trigger(int state)
     {
         for (int i = 0; i < Events.Count; i++)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// The template for a triggered event within the trigger system.
 /// </summary>
-public abstract class Behavior : MonoBehaviour
+public abstract class EnvironmentBehavior : MonoBehaviour
 {
 
     // Use this for initialization
@@ -20,10 +20,9 @@ public abstract class Behavior : MonoBehaviour
 
     }
 
+    // Three protocols need to be implemented
     public abstract void Activate();
-
     public abstract void Activate(bool state);
-
     public abstract void Activate(int state);
 
 }
