@@ -6,6 +6,7 @@ public class DroneMovement : MonoBehaviour
 {
 
     public Vector3 TargetForce;
+    public float TiltFactor;
     public Vector3 Forward
     {
         set
@@ -82,7 +83,11 @@ public class DroneMovement : MonoBehaviour
         if (TargetForce.magnitude < 0.01f)
             localUp = Vector3.up;
         else
+        {
             localUp = TargetForce / Vector3.Dot(TargetForce, Vector3.up);
+            localUp.x *= TiltFactor;
+            localUp.z *= TiltFactor;
+        }
         Quaternion rotate = Quaternion.FromToRotation(Vector3.up, localUp) * Quaternion.FromToRotation(Vector3.forward, Forward);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, 3.0f * Time.deltaTime);
 
@@ -94,7 +99,7 @@ public class DroneMovement : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         if (droneRigidbody != null)
-            Gizmos.DrawLine(transform.position, transform.position + droneRigidbody.velocity / 100);
+            Gizmos.DrawLine(transform.position, transform.position + droneRigidbody.velocity / 10);
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + gravity / 10);
