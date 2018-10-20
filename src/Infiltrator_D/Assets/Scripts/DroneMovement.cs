@@ -6,6 +6,24 @@ public class DroneMovement : MonoBehaviour
 {
 
     public Vector3 TargetForce;
+    public Vector3 Forward
+    {
+        set
+        {
+            forward = value.normalized;
+        }
+        get
+        {
+            return forward;
+        }
+    }
+    public Vector3 Gravity
+    {
+        get
+        {
+            return gravity;
+        }
+    }
 
     private Rigidbody droneRigidbody;
 
@@ -13,6 +31,7 @@ public class DroneMovement : MonoBehaviour
     private PropellerController propellerBR;
     private PropellerController propellerFL;
     private PropellerController propellerBL;
+    private Vector3 forward;
 
     private Vector3 gravity;
     // Use this for initialization
@@ -59,27 +78,16 @@ public class DroneMovement : MonoBehaviour
         propellerFL.TargetRotateSpeed -= br_fl_diff * 25000 / propellerFL.ForceFactor;
         propellerBL.TargetRotateSpeed += bl_fr_diff * 25000 / propellerBL.ForceFactor;
 
-        Quaternion rotate = Quaternion.FromToRotation(Vector3.up, TargetForce);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, 0.7f * Time.deltaTime);
+        Vector3 localUp;
+        if (TargetForce.magnitude < 0.01f)
+            localUp = Vector3.up;
+        else
+            localUp = TargetForce / Vector3.Dot(TargetForce, Vector3.up);
+        Quaternion rotate = Quaternion.FromToRotation(Vector3.up, localUp) * Quaternion.FromToRotation(Vector3.forward, Forward);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, 3.0f * Time.deltaTime);
 
         droneRigidbody.AddForce(gravity);
         droneRigidbody.AddForce(TargetForce);
-
-
-
-        // droneRigidbody.AddForceAtPosition(propellerFR.GetComponent<PropellerController>().Force, propellerFR.transform.position);
-        // droneRigidbody.AddForceAtPosition(propellerFL.GetComponent<PropellerController>().Force, propellerFL.transform.position);
-        // droneRigidbody.AddForceAtPosition(propellerBR.GetComponent<PropellerController>().Force, propellerBR.transform.position);
-        // droneRigidbody.AddForceAtPosition(propellerBL.GetComponent<PropellerController>().Force, propellerBL.transform.position);
-
-        // Vector3 velocityDifference = TargetSpeed - droneRigidbody.velocity;
-
-        // propellerFR.GetComponent<PropellerController>().TargetRotateSpeed += velocityDifference.y * 10;
-        // propellerFL.GetComponent<PropellerController>().TargetRotateSpeed += velocityDifference.y * 10;
-        // propellerBR.GetComponent<PropellerController>().TargetRotateSpeed += velocityDifference.y * 10;
-        // propellerBL.GetComponent<PropellerController>().TargetRotateSpeed += velocityDifference.y * 10;
-
-
     }
 
     void OnDrawGizmos()
