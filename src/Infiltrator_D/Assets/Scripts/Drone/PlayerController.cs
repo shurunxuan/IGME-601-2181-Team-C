@@ -16,6 +16,6 @@ public class PlayerController : MonoBehaviour {
 		var forward = Input.GetAxis("Forward");
 		var up = Input.GetAxis("Up");
 
-		movement.TargetForce = forward * 2 * movement.Forward + up * Vector3.up + right * 2 * Vector3.Cross(Vector3.up, movement.Forward) - movement.Gravity;
+		movement.TargetForce = (forward * 2 * movement.Forward + up * Vector3.up + right * 2 * Vector3.Cross(Vector3.up, movement.Forward) - movement.Gravity) * movement.SpeedFactor;
 	}
 }

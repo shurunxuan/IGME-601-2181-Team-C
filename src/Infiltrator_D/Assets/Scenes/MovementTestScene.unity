@@ -898,8 +898,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowingObject: {fileID: 1527768806}
   LookAtDirection: {x: 0, y: 0, z: 0}
-  HorizontalViewSpeed: 5
-  VerticalViewSpeed: 5
+  HorizontalViewSpeed: 3
+  VerticalViewSpeed: 3
 --- !u!1 &900356880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,6 +1640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b38b8a233146b40b626ca8471bb372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpeedFactor: 1
   TargetForce: {x: 0, y: 0, z: 0}
   TiltFactor: 0.25
 --- !u!114 &1527768808

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DroneMovement : MonoBehaviour
 {
-
+    public float SpeedFactor;
     public Vector3 TargetForce;
     public float TiltFactor;
     public Vector3 Forward
