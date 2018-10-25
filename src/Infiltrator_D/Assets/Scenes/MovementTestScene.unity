@@ -650,6 +650,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &568398376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 568398377}
+  m_Layer: 0
+  m_Name: FirstPersonPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &568398377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 568398376}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0733}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1527768810}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &622754757
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,6 +928,8 @@ MonoBehaviour:
   LookAtDirection: {x: 0, y: 0, z: 0}
   HorizontalViewSpeed: 3
   VerticalViewSpeed: 3
+  UseFirstPerson: 0
+  FirstPersonPosition: {fileID: 568398377}
 --- !u!1 &900356880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1622,6 +1652,8 @@ GameObject:
   - component: {fileID: 1527768809}
   - component: {fileID: 1527768808}
   - component: {fileID: 1527768807}
+  - component: {fileID: 1527768811}
+  - component: {fileID: 1527768812}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Player
@@ -1654,6 +1686,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d3fccfb5fc8b843a46e39077ed05b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tools:
+  - {fileID: 1527768811}
+  buttonBinds:
+  - Tool A
 --- !u!54 &1527768809
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1684,9 +1720,38 @@ Transform:
   - {fileID: 1620827051}
   - {fileID: 2129149600}
   - {fileID: 418394716}
+  - {fileID: 568398377}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1527768811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1527768806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05af549098cb75243a759dc496f0740f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnergyCost: 0
+  CameraAim: {fileID: 883717154}
+  CameraMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &1527768812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1527768806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ba9594c3fa1c743b394a5639441afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Capacity: 100
 --- !u!1 &1605901792
 GameObject:
   m_ObjectHideFlags: 0

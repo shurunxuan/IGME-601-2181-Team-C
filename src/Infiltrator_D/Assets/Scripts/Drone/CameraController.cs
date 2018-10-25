@@ -10,6 +10,9 @@ public class CameraController : MonoBehaviour
     public float HorizontalViewSpeed;
     public float VerticalViewSpeed;
 
+    public bool UseFirstPerson = false;
+    public Transform FirstPersonPosition;
+
     private Vector3 targetPosition;
     private float distance;
     // Use this for initialization
@@ -27,7 +30,6 @@ public class CameraController : MonoBehaviour
 
         LookAtDirection = Quaternion.AngleAxis(horizontalCamera * HorizontalViewSpeed, Vector3.up) * LookAtDirection;
         LookAtDirection = Quaternion.AngleAxis(-verticalCamera * VerticalViewSpeed, Vector3.Cross(Vector3.up, LookAtDirection)) * LookAtDirection;
-        Debug.Log(Mathf.Acos(LookAtDirection.y / LookAtDirection.magnitude) * Mathf.Rad2Deg);
         if (Mathf.Acos(LookAtDirection.y / LookAtDirection.magnitude) < Mathf.Deg2Rad * 10)
         {
             LookAtDirection = new Vector3(LookAtDirection.x, 0, LookAtDirection.z);
@@ -42,8 +44,16 @@ public class CameraController : MonoBehaviour
         }
         FollowingObject.GetComponent<DroneMovement>().Forward = Vector3.Cross(Vector3.Cross(Vector3.up, LookAtDirection), Vector3.up);
 
-        targetPosition = FollowingObject.transform.position - LookAtDirection + 0.1f * Vector3.up;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 20f * Time.fixedDeltaTime);
+        if(UseFirstPerson && FirstPersonPosition != null)
+        {
+            targetPosition = FirstPersonPosition.position;
+        }
+        else
+        {
+            targetPosition = FollowingObject.transform.position - LookAtDirection + 0.1f * Vector3.up;
+        }
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, UseFirstPerson ? 1 : 20f * Time.fixedDeltaTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(LookAtDirection, Vector3.up), 20f * Time.fixedDeltaTime);
     }
 
