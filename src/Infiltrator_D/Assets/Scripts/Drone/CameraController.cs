@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     public float HorizontalViewSpeed;
     public float VerticalViewSpeed;
 
-    public bool UseFirstPerson = false;
+    private bool firstPerson = false;
     public Transform FirstPersonPosition;
 
     private Vector3 targetPosition;
@@ -44,17 +44,40 @@ public class CameraController : MonoBehaviour
         }
         FollowingObject.GetComponent<DroneMovement>().Forward = Vector3.Cross(Vector3.Cross(Vector3.up, LookAtDirection), Vector3.up);
 
-        if(UseFirstPerson && FirstPersonPosition != null)
+        if(firstPerson)
         {
-            targetPosition = FirstPersonPosition.position;
+            transform.localPosition = Vector3.Lerp(transform.localPosition, Vector3.zero, 20f * Time.fixedDeltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(FirstPersonPosition.transform.forward, Vector3.up), 20f * Time.fixedDeltaTime);
         }
         else
         {
             targetPosition = FollowingObject.transform.position - LookAtDirection + 0.1f * Vector3.up;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, 20f * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(LookAtDirection, Vector3.up), 20f * Time.fixedDeltaTime);
+        }
+    }
+
+    // Modifies the view
+    public void SetFirstPerson(bool useFirst)
+    {
+        // Quick out
+        if(useFirst == firstPerson || FirstPersonPosition == null)
+        {
+            return;
         }
 
-        transform.position = Vector3.Lerp(transform.position, targetPosition, UseFirstPerson ? 1 : 20f * Time.fixedDeltaTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(LookAtDirection, Vector3.up), 20f * Time.fixedDeltaTime);
+        Vector3 pos = transform.position;
+        if(useFirst)
+        {
+            transform.parent = FirstPersonPosition;
+            firstPerson = useFirst;
+        }
+        else
+        {
+            transform.parent = null;
+        }
+        transform.position = pos;
+        firstPerson = useFirst;
     }
 
 }
