@@ -34,6 +34,10 @@ public class InfoGatherer : MonoBehaviour {
     // Percentage of info gathered
     public float GetInfoPercentage()
     {
+        if(TopSecretInfo.InfoCount() <= 0)
+        {
+            return 1;
+        }
         return ((float)info.Count) / TopSecretInfo.InfoCount();
     }
 

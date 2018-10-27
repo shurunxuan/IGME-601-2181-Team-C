@@ -20,6 +20,7 @@ public class CameraController : MonoBehaviour
     {
         LookAtDirection = FollowingObject.transform.position + 0.1f * Vector3.up - transform.position;
         distance = LookAtDirection.magnitude;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -47,7 +48,8 @@ public class CameraController : MonoBehaviour
         if(firstPerson)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, Vector3.zero, 20f * Time.fixedDeltaTime);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(FirstPersonPosition.transform.forward, Vector3.up), 20f * Time.fixedDeltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.identity, 20f * Time.fixedDeltaTime);
+            FollowingObject.transform.forward = LookAtDirection;
         }
         else
         {

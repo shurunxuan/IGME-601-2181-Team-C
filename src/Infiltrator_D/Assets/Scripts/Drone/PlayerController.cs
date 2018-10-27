@@ -33,9 +33,14 @@ public class PlayerController : MonoBehaviour {
         movement.TargetForce = (forward * 2 * movement.Forward + up * Vector3.up + right * 2 * Vector3.Cross(Vector3.up, movement.Forward) - movement.Gravity) * movement.SpeedFactor;
 
         // Tool logic
+        bool cancel = Input.GetButton("Cancel");
         for (int i = 0; i < tools.Count && i < buttonBinds.Count; i++)
         {
-            if(Input.GetButtonDown(buttonBinds[i]))
+            if(cancel)
+            {
+                tools[i].Cancel();
+            }
+            else if(Input.GetButtonDown(buttonBinds[i]))
             {
                 tools[i].TryActivate();
             }

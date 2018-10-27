@@ -45,17 +45,15 @@ public class CameraTool : ToolComponent {
                 State = CameraToolState.Aiming;
                 break;
             case CameraToolState.Aiming:
-                if (TryCaptureInfo())
-                {
-                    Cancel();
-                }
+                TryCaptureInfo();
+                Cancel();
                 break;
             default:
                 break;
         }
     }
 
-    protected override void Cancel()
+    public override void Cancel()
     {
         switch (State)
         {
@@ -81,7 +79,7 @@ public class CameraTool : ToolComponent {
         if (Physics.Raycast(CameraAim.transform.position, CameraAim.LookAtDirection, out hit, 10000000, CameraMask))
         {
             TopSecretInfo inf = hit.collider.GetComponent<TopSecretInfo>();
-            if (inf != null)
+            if (inf != null && inf.type == TopSecretInfo.InfoType.Visual)
             {
                 return _info.AddInfo(inf.info);
             }
