@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// This script can be used to link a text element from the ui to an InfoGatherer
+// The current version of this script is for test purposes
 public class UIInfoTracker : MonoBehaviour {
 
     public InfoGatherer info;

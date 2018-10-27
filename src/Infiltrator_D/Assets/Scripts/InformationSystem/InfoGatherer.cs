@@ -16,6 +16,7 @@ public class InfoGatherer : MonoBehaviour {
 		
 	}
 
+    // Adds info only if it is new
     public bool AddInfo(string newInfo)
     {
         if (!info.Contains(newInfo))
@@ -41,6 +42,7 @@ public class InfoGatherer : MonoBehaviour {
         return ((float)info.Count) / TopSecretInfo.InfoCount();
     }
 
+    // Clears the info record
     public void Clear()
     {
         info.Clear();

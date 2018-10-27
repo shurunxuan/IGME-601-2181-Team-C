@@ -29,6 +29,7 @@ public class TopSecretInfo : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        // Ensure this piece of info is tracked
         if (!allInfo.Contains(info))
         {
             allInfo.Add(info);
@@ -40,6 +41,9 @@ public class TopSecretInfo : MonoBehaviour {
     {
 		
 	}
+
+
+    // STATIC METHODS
 
     public static void ClearInfo()
     {

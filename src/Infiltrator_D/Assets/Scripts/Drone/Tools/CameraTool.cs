@@ -36,6 +36,7 @@ public class CameraTool : ToolComponent {
         _info = energy.GetComponent<InfoGatherer>();
     }
 
+    // Enter first person mode. If we are already in First person mode, try to capture info.
     protected override void Activate()
     {
         switch (State)
@@ -53,6 +54,7 @@ public class CameraTool : ToolComponent {
         }
     }
 
+    // For the camera tool, cancel just resets the camera to third person and fixes its state
     public override void Cancel()
     {
         switch (State)
@@ -67,20 +69,25 @@ public class CameraTool : ToolComponent {
         }
     }
 
+    // Attempts to take a picture
     private bool TryCaptureInfo()
     {
+        // Ensure neccesary components are connected
         if(_info == null || CameraAim == null)
         {
             Debug.Log("Missing connected components on camera tool.");
             return false;
         }
 
+        // Raycast from the camera in a straight line
         RaycastHit hit;
         if (Physics.Raycast(CameraAim.transform.position, CameraAim.LookAtDirection, out hit, 10000000, CameraMask))
         {
+            // Check for visual info
             TopSecretInfo inf = hit.collider.GetComponent<TopSecretInfo>();
             if (inf != null && inf.type == TopSecretInfo.InfoType.Visual)
             {
+                // Visual info was found, feed it to the InfoGatherer
                 return _info.AddInfo(inf.info);
             }
         }

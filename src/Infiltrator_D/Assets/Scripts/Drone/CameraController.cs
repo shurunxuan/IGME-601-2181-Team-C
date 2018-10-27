@@ -47,6 +47,7 @@ public class CameraController : MonoBehaviour
 
         if(firstPerson)
         {
+            // In first person mode, the camera is rooted to the drone so we modify the drone's movement more harshly and drag the camera to its parent
             transform.localPosition = Vector3.Lerp(transform.localPosition, Vector3.zero, 20f * Time.fixedDeltaTime);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.identity, 20f * Time.fixedDeltaTime);
             FollowingObject.transform.forward = LookAtDirection;
@@ -68,16 +69,20 @@ public class CameraController : MonoBehaviour
             return;
         }
 
+        // Track global position
         Vector3 pos = transform.position;
         if(useFirst)
         {
+            // First person camera is rooted to the front of the drone
             transform.parent = FirstPersonPosition;
             firstPerson = useFirst;
         }
         else
         {
+            // Third person camera isn't rooted
             transform.parent = null;
         }
+        // Reset global position
         transform.position = pos;
         firstPerson = useFirst;
     }
