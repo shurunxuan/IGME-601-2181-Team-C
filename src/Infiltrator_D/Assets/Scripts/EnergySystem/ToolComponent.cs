@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class ToolComponent : MonoBehaviour {
 
     protected EnergyComponent _energy;
-    public float EnergyCost;
+    public float InitialEnergyCost;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +18,7 @@ public abstract class ToolComponent : MonoBehaviour {
 	}
 
     // Used by player to ensure that the correct energy component is assigned.
-    public void Assign(EnergyComponent energy)
+    public virtual void Assign(EnergyComponent energy)
     {
         _energy = energy;
     }
@@ -26,7 +26,7 @@ public abstract class ToolComponent : MonoBehaviour {
     // Player Controller will use this to request activation
     public bool TryActivate()
     {
-        if(CanActivate() && _energy.TryExpend(EnergyCost))
+        if(CanActivate() && _energy.TryExpend(InitialEnergyCost))
         {
             Activate();
             return true;
@@ -36,5 +36,6 @@ public abstract class ToolComponent : MonoBehaviour {
 
     // Abstract implementation
     protected abstract void Activate();
+    public abstract void Cancel();
     protected bool CanActivate() { return true; }
 }
