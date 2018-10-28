@@ -14,6 +14,9 @@ public class CameraController : MonoBehaviour
     public float VerticalViewSpeed;
 
     // Calculated position that the camera should be at
+    private bool firstPerson = false;
+    public Transform FirstPersonPosition;
+
     private Vector3 targetPosition;
     // Variable for not changing the magnitude of LookAtDirection
     private float distance;
@@ -24,6 +27,7 @@ public class CameraController : MonoBehaviour
         // Initialize LookAtDirection
         LookAtDirection = FollowingObject.transform.position + 0.1f * Vector3.up - transform.position;
         distance = LookAtDirection.magnitude;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -57,6 +61,46 @@ public class CameraController : MonoBehaviour
         targetPosition = FollowingObject.transform.position - LookAtDirection + 0.1f * Vector3.up;
         transform.position = Vector3.Lerp(transform.position, targetPosition, 20f * Time.fixedDeltaTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(LookAtDirection, Vector3.up), 20f * Time.fixedDeltaTime);
+        if(firstPerson)
+        {
+            // In first person mode, the camera is rooted to the drone so we modify the drone's movement more harshly and drag the camera to its parent
+            transform.localPosition = Vector3.Lerp(transform.localPosition, Vector3.zero, 20f * Time.fixedDeltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.identity, 20f * Time.fixedDeltaTime);
+            FollowingObject.transform.forward = LookAtDirection;
+        }
+        else
+        {
+            targetPosition = FollowingObject.transform.position - LookAtDirection + 0.1f * Vector3.up;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, 20f * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(LookAtDirection, Vector3.up), 20f * Time.fixedDeltaTime);
+        }
+    }
+
+    // Modifies the view
+    public void SetFirstPerson(bool useFirst)
+    {
+        // Quick out
+        if(useFirst == firstPerson || FirstPersonPosition == null)
+        {
+            return;
+        }
+
+        // Track global position
+        Vector3 pos = transform.position;
+        if(useFirst)
+        {
+            // First person camera is rooted to the front of the drone
+            transform.parent = FirstPersonPosition;
+            firstPerson = useFirst;
+        }
+        else
+        {
+            // Third person camera isn't rooted
+            transform.parent = null;
+        }
+        // Reset global position
+        transform.position = pos;
+        firstPerson = useFirst;
     }
 
 }
