@@ -37,13 +37,43 @@ public class ChargePointTool : ToolComponent {
     // Attempt to connect to a nearby charge point
     protected override void Activate()
     {
+        // Disconnect if connected
+        if(_connected != null)
+        {
+            Disconnect();
+            return;
+        }
+        // Connect if unconnected
         Collider[] overlap = Physics.OverlapSphere(transform.position, DetectionRadius, DetectionMask);
+        GameObject closest = null;
+        float sqrDist = 0;
+        Vector3 pos = transform.root.position;
+        // Check for tagged charge points
         foreach (Collider item in overlap)
         {
             if (item.CompareTag("ChargePoint"))
             {
-                Connect(item.gameObject);
+                // Determine if this is the closest tagged object we've found
+                if(closest == null)
+                {
+                    closest = item.gameObject;
+                    sqrDist = (pos - closest.transform.position).sqrMagnitude;
+                }
+                else
+                {
+                    float itemDist = (pos - item.transform.position).sqrMagnitude;
+                    if(itemDist < sqrDist)
+                    {
+                        closest = item.gameObject;
+                        sqrDist = itemDist;
+                    }
+                }
             }
+        }
+        // Check if we found anything
+        if (closest != null)
+        {
+            Connect(closest);
         }
     }
 
