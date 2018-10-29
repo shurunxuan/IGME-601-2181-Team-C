@@ -21,13 +21,20 @@ public class ChargePointTool : ToolComponent
     // The charge point we are currently connected to
     private GameObject _connected;
 
-    // The charge point we are currently looking at
-    private GameObject closestChargePoint;
+    // The Highlight Component of the charge point we are currently looking at
+    private SpecialObjectHighlight closestChargePointHighlight;
+
+    // DroneMovement Component
+    private DroneMovement droneMovement;
+
+    // Rigidbody of the drone
+    private Rigidbody droneRigidbody;
 
     // Use this for initialization
     void Start()
     {
-
+        droneMovement = gameObject.GetComponent<DroneMovement>();
+        droneRigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -75,23 +82,23 @@ public class ChargePointTool : ToolComponent
             {
                 // No Hit
                 // If there is a previously charge point that is focused on
-                if (closestChargePoint != null)
+                if (closestChargePointHighlight != null)
                 {
                     // Remove focus
-                    closestChargePoint.GetComponent<SpecialObjectHighlight>().LookedAt = false;
-                    closestChargePoint = null;
+                    closestChargePointHighlight.LookedAt = false;
+                    closestChargePointHighlight = null;
                 }
             }
             else
             {
                 // If there is a previously charge point that is focused on
-                if (closestChargePoint != null && closestChargePoint != closest)
+                if (closestChargePointHighlight != null && closestChargePointHighlight.gameObject != closest)
                 {
                     // Remove focus
-                    closestChargePoint.GetComponent<SpecialObjectHighlight>().LookedAt = false;
+                    closestChargePointHighlight.LookedAt = false;
                 }
-                closestChargePoint = closest;
-                closestChargePoint.GetComponent<SpecialObjectHighlight>().LookedAt = true;
+                closestChargePointHighlight = closest.GetComponent<SpecialObjectHighlight>();
+                closestChargePointHighlight.LookedAt = true;
             }
         }
     }
@@ -116,9 +123,9 @@ public class ChargePointTool : ToolComponent
         }
         // Connect if unconnected
         // Check if we have found a closest charge point
-        if (closestChargePoint != null)
+        if (closestChargePointHighlight != null)
         {
-            Connect(closestChargePoint);
+            Connect(closestChargePointHighlight);
         }
     }
 
@@ -129,16 +136,15 @@ public class ChargePointTool : ToolComponent
     }
 
     // Performs logic for connecting to a validated charge point
-    private void Connect(GameObject chargePoint)
+    private void Connect(SpecialObjectHighlight chargePoint)
     {
-        _connected = chargePoint;
+        _connected = chargePoint.gameObject;
         // Remove focus
-        chargePoint.GetComponent<SpecialObjectHighlight>().LookedAt = false;
+        chargePoint.LookedAt = false;
         // Stop engine
-        DroneMovement movement = gameObject.GetComponent<DroneMovement>();
-        movement.EngineOn = false;
-        movement.UseGravity = false;
-        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        droneMovement.EngineOn = false;
+        droneMovement.UseGravity = false;
+        droneRigidbody.velocity = Vector3.zero;
     }
 
     // Performs logic for disconnecting from the current charge point
@@ -147,8 +153,7 @@ public class ChargePointTool : ToolComponent
     {
         _connected = null;
         // Start engine
-        DroneMovement movement = gameObject.GetComponent<DroneMovement>();
-        movement.EngineOn = true;
-        movement.UseGravity = true;
+        droneMovement.EngineOn = true;
+        droneMovement.UseGravity = true;
     }
 }
