@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class PropellerController : MonoBehaviour
 {
+    // The target speed of rotation in Degree/Sec
+    public float TargetRotateSpeed;
 
-    public float TargetRotateSpeed; // In deg/s
+    // The factor that represents the relationship between 
+    // TargetRotateSpeed and the force that will be applied 
+    // to the drone.
     public float ForceFactor;
+
+    // The force that the propeller provides
     public Vector3 Force
     {
         get
