@@ -2450,7 +2450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05af549098cb75243a759dc496f0740f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialEnergyCost: 10
+  InitialEnergyCost: 0
   CameraAim: {fileID: 883717154}
   CameraMask:
     serializedVersion: 2
