@@ -78,27 +78,37 @@ public class ChargePointTool : ToolComponent
                 }
             }
 
-            if (closest == null)
+            // If there is a previously charge point that is focused on
+            if (closestChargePointHighlight != null)
             {
-                // No Hit
-                // If there is a previously charge point that is focused on
-                if (closestChargePointHighlight != null)
+                if (closest == null)
                 {
-                    // Remove focus
+                    // No Hit
+                    // Remove current focus
                     closestChargePointHighlight.LookedAt = false;
                     closestChargePointHighlight = null;
+
+                }
+                else
+                {
+                    // Hit a thing
+                    // We want the new one
+                    if (closestChargePointHighlight.gameObject != closest)
+                    {
+                        // Remove old focus
+                        closestChargePointHighlight.LookedAt = false;
+                        // Get the new component
+                        closestChargePointHighlight = closest.GetComponent<SpecialObjectHighlight>();
+                    }
+                    // Animate that charge point anyway
+                    closestChargePointHighlight.LookedAt = true;
                 }
             }
-            else
+            else if (closest != null)
             {
-                // If there is a previously charge point that is focused on
-                if (closestChargePointHighlight != null && closestChargePointHighlight.gameObject != closest)
-                {
-                    // Remove focus
-                    closestChargePointHighlight.LookedAt = false;
-                }
+                // There is not a previously charge point that is focused on
+                // Get the new component if it exists
                 closestChargePointHighlight = closest.GetComponent<SpecialObjectHighlight>();
-                closestChargePointHighlight.LookedAt = true;
             }
         }
     }
