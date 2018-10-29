@@ -60,7 +60,6 @@ public class CameraTool : ToolComponent {
         switch (State)
         {
             case CameraToolState.Aiming:
-                TryCaptureInfo();
                 CameraAim.SetFirstPerson(false);
                 State = CameraToolState.Inactive;
                 break;

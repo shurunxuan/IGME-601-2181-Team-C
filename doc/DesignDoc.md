@@ -28,12 +28,11 @@ For more details, see [the full market & user analysis document](MarketUserAnaly
 ![SellSheet](Assets/SellSheet.png)
 
 ### Glossary and Acronyms
-> Provide a table of terms and acronyms.
 
 | Term | Definition |
 |------|------------|
-| term/acronym | definition |
-
+| Horizontal Movement | The drone moves in regards to the X-Z plane. |
+| Vertical Movement | The drone moves along the Y axis. |
 
 ## Requirements
 
@@ -41,7 +40,9 @@ For more details, see [the full market & user analysis document](MarketUserAnaly
 
 This section describes the main features of the game.
 
-> In this section you do not need to be exhaustive and list every story.  Focus on top-level features and maybe Epics and *critical* Stories.
+ * Movement
+   * Horizontal Movement
+   * Vertical Movement
 
 ### Non-functional Requirements
 > Key NFRs and technical constraints
@@ -68,13 +69,6 @@ Our architecture will need to connect to and build on top of Unity's existing ar
 
 For more details, see [the full architecture document](architecture.md).
 
-### Component 1 ...
-> Provide a summary of each component with extra models as needed
-
-
-### Component 1 ...
-> Provide a summary of each component with extra models as needed
-
 ## Detailed Design
 
 > You'll add to this section as needed as the project progresses
@@ -85,6 +79,10 @@ For more details, see [the full architecture document](architecture.md).
 * Information System: Scoring system that tracks the player's gathering of information
   * `TopSecretInfo`: An simple component that denotes type and content of information. All information is currently named and if two pieces of info share a name, they will be considered the same. `TopSecretInfo` script owns all static `TopSecretInfo` tracking logic and functionality.
   * `InfoGather`: A component that records and stores information. It is smart enough to avoid transcribing duplicate info.
+  
+ * Enemy AI
+  * `Enemy Movement`: A component that handles enemy behaviour of Patrol,Investigate and many more.
+  * `Enemy Sight`: A component that enables enemy to look around and detect player's presence.
 
 ## Issues and Risks
 
