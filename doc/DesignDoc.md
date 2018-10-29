@@ -79,6 +79,12 @@ For more details, see [the full architecture document](architecture.md).
 
 > You'll add to this section as needed as the project progresses
 
+* Tools: Implements `ToolComponent` which outlines a protocol for communicating with `PlayerController`
+  * `CameraTool`: Activate once to enter camera mode, activate again to attempt to gain visual information
+
+* Information System: Scoring system that tracks the player's gathering of information
+  * `TopSecretInfo`: An simple component that denotes type and content of information. All information is currently named and if two pieces of info share a name, they will be considered the same. `TopSecretInfo` script owns all static `TopSecretInfo` tracking logic and functionality.
+  * `InfoGather`: A component that records and stores information. It is smart enough to avoid transcribing duplicate info.
 
 ## Issues and Risks
 
