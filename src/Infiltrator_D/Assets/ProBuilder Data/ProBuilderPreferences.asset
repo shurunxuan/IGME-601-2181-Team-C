@@ -26,18 +26,18 @@ MonoBehaviour:
   - pbEditorScroll.y
   - pbGrowSelectionAngle
   m_String_keys:
-  - pbCurrentMaterialPalette
   - pb_VertexColorPalette::lastAssignedColorPalette
+  - pbCurrentMaterialPalette
   m_Color_keys: []
   m_Material_keys: []
-  m_Bool_values: 010100
-  m_Int_values: 0000000000000000020000000000000000000000
+  m_Bool_values: 000100
+  m_Int_values: 0000000000000000000000000000000000000000
   m_Float_values:
   - 0
   - 0
   - 42
   m_String_values:
-  - Assets/ProBuilder Data/Default Material Palette.asset
   - Assets/ProBuilder Data/Default Color Palette.asset
+  - Assets/ProBuilder Data/Default Material Palette.asset
   m_Color_values: []
   m_Material_values: []
