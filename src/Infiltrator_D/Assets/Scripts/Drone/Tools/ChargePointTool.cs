@@ -22,7 +22,7 @@ public class ChargePointTool : ToolComponent
     private GameObject _connected;
 
     // The charge point we are currently looking at
-    public GameObject closestChargePoint;
+    private GameObject closestChargePoint;
 
     // Use this for initialization
     void Start()
@@ -93,7 +93,6 @@ public class ChargePointTool : ToolComponent
                 closestChargePoint = closest;
                 closestChargePoint.GetComponent<SpecialObjectHighlight>().LookedAt = true;
             }
-
         }
     }
 
@@ -136,8 +135,9 @@ public class ChargePointTool : ToolComponent
         // Remove focus
         chargePoint.GetComponent<SpecialObjectHighlight>().LookedAt = false;
         // Stop engine
-        gameObject.GetComponent<DroneMovement>().EngineOn = false;
-        gameObject.GetComponent<DroneMovement>().UseGravity = false;
+        DroneMovement movement = gameObject.GetComponent<DroneMovement>();
+        movement.EngineOn = false;
+        movement.UseGravity = false;
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
@@ -147,7 +147,8 @@ public class ChargePointTool : ToolComponent
     {
         _connected = null;
         // Start engine
-        gameObject.GetComponent<DroneMovement>().EngineOn = true;
-        gameObject.GetComponent<DroneMovement>().UseGravity = true;
+        DroneMovement movement = gameObject.GetComponent<DroneMovement>();
+        movement.EngineOn = true;
+        movement.UseGravity = true;
     }
 }

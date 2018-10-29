@@ -33,7 +33,10 @@ public class PlayerController : MonoBehaviour
         float forward = Input.GetAxis("Forward");
         float up = Input.GetAxis("Up");
 
-        movement.TargetForce = (forward * movement.Forward + right * Vector3.Cross(Vector3.up, movement.Forward)) * movement.HorizontalSpeedFactor
+        // The right vector in local x-z plane
+        Vector3 localRight = Vector3.Cross(Vector3.up, movement.Forward);
+        // Apply the horizontal movement, vertical movement and customized gravity
+        movement.TargetForce = (forward * movement.Forward + right * localRight) * movement.HorizontalSpeedFactor
                                + up * Vector3.up * movement.VerticalSpeedFactor
                                - (movement.UseGravity ? movement.Gravity : Vector3.zero);
 

@@ -65,26 +65,34 @@ public class DroneMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // The actual force that will apply to the drone
+        // Making the total force = TargetForce
         Vector3 forceDiff = TargetForce + Gravity;
 
         if (EngineOn)
         {
+            // If the engine is on, then calculate the rotate speed of the propellers.
+
+            // Cancel the effect of gravity
             propellerFR.TargetRotateSpeed = Gravity.magnitude * 25000 / propellerFR.ForceFactor;
             propellerBR.TargetRotateSpeed = Gravity.magnitude * 25000 / propellerBR.ForceFactor;
             propellerFL.TargetRotateSpeed = Gravity.magnitude * 25000 / propellerFL.ForceFactor;
             propellerBL.TargetRotateSpeed = Gravity.magnitude * 25000 / propellerBL.ForceFactor;
 
+            // Apply the forceDiff to the speed
             propellerFR.TargetRotateSpeed += forceDiff.y * 25000 / propellerFR.ForceFactor;
             propellerBR.TargetRotateSpeed += forceDiff.y * 25000 / propellerBR.ForceFactor;
             propellerFL.TargetRotateSpeed += forceDiff.y * 25000 / propellerFL.ForceFactor;
             propellerBL.TargetRotateSpeed += forceDiff.y * 25000 / propellerBL.ForceFactor;
 
+            // Calculate the difference of the positions of the diagonal propellers
             Vector3 bl_fr = propellerFR.gameObject.transform.position - propellerBL.gameObject.transform.position;
             Vector3 br_fl = propellerFL.gameObject.transform.position - propellerBR.gameObject.transform.position;
-
+            // Project the TargetForce
             float bl_fr_diff = Vector3.Dot(TargetForce, bl_fr);
             float br_fl_diff = Vector3.Dot(TargetForce, br_fl);
-
+            // Apply the projected TargetForce
+            // This will make the speed different if the drone is tilted
             propellerFR.TargetRotateSpeed -= bl_fr_diff * 25000 / propellerFR.ForceFactor;
             propellerBR.TargetRotateSpeed += br_fl_diff * 25000 / propellerBR.ForceFactor;
             propellerFL.TargetRotateSpeed -= br_fl_diff * 25000 / propellerFL.ForceFactor;
@@ -92,6 +100,7 @@ public class DroneMovement : MonoBehaviour
         }
         else
         {
+            // The engine is stopped, so rotate speed is zero
             propellerFR.TargetRotateSpeed = 0;
             propellerBR.TargetRotateSpeed = 0;
             propellerFL.TargetRotateSpeed = 0;
@@ -99,16 +108,24 @@ public class DroneMovement : MonoBehaviour
         }
         Vector3 localUp;
         if (TargetForce.magnitude < 0.01f)
+        {
+            // If TargetForce is too small, set localUp to global up
             localUp = Vector3.up;
+        }
         else
         {
+            // Otherwise, tilt the drone
+            // The y component is the same, but the x-z components are affected by the TiltFactor
             localUp = TargetForce / Vector3.Dot(TargetForce, Vector3.up);
             localUp.x *= TiltFactor;
             localUp.z *= TiltFactor;
         }
 
+        // Tilt
         Quaternion tiltRotation = Quaternion.FromToRotation(Vector3.up, localUp);
+        // Look Direction
         Quaternion yawRotation = Quaternion.FromToRotation(Vector3.forward, Forward);
+        // Combine rotation
         Quaternion rotate = tiltRotation * yawRotation;
         transform.rotation = Quaternion.Slerp(transform.rotation, rotate, 3.0f * Time.deltaTime);
 

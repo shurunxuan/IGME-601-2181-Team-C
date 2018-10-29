@@ -65,7 +65,6 @@ public class SpecialObjectHighlight : MonoBehaviour
             
             propertyBlock.SetFloat("_Outline", currentWidth);
             meshRenderer.SetPropertyBlock(propertyBlock);
-            
         }
     }
 }
