@@ -25,14 +25,26 @@ public class ChargePointTool : ToolComponent {
 	// Update is called once per frame
 	void Update () {
 		// Temp code
-        // Final code should be more fluid will need to communicate with other components
+        // TODO: Final code should be more fluid will need to communicate with other components
         if(_connected != null)
         {
             _energy.Charge(ChargeRate * Time.deltaTime);
-            Transform root = transform.root;
-            root.position = Vector3.MoveTowards(root.position, _connected.transform.position, 20 * Time.deltaTime);
+            gameObject.GetComponent<DroneMovement>().EngineOn = false;
+            gameObject.GetComponent<DroneMovement>().UseGravity = false;
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            //Transform root = transform.root;
+            //root.position = Vector3.Lerp(root.position, _connected.transform.position, 2 * Time.deltaTime);
         }
 	}
+
+    void FixedUpdate()
+    {
+        if (_connected != null)
+        {
+            Transform root = transform.root;
+            root.position = Vector3.Lerp(root.position, _connected.transform.position, 2 * Time.deltaTime);
+        }
+    }
 
     // Attempt to connect to a nearby charge point
     protected override void Activate()
@@ -94,5 +106,7 @@ public class ChargePointTool : ToolComponent {
     private void Disconnect()
     {
         _connected = null;
+        gameObject.GetComponent<DroneMovement>().EngineOn = true;
+        gameObject.GetComponent<DroneMovement>().UseGravity = true;
     }
 }
