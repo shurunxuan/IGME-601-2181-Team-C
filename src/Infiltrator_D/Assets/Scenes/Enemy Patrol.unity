@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: PatrolPoints.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4540094315014134, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_LocalPosition.x
       value: -3.84
@@ -225,6 +230,61 @@ Prefab:
       propertyPath: agent
       value: 
       objectReference: {fileID: 1259929524}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: Agent
+      value: 
+      objectReference: {fileID: 1259929524}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: Speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: WaitTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: PlayerMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: ObstacleMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: PatrolPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 651546803}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: PatrolPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1054394720}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: PatrolPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 2071894121}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: PatrolPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 1571900858}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: PatrolPoints.Array.data[4]
+      value: 
+      objectReference: {fileID: 1947042579}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: PatrolPoints.Array.data[5]
+      value: 
+      objectReference: {fileID: 787024167}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
   m_IsPrefabAsset: 0

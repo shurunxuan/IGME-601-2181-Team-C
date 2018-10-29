@@ -6,71 +6,60 @@ using UnityEngine.AI;
 public class EnemySight {
 
     //Sight/looking ability related paramerters
-    public float view_radius = 5f;
-    public Transform transform;
-    public float view_angle = 90;
-    private LayerMask playermask;
-    private LayerMask obstaclemask;
+    public float ViewRadius = 5f;
+    public Transform Transform;
+    public float ViewAngle = 90;
+    private LayerMask playerMask;
+    private LayerMask obstacleMask;
     
     public EnemySight(Transform transform,LayerMask playermask,LayerMask obstaclemask)
     {
-        this.transform = transform;
-        this.playermask = playermask;
-        this.obstaclemask = obstaclemask;
+        this.Transform = transform;
+        this.playerMask = playermask;
+        this.obstacleMask = obstaclemask;
     }
 
-    public Vector3 GetDirFromAngle(float angleindegrees)
+    public Vector3 GetDirFromAngle(float angle_in_degrees)
     {
-
-        float angle_a = angleindegrees + transform.eulerAngles.y;
-        Vector3 dir_a = new Vector3(Mathf.Sin(angle_a * Mathf.Deg2Rad), 0, Mathf.Cos(angle_a * Mathf.Deg2Rad));
-        return dir_a;
+        float angle = angle_in_degrees + Transform.eulerAngles.y;
+        Vector3 dir = new Vector3(Mathf.Sin(angle * Mathf.Deg2Rad), 0, Mathf.Cos(angle * Mathf.Deg2Rad));
+        return dir;
     }
 
 
     public void Look()
     {
         //Get direction from angle
-
-        Vector3 dir_a = GetDirFromAngle(-view_angle / 2);
-        Vector3 dir_b = GetDirFromAngle(view_angle / 2);
-        Debug.DrawLine(transform.position, transform.position + dir_a * view_radius);
-        Debug.DrawLine(transform.position, transform.position + dir_b * view_radius);
-
+        Vector3 dir_a = GetDirFromAngle(-ViewAngle / 2);
+        Vector3 dir_b = GetDirFromAngle(ViewAngle / 2);
+        Debug.DrawLine(Transform.position, Transform.position + dir_a * ViewRadius);
+        Debug.DrawLine(Transform.position, Transform.position + dir_b * ViewRadius);
     }
 
     public bool isPlayerVisible(out Transform player)
     {
-
         //checks if target is in the view radius
-        Collider[] playerInViewRadius = Physics.OverlapSphere(transform.position, view_radius, playermask);
+        Collider[] playerInViewRadius = Physics.OverlapSphere(Transform.position, ViewRadius, playerMask);
 
         foreach (Collider c in playerInViewRadius)
-        {
-            
+        {           
             Transform target = c.transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-            Debug.Log(Vector3.Angle(transform.position, dirToTarget));
+            Vector3 dirToTarget = (target.position - Transform.position).normalized;
+            Debug.Log(Vector3.Angle(Transform.position, dirToTarget));
             //Check if target is visible
-            if (Vector3.Angle(transform.position, target.position) < view_angle/2 )
-            {
-              
-                float distanceToTarget = Vector3.Distance(transform.position, target.position);
-                Debug.DrawLine(transform.position, target.position, Color.red);
-                if (!Physics.Raycast(transform.position, dirToTarget, distanceToTarget, obstaclemask))
+            if (Vector3.Angle(dirToTarget, Transform.forward) < ViewAngle/2 )
+            {              
+                float distanceToTarget = Vector3.Distance(Transform.position, target.position);
+                Debug.DrawLine(Transform.position, target.position, Color.red);
+                if (!Physics.Raycast(Transform.position, dirToTarget, distanceToTarget, obstacleMask))
                 {
                     Debug.Log("Found you!!");
                     player = target;
-
-                    Debug.DrawLine(transform.position, target.position,Color.red);
                     return true;
                 }
             }
-
         }
         player = null;
         return false;
     }
-    
-       
 }
