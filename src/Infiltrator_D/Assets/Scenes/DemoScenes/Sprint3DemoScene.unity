@@ -2398,6 +2398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d3fccfb5fc8b843a46e39077ed05b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyLostPerSecond: 1
   tools:
   - {fileID: 626963510}
   - {fileID: 626963507}
