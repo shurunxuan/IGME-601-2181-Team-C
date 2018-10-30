@@ -45,7 +45,7 @@ public class EnemySight {
         {           
             Transform target = c.transform;
             Vector3 dirToTarget = (target.position - Transform.position).normalized;
-            Debug.Log(Vector3.Angle(Transform.position, dirToTarget));
+            //Debug.Log(Vector3.Angle(Transform.position, dirToTarget));
             //Check if target is visible
             if (Vector3.Angle(dirToTarget, Transform.forward) < ViewAngle/2 )
             {              
@@ -53,7 +53,7 @@ public class EnemySight {
                 Debug.DrawLine(Transform.position, target.position, Color.red);
                 if (!Physics.Raycast(Transform.position, dirToTarget, distanceToTarget, obstacleMask))
                 {
-                    Debug.Log("Found you!!");
+                    //Debug.Log("Found you!!");
                     player = target;
                     return true;
                 }
