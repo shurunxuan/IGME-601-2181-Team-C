@@ -30,10 +30,14 @@ public class EnemyMovement : MonoBehaviour
     public LayerMask PlayerMask;
     public LayerMask ObstacleMask;
 
+    private Material mat;
+
     void Start()
     {
         sight = new EnemySight(transform, PlayerMask, ObstacleMask);
         Agent.speed = Speed;
+
+        mat = gameObject.GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame
@@ -45,9 +49,11 @@ public class EnemyMovement : MonoBehaviour
         switch (State)
         {
             case EnemyState.PATROL:
+                mat.color = Color.green;
                 Patrol();
                 break;
             case EnemyState.INVESTIGATE:
+                mat.color = Color.yellow;
                 if (targetUpdated)
                 {
                     Investigate();
@@ -63,7 +69,7 @@ public class EnemyMovement : MonoBehaviour
         //check if player is in sight and update the beaviour
         if (sight.isPlayerVisible(out target))
         {
-            Debug.Log("Updating state to Investigate");
+            //Debug.Log("Updating state to Investigate");
             State = EnemyState.INVESTIGATE;
             targetUpdated = true;
         }

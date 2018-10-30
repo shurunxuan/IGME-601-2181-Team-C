@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     // Inspector Properties
+    public float energyLostPerSecond;
     public List<ToolComponent> tools;
     public List<string> buttonBinds;
 
@@ -39,6 +40,12 @@ public class PlayerController : MonoBehaviour
         movement.TargetForce = (forward * movement.Forward + right * localRight) * movement.HorizontalSpeedFactor
                                + up * Vector3.up * movement.VerticalSpeedFactor
                                - (movement.UseGravity ? movement.Gravity : Vector3.zero);
+
+        // Constant energy loss for the frame
+        if (movement.EngineOn)
+        {
+            energy.Expend(energyLostPerSecond * Time.deltaTime);
+        }
 
         // Tool logic
         bool cancel = Input.GetButton("Cancel");

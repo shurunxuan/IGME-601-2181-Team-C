@@ -27,6 +27,13 @@ For more details, see [the full market & user analysis document](MarketUserAnaly
 
 ![SellSheet](Assets/SellSheet.png)
 
+#### Concept
+
+![Concept1](Assets/Concept_Art_1.JPG)
+
+
+![Concept2](Assets/Concept_Art_2.JPG)
+
 ### Glossary and Acronyms
 
 | Term | Definition |
@@ -75,12 +82,18 @@ For more details, see [the full architecture document](architecture.md).
 
 * Tools: Implements `ToolComponent` which outlines a protocol for communicating with `PlayerController`
   * `CameraTool`: Activate once to enter camera mode, activate again to attempt to gain visual information
+  * `ChargePointTool`: Activate to connect to nearby tagged Chargepoints and recharge energy.
+
+* Energy: Tools expend energy to function. 
+  * ChargePoints: Points the drone can charge at.
+  * Tools: Tools each have an energy cost.
+  * Drain: Player energy drains constantly over time when the engine is running.
 
 * Information System: Scoring system that tracks the player's gathering of information
   * `TopSecretInfo`: An simple component that denotes type and content of information. All information is currently named and if two pieces of info share a name, they will be considered the same. `TopSecretInfo` script owns all static `TopSecretInfo` tracking logic and functionality.
   * `InfoGather`: A component that records and stores information. It is smart enough to avoid transcribing duplicate info.
   
- * Enemy AI
+* Enemy AI
   * `Enemy Movement`: A component that handles enemy behaviour of Patrol,Investigate and many more.
   * `Enemy Sight`: A component that enables enemy to look around and detect player's presence.
 
