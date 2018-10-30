@@ -27,6 +27,13 @@ For more details, see [the full market & user analysis document](MarketUserAnaly
 
 ![SellSheet](Assets/SellSheet.png)
 
+#### Concept
+
+![Concept1](Assets/Concept_Art_1.JPG)
+
+
+![Concept2](Assets/Concept_Art_2.JPG)
+
 ### Glossary and Acronyms
 
 | Term | Definition |
