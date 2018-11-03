@@ -1,6 +1,6 @@
 # Coding Standards
 
-This document covers all things about naming variables, formatting code, pull requests and process for commiting and merging.
+This document covers all things about naming variables, formatting code, pull requests and process for committing and merging.
 
 ## Naming
 
@@ -41,7 +41,7 @@ class CpuProfiler
 }
 ```
 
-### Memeber Methods
+### Member Methods
 
 Use `UpperCamelCase` for all member methods.
 
@@ -137,6 +137,6 @@ Example:
   > _Camera Tool_: __PASSED__. MD 11/2; __FAILED__. VS 11/2
 6. If the test failed, fill the `Notes` and comment in the pull request;
 7. If the test passed, approve the pull request;
-8. Any review that doens't follow this process will be dismissed.
+8. Any review that doesn't follow this process will be dismissed.
 
 Branch `Test-Doc` will be merged into `master` after all stories in the sprint pass the test before the end of the sprint.
