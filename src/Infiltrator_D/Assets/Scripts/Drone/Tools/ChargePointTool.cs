@@ -11,9 +11,6 @@ public class ChargePointTool : ToolComponent
     // Rate of energy gained per second
     public float ChargeRate;
 
-    // The camera used for aiming at the charge point
-    public CameraController CameraAim;
-
     // A layermask for disincluding certain layers from detection.
     // We already know the player isn't a charge point
     public LayerMask DetectionMask;

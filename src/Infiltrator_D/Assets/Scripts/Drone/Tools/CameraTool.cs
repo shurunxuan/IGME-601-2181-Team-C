@@ -10,7 +10,7 @@ public class CameraTool : ToolComponent {
     }
 
     // The camera used for aiming the tool
-    public CameraController CameraAim;
+    public VirtualCameraController CameraAim;
     // The layer mask for capturing info
     public LayerMask CameraMask;
 
