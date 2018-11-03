@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ChargePointTool : ToolComponent
 {
@@ -30,11 +28,15 @@ public class ChargePointTool : ToolComponent
     // Rigidbody of the drone
     private Rigidbody droneRigidbody;
 
+    // Info Gatherer of the Drone
+    private InfoGatherer droneInfoGatherer;
+
     // Use this for initialization
     void Start()
     {
         droneMovement = gameObject.GetComponent<DroneMovement>();
         droneRigidbody = gameObject.GetComponent<Rigidbody>();
+        droneInfoGatherer = gameObject.GetComponent<InfoGatherer>();
     }
 
     // Update is called once per frame
@@ -155,6 +157,19 @@ public class ChargePointTool : ToolComponent
         droneMovement.EngineOn = false;
         droneMovement.UseGravity = false;
         droneRigidbody.velocity = Vector3.zero;
+
+        // Attempt to hack
+        TopSecretInfo hackInfo = _connected.GetComponent<TopSecretInfo>();
+        if(hackInfo != null && hackInfo.type == TopSecretInfo.InfoType.Digital)
+        {
+            droneInfoGatherer.AddInfo(hackInfo.info);
+        }
+
+        HackableDetector hackDetector = _connected.GetComponent<HackableDetector>();
+        if(hackDetector != null)
+        {
+            hackDetector.Hack();
+        }
     }
 
     // Performs logic for disconnecting from the current charge point
