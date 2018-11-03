@@ -2,7 +2,7 @@
 This document will propose and record the results of tests used to ensure that acceptance criteria are met. All stories require testing of some sort or another.
 
 ## Example
-* Camera Tool: PASSED. MD 11/2
+* Camera Tool: **PASSED**. MD 11/2
   1. Open Assets/Scenes/TestScenes/CameraTestScene.Unity
   2. Use the key: 1 to activate the camera.
   3. Use the key: 1 a second time to record visual info that is in front of the aiming reticle.
