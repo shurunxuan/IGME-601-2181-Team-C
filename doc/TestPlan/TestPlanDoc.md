@@ -12,6 +12,14 @@ Procedure:
 
 
 ## Stories
+*Refined Camera*:  **READY FOR TEST**.  
+Notes:  
+Procedure:
+1. Open Assets/Scenes/DemoScenes/Sprint3DemoScene.Unity
+2. Use mouse or right stick to rotate the camera.
+3. Use the key 1 or A button to switch to first person camera.
+4. In third person camera mode, try use some strange angle to test the camera collider.
+
 *Drone 3D Asset*:  **UNTESTED**.  
 Notes:  
 Procedure:
