@@ -2,22 +2,24 @@
 
 public class ChargePointTool : ToolComponent
 {
-
     // The radius used when attempting to find nearby charge points
     public float DetectionRadius;
 
     // Rate of energy gained per second
     public float ChargeRate;
 
-    // The camera used for aiming at the charge point
-    public CameraController CameraAim;
+    // The position on the drone that connects to the charge point
+    public Transform DroneConnectionPoint;
 
     // A layermask for disincluding certain layers from detection.
     // We already know the player isn't a charge point
     public LayerMask DetectionMask;
 
     // The charge point we are currently connected to
-    private GameObject _connected;
+    private GameObject connected;
+
+    // A private bool that denotes whether we have finished plugging in to the connected charge point
+    private bool finishedConnecting;
 
     // The Highlight Component of the charge point we are currently looking at
     private SpecialObjectHighlight closestChargePointHighlight;
@@ -37,18 +39,21 @@ public class ChargePointTool : ToolComponent
         droneMovement = gameObject.GetComponent<DroneMovement>();
         droneRigidbody = gameObject.GetComponent<Rigidbody>();
         droneInfoGatherer = gameObject.GetComponent<InfoGatherer>();
+        if(DroneConnectionPoint == null)
+        {
+            DroneConnectionPoint = transform;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Temp code
-        // TODO: Final code should be more fluid will need to communicate with other components
-        if (_connected != null)
+        if (connected != null)
         {
-            _energy.Charge(ChargeRate * Time.deltaTime);
-            //Transform root = transform.root;
-            //root.position = Vector3.Lerp(root.position, _connected.transform.position, 2 * Time.deltaTime);
+            if (finishedConnecting)
+            {
+                _energy.Charge(ChargeRate * Time.deltaTime);
+            }
         }
         else
         {
@@ -117,10 +122,21 @@ public class ChargePointTool : ToolComponent
 
     void FixedUpdate()
     {
-        if (_connected != null)
+        if (connected != null && !finishedConnecting)
         {
             Transform root = transform.root;
-            root.position = Vector3.Lerp(root.position, _connected.transform.position, 2 * Time.deltaTime);
+            Vector3 targetPosition = connected.transform.position - (DroneConnectionPoint.transform.position - root.transform.position);
+            root.position = Vector3.Lerp(root.position, targetPosition, 3.75f * Time.fixedDeltaTime);
+            //root.rotation = Quaternion.RotateTowards(root.rotation, connected.transform.rotation, 15);
+
+            // Check if our animation is finished
+            if (root.position == targetPosition)// && root.rotation == connected.transform.rotation)
+            {
+                // If we are close enough to the charge point, jump the last bit and attempt to hack
+                root.position = targetPosition;
+                finishedConnecting = true;
+                TryHack();
+            }
         }
     }
 
@@ -128,7 +144,7 @@ public class ChargePointTool : ToolComponent
     protected override void Activate()
     {
         // Disconnect if connected
-        if (_connected != null)
+        if (connected != null)
         {
             Disconnect();
             return;
@@ -150,35 +166,51 @@ public class ChargePointTool : ToolComponent
     // Performs logic for connecting to a validated charge point
     private void Connect(SpecialObjectHighlight chargePoint)
     {
-        _connected = chargePoint.gameObject;
+        connected = chargePoint.gameObject;
         // Remove focus
         chargePoint.LookedAt = false;
         // Stop engine
         droneMovement.EngineOn = false;
         droneMovement.UseGravity = false;
         droneRigidbody.velocity = Vector3.zero;
+        droneRigidbody.isKinematic = true;
 
-        // Attempt to hack
-        TopSecretInfo hackInfo = _connected.GetComponent<TopSecretInfo>();
-        if(hackInfo != null && hackInfo.type == TopSecretInfo.InfoType.Digital)
-        {
-            droneInfoGatherer.AddInfo(hackInfo.info);
-        }
-
-        HackableDetector hackDetector = _connected.GetComponent<HackableDetector>();
-        if(hackDetector != null)
-        {
-            hackDetector.Hack();
-        }
+        finishedConnecting = false;
     }
 
     // Performs logic for disconnecting from the current charge point
     // Should disconnect properly even if the connected object no longer exists
     private void Disconnect()
     {
-        _connected = null;
+        connected = null;
         // Start engine
         droneMovement.EngineOn = true;
         droneMovement.UseGravity = true;
+        droneRigidbody.isKinematic = false;
+
+        finishedConnecting = false;
+    }
+
+    // Attempts to hack into connected
+    private void TryHack()
+    {
+        // Sanity check for being connected
+        if(connected == null)
+        {
+            return;
+        }
+
+        // Attempt to hack
+        TopSecretInfo hackInfo = connected.GetComponent<TopSecretInfo>();
+        if (hackInfo != null && hackInfo.type == TopSecretInfo.InfoType.Digital)
+        {
+            droneInfoGatherer.AddInfo(hackInfo.info);
+        }
+
+        HackableDetector hackDetector = connected.GetComponent<HackableDetector>();
+        if (hackDetector != null)
+        {
+            hackDetector.Hack();
+        }
     }
 }
