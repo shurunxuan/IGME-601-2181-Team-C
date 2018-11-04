@@ -44,9 +44,21 @@ Procedure:
 Notes:  
 Procedure:
 
-*Hacking*:  **UNTESTED**.  
+*Hacking*:  **READY FOR TEST**.  
 Notes:  
 Procedure:
+1. Open Assets/Scenes/TestScenes/HackingTestScene.Unity
+2. Use the key: 2 to connect to both charge points one at a time
+3. Observe as you ease into position that you stop losing energy
+4. Observe after easing in that energy has begun to charge
+5. Observe that one charge point grants info
+6. Observe that the other charge point raises and lowers a yellow info block
+7. Open Assets/Scenes/DemoScenes/Sprint3DemoScene.Unity
+8. Proceed through the level to the charge point below the computer
+9. Connect to the charge point
+10. Observe as you ease into position that you stop losing energy
+11. Observe after easing in that energy has begun to charge
+12. Observe that there are no relevant exceptions in the inspector
 
 *Decoy Device*:  **UNTESTED**.  
 Notes:  
