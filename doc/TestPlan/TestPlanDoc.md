@@ -12,8 +12,8 @@ Procedure:
 
 
 ## Stories
-*Refined Camera*:  **READY FOR TEST**.  
-Notes:  
+*Refined Camera*:  **FAILED** MD 11/4.  
+Notes: Camera clips still through walls especially in first person mode.
 Procedure:
 1. Open Assets/Scenes/DemoScenes/Sprint3DemoScene.Unity
 2. Use mouse or right stick to rotate the camera.
