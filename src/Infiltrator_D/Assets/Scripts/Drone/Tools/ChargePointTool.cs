@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class ChargePointTool : ToolComponent
@@ -15,8 +16,12 @@ public class ChargePointTool : ToolComponent
     // We already know the player isn't a charge point
     public LayerMask DetectionMask;
 
-    // The charge point we are currently connected to
-    private GameObject _connected;
+    // The camera controller
+    public VirtualCameraController CameraController;
+
+    // The charge point and it's virtual camera we are currently connected to
+    private GameObject connected;
+    private CinemachineVirtualCamera vCam;
 
     // The Highlight Component of the charge point we are currently looking at
     private SpecialObjectHighlight closestChargePointHighlight;
@@ -39,11 +44,11 @@ public class ChargePointTool : ToolComponent
     {
         // Temp code
         // TODO: Final code should be more fluid will need to communicate with other components
-        if (_connected != null)
+        if (connected != null)
         {
             _energy.Charge(ChargeRate * Time.deltaTime);
             //Transform root = transform.root;
-            //root.position = Vector3.Lerp(root.position, _connected.transform.position, 2 * Time.deltaTime);
+            //root.position = Vector3.Lerp(root.position, connected.transform.position, 2 * Time.deltaTime);
         }
         else
         {
@@ -112,10 +117,10 @@ public class ChargePointTool : ToolComponent
 
     void FixedUpdate()
     {
-        if (_connected != null)
+        if (connected != null)
         {
             Transform root = transform.root;
-            root.position = Vector3.Lerp(root.position, _connected.transform.position, 2 * Time.deltaTime);
+            root.position = Vector3.Lerp(root.position, connected.transform.position, 2 * Time.deltaTime);
         }
     }
 
@@ -123,7 +128,7 @@ public class ChargePointTool : ToolComponent
     protected override void Activate()
     {
         // Disconnect if connected
-        if (_connected != null)
+        if (connected != null)
         {
             Disconnect();
             return;
@@ -145,22 +150,32 @@ public class ChargePointTool : ToolComponent
     // Performs logic for connecting to a validated charge point
     private void Connect(SpecialObjectHighlight chargePoint)
     {
-        _connected = chargePoint.gameObject;
+        connected = chargePoint.gameObject;
         // Remove focus
         chargePoint.LookedAt = false;
         // Stop engine
         droneMovement.EngineOn = false;
         droneMovement.UseGravity = false;
         droneRigidbody.velocity = Vector3.zero;
+        // Find the Virtual Camera
+        vCam = chargePoint.gameObject.transform.Find("ChargePointVCam").gameObject.GetComponent<CinemachineVirtualCamera>();
+        // Activate it
+        vCam.Priority = 11;
+        // Disable the Virtual Camera Controller of the drone
+        CameraController.enabled = false;
     }
 
     // Performs logic for disconnecting from the current charge point
     // Should disconnect properly even if the connected object no longer exists
     private void Disconnect()
     {
-        _connected = null;
+        connected = null;
         // Start engine
         droneMovement.EngineOn = true;
         droneMovement.UseGravity = true;
+        // Deactivate the Virtual Camera
+        vCam.Priority = -1;
+        // Enable the Virtual Camera Controller of the drone
+        CameraController.enabled = true;
     }
 }

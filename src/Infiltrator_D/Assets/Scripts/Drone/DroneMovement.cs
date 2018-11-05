@@ -24,7 +24,7 @@ public class DroneMovement : MonoBehaviour
     public bool UseGravity;
     public Vector3 Gravity { get; private set; }
 
-    public bool LerpRotation { get; set; }
+    public bool SkipLerpRotation { get; set; }
 
     public Transform FirstPersonPosition;
 
@@ -131,7 +131,7 @@ public class DroneMovement : MonoBehaviour
         Quaternion yawRotation = Quaternion.FromToRotation(Vector3.forward, Forward);
         // Combine rotation
         Quaternion rotate = tiltRotation * yawRotation;
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotate, LerpRotation ? 1 : 3.0f * Time.deltaTime);
+        transform.rotation = SkipLerpRotation ? rotate : Quaternion.Slerp(transform.rotation, rotate, 3.0f * Time.deltaTime);
 
         if (UseGravity)
             droneRigidbody.AddForce(Gravity);
