@@ -34,7 +34,7 @@ public class SpecialObjectHighlight : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        meshRenderer = gameObject.GetComponent<Renderer>();
+        meshRenderer = gameObject.GetComponentInParent<Renderer>();
         Material mat = meshRenderer.material;
         propertyBlock = new MaterialPropertyBlock();
         meshRenderer.materials = new[] { mat, HighlightMaterial };
