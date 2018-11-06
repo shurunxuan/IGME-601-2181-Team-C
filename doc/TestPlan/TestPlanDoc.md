@@ -44,7 +44,7 @@ Procedure:
 Notes:  
 Procedure:
 
-*Hacking*:  **READY FOR TEST**.  
+*Hacking*:  **PASSED** VS 11/5.  
 Notes:  
 Procedure:
 1. Open Assets/Scenes/TestScenes/HackingTestScene.Unity
