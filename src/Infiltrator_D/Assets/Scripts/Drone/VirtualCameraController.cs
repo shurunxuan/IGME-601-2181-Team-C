@@ -107,6 +107,8 @@ public class VirtualCameraController : MonoBehaviour
         }
 
         // Restrict the pitch angle of firstPersonForward
+        // The firstPersonForward is used by both FirstPersonVCam and ThirdPersonVCam
+        // Both Virtual Cameras will look in this direction
         float currentAngle = Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude);
         if (currentAngle < Mathf.Deg2Rad * lowestAngle)
         {

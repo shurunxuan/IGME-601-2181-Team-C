@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 139867025}
   m_Layer: 10
   m_Name: Desk
-  m_TagString: Untagged
+  m_TagString: NarrowColumn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 191042752}
   m_Layer: 10
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: NarrowColumn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -7395,7 +7395,7 @@ GameObject:
   - component: {fileID: 1879928654}
   m_Layer: 10
   m_Name: Table
-  m_TagString: Untagged
+  m_TagString: NarrowColumn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -7869,11 +7869,11 @@ MonoBehaviour:
   m_CollideAgainst:
     serializedVersion: 2
     m_Bits: 7479
-  m_IgnoreTag: Player
+  m_IgnoreTag: NarrowColumn
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 512
-  m_MinimumDistanceFromTarget: 0.1
+  m_MinimumDistanceFromTarget: 1
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
