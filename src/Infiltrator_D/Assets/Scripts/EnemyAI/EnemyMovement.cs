@@ -88,7 +88,7 @@ public class EnemyMovement : MonoBehaviour
         else
         {
 
-            if (Vector3.Distance(transform.position, PatrolPoints[nextPoint].transform.position) < 2f)
+            if (Vector3.Distance(transform.position, PatrolPoints[nextPoint].transform.position) < 20f)
             {
                 timer--;
             }

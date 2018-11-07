@@ -6,6 +6,7 @@ public class DroneMovement : MonoBehaviour
 {
     public float HorizontalSpeedFactor;
     public float VerticalSpeedFactor;
+    public float SpeedFactor;
     public bool EngineOn;
     public float TiltFactor;
     public Vector3 Forward
@@ -134,8 +135,8 @@ public class DroneMovement : MonoBehaviour
         transform.rotation = SkipLerpRotation ? rotate : Quaternion.Slerp(transform.rotation, rotate, 3.0f * Time.deltaTime);
 
         if (UseGravity)
-            droneRigidbody.AddForce(Gravity);
-        droneRigidbody.AddForce(TargetForce);
+            droneRigidbody.AddForce(Gravity * SpeedFactor);
+        droneRigidbody.AddForce(TargetForce * SpeedFactor);
 
         FirstPersonPosition.LookAt(FirstPersonPosition.position + Forward);
     }
@@ -144,13 +145,13 @@ public class DroneMovement : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         if (droneRigidbody != null)
-            Gizmos.DrawLine(transform.position, transform.position + droneRigidbody.velocity / 10);
+            Gizmos.DrawLine(transform.position, transform.position + droneRigidbody.velocity);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Gravity / 10);
-        Gizmos.DrawLine(transform.position, transform.position + TargetForce / 10);
+        Gizmos.DrawLine(transform.position, transform.position + Gravity);
+        Gizmos.DrawLine(transform.position, transform.position + TargetForce);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + (Gravity + TargetForce) / 10);
+        Gizmos.DrawLine(transform.position, transform.position + (Gravity + TargetForce));
     }
 }

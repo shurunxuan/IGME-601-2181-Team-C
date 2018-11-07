@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
 
 public class VirtualCameraController : MonoBehaviour
@@ -25,8 +26,17 @@ public class VirtualCameraController : MonoBehaviour
     public float HorizontalViewSpeedFirstPerson;
     public float VerticalViewSpeedFirstPerson;
 
+    [Header("Collision Detect")]
+    public float ThirdPersonLowestAngle;
+    public float ThirdPersonHighestAngle;
+    public float RaycastDensity;
+    public LayerMask IgnoreLayer;
+
     private Vector3 firstPersonForward;
     private bool useFirstPerson;
+    private CinemachineBrain cinemachineBrain;
+    private float cameraDistance;
+    private MeshRenderer[] renderers;
 
     public Vector3 LookAtDirection
     {
@@ -38,22 +48,32 @@ public class VirtualCameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         firstPersonForward = FirstPersonPosition.forward;
         useFirstPerson = false;
+        cinemachineBrain = gameObject.GetComponent<CinemachineBrain>();
+        cameraDistance = ThirdPersonVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.magnitude;
+        renderers = FollowingObject.gameObject.GetComponentsInChildren<MeshRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        bool enableMeshRenderer = !useFirstPerson || cinemachineBrain.ActiveBlend != null;
+        foreach (var meshRenderer in renderers)
+        {
+            meshRenderer.enabled = enableMeshRenderer;
+        }
     }
 
     void FixedUpdate()
     {
-        // Set the forward vector of drone.
-        FollowingObject.Forward = Vector3.Cross(transform.right, Vector3.up);
+        // If the camera is not in transition
+        if (cinemachineBrain.ActiveBlend == null)
+            // Set the forward vector of drone.
+            FollowingObject.Forward = Vector3.Cross(transform.right, Vector3.up);
 
         // Get User Input
         float horizontalCamera = Input.GetAxis("HorizontalCamera");
         float verticalCamera = Input.GetAxis("VerticalCamera");
+        verticalCamera = Mathf.Clamp(verticalCamera, -1.5f, 1.5f);
 
         // Rotate the LookAtDirection regarding user input
         float horizontalViewSpeed = useFirstPerson ? HorizontalViewSpeedFirstPerson : HorizontalViewSpeedThirdPerson;
@@ -61,19 +81,50 @@ public class VirtualCameraController : MonoBehaviour
         firstPersonForward = Quaternion.AngleAxis(horizontalCamera * horizontalViewSpeed, Vector3.up) * firstPersonForward;
         firstPersonForward = Quaternion.AngleAxis(-verticalCamera * verticalViewSpeed, Vector3.Cross(Vector3.up, firstPersonForward)) * firstPersonForward;
 
-        // Restrict the pitch angle of LookAtDirection
-        if (Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude) < Mathf.Deg2Rad * 10)
+        // Pitch angle restriction
+        float lowestAngle = ThirdPersonLowestAngle;
+        float highestAngle = ThirdPersonHighestAngle;
+
+        if (!useFirstPerson)
         {
-            firstPersonForward = new Vector3(firstPersonForward.x, 0, firstPersonForward.z);
-            firstPersonForward.y = firstPersonForward.magnitude / Mathf.Tan(Mathf.Deg2Rad * 10);
-            firstPersonForward = firstPersonForward.normalized;
+            // Calculate the angle restriction according to the surrounding
+            Ray upRay = new Ray(FollowingObject.gameObject.transform.position, Vector3.up);
+            Ray downRay = new Ray(FollowingObject.gameObject.transform.position, Vector3.down);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(upRay, out hitInfo, float.PositiveInfinity, ~IgnoreLayer))
+            {
+                float height = hitInfo.point.y - FirstPersonPosition.position.y - 2f;
+                float angle = (Mathf.PI / 2 + Mathf.Asin(height / cameraDistance)) * Mathf.Rad2Deg;
+                highestAngle = Mathf.Min(angle, ThirdPersonHighestAngle);
+            }
+
+            if (Physics.Raycast(downRay, out hitInfo, float.PositiveInfinity, ~IgnoreLayer))
+            {
+                float height = hitInfo.point.y - FirstPersonPosition.position.y;
+                float angle = (Mathf.PI / 2 + Mathf.Asin(height / cameraDistance)) * Mathf.Rad2Deg;
+                lowestAngle = Mathf.Max(angle, ThirdPersonLowestAngle);
+            }
         }
-        else if (Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude) > Mathf.Deg2Rad * 170)
+
+        // Restrict the pitch angle of firstPersonForward
+        float currentAngle = Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude);
+        if (currentAngle < Mathf.Deg2Rad * lowestAngle)
         {
-            firstPersonForward = new Vector3(firstPersonForward.x, 0, firstPersonForward.z);
-            firstPersonForward.y = firstPersonForward.magnitude / Mathf.Tan(Mathf.Deg2Rad * 170);
-            firstPersonForward = firstPersonForward.normalized;
+            Vector3 newFirstPersonForward = new Vector3(firstPersonForward.x, 0, firstPersonForward.z);
+            newFirstPersonForward.y = newFirstPersonForward.magnitude / Mathf.Tan(Mathf.Deg2Rad * lowestAngle);
+            newFirstPersonForward = newFirstPersonForward.normalized;
+            firstPersonForward = Vector3.Slerp(firstPersonForward, newFirstPersonForward, 20f * Time.fixedDeltaTime);
         }
+        else if (currentAngle > Mathf.Deg2Rad * highestAngle)
+        {
+            Vector3 newFirstPersonForward = new Vector3(firstPersonForward.x, 0, firstPersonForward.z);
+            newFirstPersonForward.y = newFirstPersonForward.magnitude / Mathf.Tan(Mathf.Deg2Rad * highestAngle);
+            newFirstPersonForward = newFirstPersonForward.normalized;
+            firstPersonForward = Vector3.Slerp(firstPersonForward, newFirstPersonForward, 20f * Time.fixedDeltaTime);
+        }
+
+
+        //Debug.Log("Curr: " + Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude) * Mathf.Rad2Deg);
 
         FirstPersonPosition.LookAt(FirstPersonPosition.position + Vector3.Slerp(FirstPersonPosition.forward, firstPersonForward, 30f * Time.deltaTime));
     }
@@ -85,31 +136,20 @@ public class VirtualCameraController : MonoBehaviour
             // Activate First Person Camera
             FirstPersonVirtualCamera.Priority = 10;
             ThirdPersonVirtualCamera.Priority = -1;
-            //// Recenter First Person Camera to Third Person Camera
-            //FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.Value = -Mathf.Asin(transform.forward.y) * Mathf.Rad2Deg;
-            //FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.Value = ThirdPersonVirtualCamera.m_XAxis.Value;
-            //FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalRecentering.m_enabled = true;
-            //FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_VerticalRecentering.m_enabled = true;
-            //FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_VerticalRecentering.DoRecentering(ref FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis, 0, 0.0f);
-            //FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalRecentering.DoRecentering(ref FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis, 0, ThirdPersonVirtualCamera.m_XAxis.Value - 90.0f);
-            //FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalRecentering.m_enabled = false;
-            //FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_VerticalRecentering.m_enabled = false;
         }
         else
         {
             // Activate Third Person Camera
             ThirdPersonVirtualCamera.Priority = 10;
             FirstPersonVirtualCamera.Priority = -1;
-            //// Recenter Third Person Camera to First Person Camera
-            //ThirdPersonVirtualCamera.m_YAxis.Value = 0.66f;
-            //ThirdPersonVirtualCamera.m_XAxis.Value = FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.Value;
-            //ThirdPersonVirtualCamera.m_RecenterToTargetHeading.m_enabled = true;
-            //ThirdPersonVirtualCamera.m_RecenterToTargetHeading.DoRecentering(ref ThirdPersonVirtualCamera.m_YAxis, 0, 0.66f);
-            //ThirdPersonVirtualCamera.m_RecenterToTargetHeading.DoRecentering(ref ThirdPersonVirtualCamera.m_XAxis, 0, FirstPersonVirtualCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.Value);
-            //ThirdPersonVirtualCamera.m_RecenterToTargetHeading.m_enabled = false;
         }
 
         useFirstPerson = value;
         FollowingObject.SkipLerpRotation = value;
+    }
+
+    void OnDrawGizmos()
+    {
+
     }
 }
