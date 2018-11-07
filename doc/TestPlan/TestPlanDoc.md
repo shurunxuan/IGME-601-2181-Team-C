@@ -12,8 +12,8 @@ Procedure:
 
 
 ## Stories
-*Refined Camera*:  **FAILED** MD 11/4.  
-Notes: Camera clips still through walls especially in first person mode.
+*Refined Camera*:  **PASSED** MD 11/7.  
+Notes: 
 Procedure:
 1. Open Assets/Scenes/DemoScenes/Sprint3DemoScene.Unity
 2. Use mouse or right stick to rotate the camera.
@@ -49,7 +49,7 @@ Procedure:
 Notes:  
 Procedure:
 1. Open Assets/Scenes/TestScenes/HackingTestScene.Unity
-2. Use the key: 2 to connect to both charge points one at a time
+2. Use the key: 2 to connect to both charge points one at a time (Press 2 again to release)
 3. Observe as you ease into position that you stop losing energy
 4. Observe after easing in that energy has begun to charge
 5. Observe that one charge point grants info
