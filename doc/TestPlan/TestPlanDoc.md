@@ -2,8 +2,11 @@
 This document will propose and record the results of tests used to ensure that acceptance criteria are met. All stories require testing of some sort or another.
 
 ## Example
-*Camera Tool*: **PASSED**. MD 11/2  
-Notes: If the test failed give notes.  
+*Camera Tool*: 
+ * **PASSED**. MD 11/2 
+ 
+Notes: If the test failed give notes.
+
 Procedure:
 1. Open Assets/Scenes/TestScenes/CameraTestScene.Unity
 2. Use the key: 1 to activate the camera.
@@ -12,41 +15,80 @@ Procedure:
 
 
 ## Stories
-*Refined Camera*:  **PASSED** MD 11/7.  
+
+*Refined Camera*:  
+ * **PASSED** MD 11/7.  
+
 Notes: 
+
 Procedure:
 1. Open Assets/Scenes/DemoScenes/Sprint3DemoScene.Unity
 2. Use mouse or right stick to rotate the camera.
 3. Use the key 1 or A button to switch to first person camera.
 4. In third person camera mode, try use some strange angle to test the camera collider.
 
-*Drone 3D Asset*:  **UNTESTED**.  
+------------------------
+
+*Drone 3D Asset*: 
+ * **UNTESTED**.  
+
 Notes:  
+
 Procedure:
 
-*Prototype Level*:  **UNTESTED**.  
+------------------------
+
+*Prototype Level*:  
+ * **UNTESTED**.  
+
 Notes:  
-Procedure:
-  
-*Environment Assets*:  **UNTESTED**.  
-Notes:  
+
 Procedure:
 
-*Guards 3D Asset*:  **UNTESTED**.  
+------------------------
+
+*Environment Assets*:  
+ * **UNTESTED**.  
+
 Notes:  
+
 Procedure:
 
-*Guard States*:  **UNTESTED**.  
+------------------------
+
+*Guards 3D Asset*:  
+ * **UNTESTED**.  
+
 Notes:  
+
 Procedure:
 
-*Enemy Sound Detection*:  **UNTESTED**.  
+------------------------
+
+*Guard States*:  
+ * **UNTESTED**.  
+
 Notes:  
+
 Procedure:
 
-*Hacking*:  **PASSED** VS 11/5.
-            **PASSED** SJ 11/5.
+------------------------
+
+
+*Enemy Sound Detection*:  
+ * **UNTESTED**.  
+
 Notes:  
+
+Procedure:
+
+------------------------
+
+*Hacking*:  
+ * **PASSED** VS 11/5.
+ * **PASSED** SJ 11/5.
+Notes:  
+
 Procedure:
 1. Open Assets/Scenes/TestScenes/HackingTestScene.Unity
 2. Use the key: 2 to connect to both charge points one at a time (Press 2 again to release)
@@ -61,19 +103,37 @@ Procedure:
 11. Observe after easing in that energy has begun to charge
 12. Observe that there are no relevant exceptions in the inspector
 
-*Decoy Device*:  **UNTESTED**.  
+------------------------
+
+*Decoy Device*:  
+ * **UNTESTED**.  
+ 
 Notes:  
+
 Procedure:
 
-*Camouflage*:  **UNTESTED**.  
+------------------------
+
+*Camouflage*:  
+ * **UNTESTED**.  
 Notes:  
+
 Procedure:
 
-*Player Can Die*:  **UNTESTED**.  
+------------------------
+
+*Player Can Die*:  
+ * **UNTESTED**.  
 Notes:  
+
 Procedure:
 
-*Heads Up Display*:  **UNTESTED**.  
+------------------------
+
+*Heads Up Display*:  
+ * **UNTESTED**.  
 Notes:  
+
 Procedure:
+
 
