@@ -87,6 +87,7 @@ Procedure:
 *Hacking*:  
  * **PASSED** VS 11/5.
  * **PASSED** SJ 11/5.
+ 
 Notes:  
 
 Procedure:
@@ -115,7 +116,8 @@ Procedure:
 ------------------------
 
 *Camouflage*:  
- * **UNTESTED**.  
+ * **UNTESTED**.
+ 
 Notes:  
 
 Procedure:
@@ -124,6 +126,7 @@ Procedure:
 
 *Player Can Die*:  
  * **UNTESTED**.  
+ 
 Notes:  
 
 Procedure:
@@ -132,6 +135,7 @@ Procedure:
 
 *Heads Up Display*:  
  * **UNTESTED**.  
+ 
 Notes:  
 
 Procedure:
