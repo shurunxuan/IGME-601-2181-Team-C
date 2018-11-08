@@ -15,7 +15,7 @@ public class EnemyMovement : MonoBehaviour
 
     //basic movement parameters
     public NavMeshAgent Agent;
-    public GameObject[] PatrolPoints;
+    public Vector3[] PatrolPoints;
     public int Speed;
     public float WaitTime;
     private float timer = 0f;
@@ -81,14 +81,14 @@ public class EnemyMovement : MonoBehaviour
         if (timer == 0)
         {
             nextPoint = (nextPoint < PatrolPoints.Length - 1) ? nextPoint + 1 : 0;
-            Agent.SetDestination(PatrolPoints[nextPoint].transform.position);
+            Agent.SetDestination(PatrolPoints[nextPoint]);
 
             timer = WaitTime;
         }
         else
         {
 
-            if (Vector3.Distance(transform.position, PatrolPoints[nextPoint].transform.position) < 2f)
+            if (Vector3.Distance(transform.position, PatrolPoints[nextPoint]) < 2f)
             {
                 timer--;
             }
