@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemySight {
 
     //Sight/looking ability related paramerters
-    public float ViewRadius = 5f;
+    public float ViewRadius = 50f;
     public Transform Transform;
     public float ViewAngle = 90;
     private LayerMask playerMask;

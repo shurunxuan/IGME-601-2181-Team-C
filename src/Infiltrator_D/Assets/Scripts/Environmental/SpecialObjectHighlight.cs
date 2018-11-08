@@ -28,7 +28,7 @@ public class SpecialObjectHighlight : MonoBehaviour
     private Renderer meshRenderer;
     private MaterialPropertyBlock propertyBlock;
 
-    private float diff = 0.01f;
+    private float diff = 0.1f;
     private float currentWidth;
 
     // Use this for initialization
