@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class SpecialObjectHighlight : MonoBehaviour
@@ -7,6 +8,7 @@ public class SpecialObjectHighlight : MonoBehaviour
     public Material HighlightMaterial;
     public float OutlineWidth;
     public Color HighlightColor;
+    public CinemachineVirtualCamera VirtualCamera;
 
     public bool LookedAt
     {

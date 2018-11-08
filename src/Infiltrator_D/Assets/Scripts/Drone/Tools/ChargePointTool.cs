@@ -135,10 +135,12 @@ public class ChargePointTool : ToolComponent
             Transform root = transform.root;
             Vector3 targetPosition = connected.transform.position - (DroneConnectionPoint.transform.position - root.transform.position);
             root.position = Vector3.Lerp(root.position, targetPosition, 3.75f * Time.fixedDeltaTime);
+            droneMovement.RotateTo(connected.transform);
             //root.rotation = Quaternion.RotateTowards(root.rotation, connected.transform.rotation, 15);
 
             // Check if our animation is finished
-            if (root.position == targetPosition)// && root.rotation == connected.transform.rotation)
+            // 1E-5 seems to be too small.
+            if ((root.position - targetPosition).magnitude < 1E-3)// && root.rotation == connected.transform.rotation)
             {
                 // If we are close enough to the charge point, jump the last bit and attempt to hack
                 root.position = targetPosition;
@@ -181,12 +183,23 @@ public class ChargePointTool : ToolComponent
         droneMovement.EngineOn = false;
         droneMovement.UseGravity = false;
         droneRigidbody.velocity = Vector3.zero;
-        // Find the Virtual Camera
-        vCam = chargePoint.gameObject.transform.Find("ChargePointVCam").gameObject.GetComponent<CinemachineVirtualCamera>();
-        // Activate it
-        vCam.Priority = 11;
-        // Disable the Virtual Camera Controller of the drone
-        CameraController.enabled = false;
+        if (chargePoint.VirtualCamera != null)
+        {
+            // Find the Virtual Camera
+            vCam = chargePoint.VirtualCamera;
+            // Activate it
+            vCam.Priority = 11;
+            // Recenter it
+            CinemachinePOV pov = vCam.GetCinemachineComponent<CinemachinePOV>();
+            pov.m_HorizontalRecentering.m_enabled = true;
+            pov.m_HorizontalRecentering.DoRecentering(ref pov.m_HorizontalAxis, 0, 0);
+            pov.m_HorizontalRecentering.m_enabled = false;
+            pov.m_VerticalRecentering.m_enabled = true;
+            pov.m_VerticalRecentering.DoRecentering(ref pov.m_VerticalAxis, 0, 0);
+            pov.m_VerticalRecentering.m_enabled = false;
+            // Disable the Virtual Camera Controller of the drone
+            CameraController.enabled = false;
+        }
 
         droneRigidbody.isKinematic = true;
         finishedConnecting = false;
@@ -200,11 +213,15 @@ public class ChargePointTool : ToolComponent
         // Start engine
         droneMovement.EngineOn = true;
         droneMovement.UseGravity = true;
-        // Deactivate the Virtual Camera
-        vCam.Priority = -1;
-        // Enable the Virtual Camera Controller of the drone
-        CameraController.enabled = true;
-
+        droneRigidbody.velocity = Vector3.zero;
+        if (closestChargePointHighlight.VirtualCamera != null)
+        {
+            // Deactivate the Virtual Camera
+            vCam.Priority = -1;
+            // Enable the Virtual Camera Controller of the drone
+            CameraController.enabled = true;
+        }
+        droneMovement.StopTransition();
         droneRigidbody.isKinematic = false;
         finishedConnecting = false;
     }
