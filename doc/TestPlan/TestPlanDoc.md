@@ -18,6 +18,7 @@ Procedure:
 
 *Refined Camera*:  
  * **PASSED** MD 11/7.  
+ * **PASSED** JJ 11/7.  
 
 Notes: 
 
