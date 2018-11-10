@@ -183,24 +183,6 @@ public class ChargePointTool : ToolComponent
         droneMovement.EngineOn = false;
         droneMovement.UseGravity = false;
         droneRigidbody.velocity = Vector3.zero;
-        if (chargePoint.VirtualCamera != null)
-        {
-            // Find the Virtual Camera
-            vCam = chargePoint.VirtualCamera;
-            // Activate it
-            vCam.Priority = 11;
-            // Recenter it
-            CinemachinePOV pov = vCam.GetCinemachineComponent<CinemachinePOV>();
-            pov.m_HorizontalRecentering.m_enabled = true;
-            pov.m_HorizontalRecentering.DoRecentering(ref pov.m_HorizontalAxis, 0, 0);
-            pov.m_HorizontalRecentering.m_enabled = false;
-            pov.m_VerticalRecentering.m_enabled = true;
-            pov.m_VerticalRecentering.DoRecentering(ref pov.m_VerticalAxis, 0, 0);
-            pov.m_VerticalRecentering.m_enabled = false;
-            // Disable the Virtual Camera Controller of the drone
-            CameraController.enabled = false;
-        }
-
         droneRigidbody.isKinematic = true;
         finishedConnecting = false;
     }
@@ -214,13 +196,6 @@ public class ChargePointTool : ToolComponent
         droneMovement.EngineOn = true;
         droneMovement.UseGravity = true;
         droneRigidbody.velocity = Vector3.zero;
-        if (closestChargePointHighlight.VirtualCamera != null)
-        {
-            // Deactivate the Virtual Camera
-            vCam.Priority = -1;
-            // Enable the Virtual Camera Controller of the drone
-            CameraController.enabled = true;
-        }
         droneMovement.StopTransition();
         droneRigidbody.isKinematic = false;
         finishedConnecting = false;

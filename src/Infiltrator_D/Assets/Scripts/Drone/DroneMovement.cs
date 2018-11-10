@@ -28,8 +28,6 @@ public class DroneMovement : MonoBehaviour
 
     public bool SkipLerpRotation { get; set; }
 
-    public Transform FirstPersonPosition;
-
     public Vector3 TargetForce
     {
         get
@@ -147,7 +145,7 @@ public class DroneMovement : MonoBehaviour
             droneRigidbody.AddForce(Gravity * SpeedFactor);
         droneRigidbody.AddForce(TargetForce * SpeedFactor);
 
-        FirstPersonPosition.LookAt(FirstPersonPosition.position + Forward);
+        //FirstPersonPosition.LookAt(FirstPersonPosition.position + Forward);
     }
 
     void OnDrawGizmos()

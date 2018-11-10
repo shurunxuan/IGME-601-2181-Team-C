@@ -8,7 +8,6 @@ public class SpecialObjectHighlight : MonoBehaviour
     public Material HighlightMaterial;
     public float OutlineWidth;
     public Color HighlightColor;
-    public CinemachineVirtualCamera VirtualCamera;
 
     public bool LookedAt
     {
