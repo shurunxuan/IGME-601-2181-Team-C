@@ -16,18 +16,22 @@ public class DecoyTool : ToolComponent {
     // The TrajectoryIndicatior for this tools trajectory
     private TrajectoryIndicator indicator;
 
+    // The rigidbody of the drone, used to create relative velocity
+    private Rigidbody rigid;
+
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         indicator = Muzzle.GetComponent<TrajectoryIndicator>();
         if (indicator != null)
         {
             indicator.MuzzleSpeed = MuzzleSpeed;
         }
+        rigid = GetComponentInParent<Rigidbody>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
         
 	}
@@ -37,13 +41,26 @@ public class DecoyTool : ToolComponent {
     {
         GameObject obj = Instantiate(DecoyDevice);
         obj.transform.SetPositionAndRotation(Muzzle.position, Muzzle.rotation);
-        Rigidbody rigid = obj.GetComponent<Rigidbody>();
-        rigid.velocity = Muzzle.forward * MuzzleSpeed;
+        Rigidbody objRigid = obj.GetComponent<Rigidbody>();
+        objRigid.velocity = rigid.velocity + (Muzzle.forward * MuzzleSpeed);
     }
 
-    // For the camera tool, cancel just resets the camera to third person and fixes its state
+    // This tool does not require anything done on cancel
     public override void Cancel()
     {
         
+    }
+
+    // Indicator should only display when active
+    public override void SetCurrent(bool state)
+    {
+        if(state)
+        {
+            indicator.Appear();
+        }
+        else
+        {
+            indicator.Disappear();
+        }
     }
 }

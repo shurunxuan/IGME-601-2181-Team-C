@@ -27,7 +27,7 @@ public class PositionIndicator : MonoBehaviour {
     private float timer;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         line = GetComponent<LineRenderer>();
         line.loop = true;
         inner = new List<Vector3>();
@@ -39,10 +39,11 @@ public class PositionIndicator : MonoBehaviour {
         }
         line.positionCount = VertexCount;
         line.SetPositions(inner.ToArray());
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        Disappear();
+    }
+
+    // Update is called once per frame
+    void Update () {
         timer = (timer - Time.deltaTime + Period) % Period;
         List<Vector3> positions = new List<Vector3>();
         for (int i = 0; i < VertexCount; i++)
@@ -55,7 +56,10 @@ public class PositionIndicator : MonoBehaviour {
     // Disappear from game
     public void Disappear()
     {
-        line.enabled = false;
+        if (line != null)
+        {
+            line.enabled = false;
+        }
     }
 
     // Appear on a surface

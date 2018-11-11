@@ -2405,13 +2405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyLostPerSecond: 1
   tools:
-  - {fileID: 626963510}
-  - {fileID: 626963507}
   - {fileID: 626963515}
-  buttonBinds:
-  - Tool A
-  - Tool B
-  - Tool C
 --- !u!54 &626963513
 Rigidbody:
   m_ObjectHideFlags: 0

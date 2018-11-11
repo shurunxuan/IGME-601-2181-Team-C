@@ -3,37 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DecoyScript : MonoBehaviour {
+    
+    // Collider for the sound emitted on collision
+    public Collider SoundArea;
+    // The period for which the sound is active after collision
+    public float SoundPeriod;
 
-    // The time period for which the decoy will remain active
-    public float TimeActive;
-
-    // The timer currently in use for cleaning up the decoy
-    // timer is -1 if inactive
+    // The timer that turns off the sound
     private float timer;
 
-	// Use this for initialization
-	void Start () {
-        timer = -1;
-        enabled = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        timer -= Time.deltaTime;
-        if(timer <= 0)
+    // Use this for initialization
+    void Start ()
+    {
+        timer = 0;
+        SoundArea.enabled = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (timer > 0)
         {
-            // Destroy self after timer runs out
-            Destroy(gameObject);
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                SoundArea.enabled = false;
+            }
         }
-	}
+    }
 
     // Becomes active on hit
     private void OnCollisionEnter(Collision collision)
     {
-        if (timer == -1)
-        {
-            timer = TimeActive;
-        }
-        enabled = true;
+        timer = SoundPeriod;
+        SoundArea.enabled = true;
     }
 }

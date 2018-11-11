@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine;
 
 public class ChargePointTool : ToolComponent
 {
@@ -24,6 +23,8 @@ public class ChargePointTool : ToolComponent
 
     // The charge point and it's virtual camera we are currently connected to
     private GameObject connected;
+    public bool Connected { get { return connected != null; } }
+
     private CinemachineVirtualCamera vCam;
 
     // A private bool that denotes whether we have finished plugging in to the connected charge point
@@ -201,7 +202,10 @@ public class ChargePointTool : ToolComponent
         droneMovement.EngineOn = true;
         droneMovement.UseGravity = true;
         // Deactivate the Virtual Camera
-        vCam.Priority = -1;
+        if (vCam != null)
+        {
+            vCam.Priority = -1;
+        }
         // Enable the Virtual Camera Controller of the drone
         CameraController.enabled = true;
 

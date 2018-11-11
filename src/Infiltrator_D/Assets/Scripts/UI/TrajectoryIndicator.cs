@@ -23,12 +23,13 @@ public class TrajectoryIndicator : MonoBehaviour {
     private LineRenderer predictedTrajectory;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         predictedTrajectory = GetComponent<LineRenderer>();
         if(positionIndicator != null)
         {
             positionIndicator.Disappear();
         }
+        Disappear();
     }
 
     // Update is called once per frame
@@ -67,7 +68,36 @@ public class TrajectoryIndicator : MonoBehaviour {
             predictedTrajectory.positionCount = positions.Count;
             predictedTrajectory.SetPositions(positions.ToArray());
         }
-
-
     }
+
+    // Disappear from game
+    public void Disappear()
+    {
+        if (positionIndicator != null)
+        {
+            positionIndicator.Disappear();
+            positionIndicator.enabled = false;
+        }
+        if (predictedTrajectory != null)
+        {
+            predictedTrajectory.enabled = false;
+        }
+        enabled = false;
+    }
+
+    // Appear 
+    public void Appear()
+    {
+        if (positionIndicator != null)
+        {
+            positionIndicator.enabled = true;
+        }
+        if (predictedTrajectory != null)
+        {
+            predictedTrajectory.enabled = true;
+            predictedTrajectory.positionCount = 0;
+        }
+        enabled = true;
+    }
+
 }
