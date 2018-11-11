@@ -9,6 +9,9 @@ public class DecoyScript : MonoBehaviour {
     // The period for which the sound is active after collision
     public float SoundPeriod;
 
+    // The lifespan of the Decoy
+    public float LifeSpan;
+
     // The timer that turns off the sound
     private float timer;
 
@@ -22,6 +25,7 @@ public class DecoyScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        // Check if still making sound
         if (timer > 0)
         {
             timer -= Time.deltaTime;
@@ -29,6 +33,12 @@ public class DecoyScript : MonoBehaviour {
             {
                 SoundArea.enabled = false;
             }
+        }
+        // Check if lifespan is up
+        LifeSpan -= Time.deltaTime;
+        if(LifeSpan <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 

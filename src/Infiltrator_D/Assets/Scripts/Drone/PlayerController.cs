@@ -72,8 +72,8 @@ public class PlayerController : MonoBehaviour
                 if (tools.Count > 0)
                 {
                     tools[selectedTool].Cancel();
+                    tools[selectedTool].SetCurrent(false);
                 }
-                tools[selectedTool].SetCurrent(false);
                 toolSet = false;
             }
         }
@@ -108,6 +108,8 @@ public class PlayerController : MonoBehaviour
             if (tools.Count > 0)
             {
                 tools[selectedTool].Cancel();
+                tools[selectedTool].SetCurrent(false);
+                toolSet = false;
             }
         }
 
@@ -119,6 +121,8 @@ public class PlayerController : MonoBehaviour
             if (tools.Count > 0)
             {
                 tools[selectedTool].Cancel();
+                tools[selectedTool].SetCurrent(false);
+                toolSet = false;
             }
         }
 
