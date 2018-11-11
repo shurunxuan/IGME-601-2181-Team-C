@@ -14,12 +14,19 @@ MonoBehaviour:
   m_Bool_keys:
   - pbGrowSelectionUsingAngle
   - pbGrowSelectionAngleIterative
+  - pbStripProBuilderOnBuild
+  - pbDisableAutoUV2Generation
+  - pbForceConvex
+  - pbMeshesAreAssets
   m_Int_keys:
   - pbDefaultEditLevel
   - pbDefaultSelectionMode
   - pb_GIWorkflowMode
   - pbHandleAlignment
   - pbVertexColorTool
+  - pbDefaultCollider
+  - pbShadowCastingMode
+  - pbDefaultStaticFlags
   m_Float_keys:
   - pbGrowSelectionAngle
   - pbEditorScroll.x
@@ -27,9 +34,10 @@ MonoBehaviour:
   m_String_keys:
   - pb_VertexColorPalette::lastAssignedColorPalette
   m_Color_keys: []
-  m_Material_keys: []
-  m_Bool_values: 0100
-  m_Int_values: 0000000000000000000000000000000000000000
+  m_Material_keys:
+  - pbDefaultMaterial
+  m_Bool_values: 010001000001
+  m_Int_values: 0000000000000000000000000000000000000000020000000200000000000000
   m_Float_values:
   - 42
   - 0
@@ -37,4 +45,5 @@ MonoBehaviour:
   m_String_values:
   - Assets/ProBuilder Data/Default Color Palette.asset
   m_Color_values: []
-  m_Material_values: []
+  m_Material_values:
+  - {fileID: 2100000, guid: f8af10ae2c674e569782e57b09c76a13, type: 2}
