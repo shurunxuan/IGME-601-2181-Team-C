@@ -34,7 +34,7 @@ public class EnemyHearingAbility{
             for (i = 0; i < objectsInRadius.Length; i++) { 
                 if (Getdistance(agentPosition, objectsInRadius[i].transform.position)<=MaxHearDistance)
                 {
-                    Debug.Log("I can hear you!!");
+                    //Debug.Log("I can hear you!!");
                     break;
                 }
               

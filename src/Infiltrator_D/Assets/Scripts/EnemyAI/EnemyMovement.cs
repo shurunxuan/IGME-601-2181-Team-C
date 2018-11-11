@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -53,8 +54,6 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //sight.Look();
-        Debug.Log(targetUpdated);
         //Enemy behaviour can be modified depending upon the current state of enemy.
         switch (State)
         {
@@ -63,7 +62,6 @@ public class EnemyMovement : MonoBehaviour
                 break;
             case EnemyState.PATROL:
                 Agent.isStopped = false;
-              
                 Patrol();
                 break;
             case EnemyState.INVESTIGATE:
@@ -78,7 +76,7 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         //check if player is in sight and update the beaviour
-        if (sight.isPlayerVisible(out target))
+        if (sight.isPlayerVisible(out target) || hearing.Hear(transform.position, out target))
         {
             Alertness += 0.05f;
             if (Vector3.Distance(LastPlayerPostion, target.position) > 2f)
@@ -86,21 +84,10 @@ public class EnemyMovement : MonoBehaviour
                 targetUpdated = true;
                 LastPlayerPostion = target.position;
             }
-            else
-            {
-                //targetUpdated = false;
-            }
-            State = EnemyState.INVESTIGATE;
 
-        }
-        else if (hearing.Hear(transform.position,out target))
-        {
-            Debug.Log("I am coming for you.....");
-            targetUpdated = true;
-            LastPlayerPostion = target.position;
             State = EnemyState.INVESTIGATE;
-
         }
+      
     }
 
     private void Transition()
@@ -113,9 +100,10 @@ public class EnemyMovement : MonoBehaviour
     {
         if (timer == 0)
         {
-            nextPoint = (nextPoint < PatrolPoints.Length - 1) ? nextPoint + 1 : 0;
+            nextPoint = (nextPoint + 1 < PatrolPoints.Length) ? nextPoint + 1 : 0;
             Agent.SetDestination(PatrolPoints[nextPoint]);
-
+            Debug.Log("Next " + nextPoint);
+                
             timer = WaitTime;
         }
         else
@@ -133,19 +121,23 @@ public class EnemyMovement : MonoBehaviour
     //When player is visible to enemy, it will move towards it and investigate.
     private void Investigate()
     {
-        Debug.Log(State);
+        //Debug.Log(State);
         //Make our guard look towards the suspicious thing.
         Vector3 delta = LastPlayerPostion - transform.position;
         delta.y = 0;
         transform.forward = delta;
 
-        //Agent.isStopped = true;
-        /// TO DO: add coroutine will give player enough time to sneak out
-        //Agent.isStopped = false;
-        //Debug.Log(Alertness);
+       
+        timer = sleepTime;
+      
+      
+        StartCoroutine(WaitForTimeCoRoutine());
+     
+        Debug.Log("Waiting ended..");
+     
         if (targetUpdated)
         {
-            Agent.SetDestination(LastPlayerPostion);
+            Agent.SetDestination(LastPlayerPostion);    
         }
         if (timer == 0)
         {
@@ -158,5 +150,13 @@ public class EnemyMovement : MonoBehaviour
             timer--;
         }
 
+    }
+
+    IEnumerator WaitForTimeCoRoutine()
+    {
+        Debug.Log("waiting");
+        yield return new WaitForSeconds(sleepTime);
+        timer = 0;
+        Debug.Log("Moving to next position");
     }
 }
