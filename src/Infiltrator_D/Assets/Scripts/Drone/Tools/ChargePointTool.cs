@@ -136,6 +136,8 @@ public class ChargePointTool : ToolComponent
             Transform root = transform.root;
             Vector3 targetPosition = connected.transform.position - (DroneConnectionPoint.transform.position - root.transform.position);
             root.position = Vector3.Lerp(root.position, targetPosition, 3.75f * Time.fixedDeltaTime);
+            // Ensure minimum movement
+            root.position = Vector3.MoveTowards(root.position, targetPosition, .0001f);
             //root.rotation = Quaternion.RotateTowards(root.rotation, connected.transform.rotation, 15);
 
             // Check if our animation is finished

@@ -69,14 +69,17 @@ public class PlayerController : MonoBehaviour
             cameraTool.Cancel();
             if (toolSet)
             {
-                tools[selectedTool].Cancel();
+                if (tools.Count > 0)
+                {
+                    tools[selectedTool].Cancel();
+                }
                 tools[selectedTool].SetCurrent(false);
                 toolSet = false;
             }
         }
 
         // Allow movement off of charge points
-        if(chargeTool.Connected && !Input.GetButton("ChargeTool") && (Input.GetAxisRaw("Right") != 0 || Input.GetAxisRaw("Forward") != 0 || Input.GetAxisRaw("Up") != 0))
+        if(chargeTool.Connected && !Input.GetButton("ChargeTool") && Input.GetAxisRaw("Up") > 0)
         {
             chargeTool.Cancel();
         }
@@ -102,7 +105,10 @@ public class PlayerController : MonoBehaviour
         {
             cameraTool.TryActivate();
             chargeTool.Cancel();
-            tools[selectedTool].Cancel();
+            if (tools.Count > 0)
+            {
+                tools[selectedTool].Cancel();
+            }
         }
 
         // Charge point tool is a core tool
@@ -110,13 +116,16 @@ public class PlayerController : MonoBehaviour
         {
             chargeTool.TryActivate();
             cameraTool.Cancel();
-            tools[selectedTool].Cancel();
+            if (tools.Count > 0)
+            {
+                tools[selectedTool].Cancel();
+            }
         }
 
         // Use the currently equipped non-core tool
         if (Input.GetButtonDown("UseTool"))
         {
-            if (toolSet)
+            if (toolSet && tools.Count > 0)
             {
                 tools[selectedTool].TryActivate();
                 cameraTool.Cancel();
