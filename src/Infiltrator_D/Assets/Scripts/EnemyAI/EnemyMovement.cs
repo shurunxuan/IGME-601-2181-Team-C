@@ -9,20 +9,21 @@ public class EnemyMovement : MonoBehaviour
     //enemy state enums defines all the possible states enemy can switch to.
     public enum EnemyState
     {
-        TRANSITION = 0, //This is the state used when our guards are jumping from one state to another.
         PATROL = 1,
-        INVESTIGATE = 2
-        
+        INVESTIGATE = 2   
     }
 
     //basic movement parameters
     public NavMeshAgent Agent;
     public Vector3[] PatrolPoints;
     public int Speed;
-    public float WaitTime;
+    public float WaitTime = 250f;
     private float timer = 0f;
     private int nextPoint = -1;
     public EnemyState State = EnemyState.PATROL;
+
+    //Enemy Alertness
+    public float AlertTimer = 10f;
     public float Alertness = 1f;
 
     //Enemy Abilities
@@ -30,7 +31,7 @@ public class EnemyMovement : MonoBehaviour
     private EnemyHearingAbility hearing = null;
 
     //investigation parameters
-    private int sleepTime = 5;
+    private float sleepTime = 5f;
     private Transform target;
    
     //Collision detection parameters
@@ -57,18 +58,13 @@ public class EnemyMovement : MonoBehaviour
         //Enemy behaviour can be modified depending upon the current state of enemy.
         switch (State)
         {
-            case EnemyState.TRANSITION:
-                Transition();
-                break;
             case EnemyState.PATROL:
                 Agent.isStopped = false;
                 Patrol();
                 break;
             case EnemyState.INVESTIGATE:
                 Investigate();
-                //targetUpdated = false;
-                break;
-            
+                break;      
         }
         Debug.DrawLine(transform.position, transform.position + transform.forward * 2f, Color.green);
     }
@@ -83,9 +79,33 @@ public class EnemyMovement : MonoBehaviour
             {
                 targetUpdated = true;
                 LastPlayerPostion = target.position;
+                Debug.Log("Hey..What's that?");
+                timer = (State == EnemyState.PATROL)?0:timer;
+                AlertTimer = 10f;
             }
 
-            State = EnemyState.INVESTIGATE;
+            if (State != EnemyState.INVESTIGATE)
+            {
+                State = EnemyState.INVESTIGATE;
+            }
+        }
+        else // Defines the enemy decisions when player is not visible or in audible range.
+        {
+            if (State != EnemyState.PATROL)
+            {
+                if (AlertTimer <= 0)
+                {
+                    Alertness = 0;
+                    Debug.Log("There's Nothing here!! I am going back to position");
+                    State = EnemyState.PATROL;
+                    nextPoint = -1;
+                    timer = 0;
+                }
+                else
+                {
+                    AlertTimer -= Time.deltaTime;
+                }
+            }
         }
       
     }
@@ -95,7 +115,9 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    //This is the method which handles enemy's patrol between different points.
+    /// <summary>
+    /// This is the method which handles enemy's patrol between different points.
+    /// </summary>
     private void Patrol()
     {
         if (timer == 0)
@@ -117,8 +139,9 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-
-    //When player is visible to enemy, it will move towards it and investigate.
+    /// <summary>
+    /// This method defines the enemy behavior in Investigate state. 
+    /// </summary>
     private void Investigate()
     {
         //Debug.Log(State);
@@ -127,36 +150,31 @@ public class EnemyMovement : MonoBehaviour
         delta.y = 0;
         transform.forward = delta;
 
-       
-        timer = sleepTime;
-      
-      
-        StartCoroutine(WaitForTimeCoRoutine());
-     
-        Debug.Log("Waiting ended..");
-     
-        if (targetUpdated)
+        
+        if (timer <= sleepTime)
         {
-            Agent.SetDestination(LastPlayerPostion);    
+            Agent.isStopped = true;
+            timer += Time.deltaTime;
+            //Debug.Log(timer);
         }
-        if (timer == 0)
+        else
         {
-            timer = WaitTime;
+            Agent.isStopped = false;
+            if (targetUpdated)
+            {
+                timer = 0;
+                Agent.SetDestination(LastPlayerPostion);
+            }
+            if (timer == 0)
+            {
+                Debug.Log("I am going to check it out!!");
+                timer = WaitTime;
+            }
+            else if (Vector3.Distance(transform.position, LastPlayerPostion) <= 2f)
+            {
+                Alertness += 0.05f;
+                timer--;
+            }
         }
-
-        if (Vector3.Distance(transform.position, LastPlayerPostion) <= 2f)
-        {
-            Alertness += 0.05f ;           
-            timer--;
-        }
-
-    }
-
-    IEnumerator WaitForTimeCoRoutine()
-    {
-        Debug.Log("waiting");
-        yield return new WaitForSeconds(sleepTime);
-        timer = 0;
-        Debug.Log("Moving to next position");
     }
 }
