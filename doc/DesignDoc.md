@@ -100,6 +100,7 @@ and if two pieces of info share a name, they will be considered the same.
 * Enemy AI
   * `Enemy Movement`: A component that handles enemy behaviour of Patrol,Investigate and many more.
   * `Enemy Sight`: A component that enables enemy to look around and detect player's presence.
+  * `Enemy Hearing`: A component that enables enemy to listen and detect presence of suspicious things.
 
 * Environment Behaviors
   * `TransformBehavior` A component that listens for calls to its Activate and responds by lerping between two points.
