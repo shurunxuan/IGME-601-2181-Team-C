@@ -108,11 +108,24 @@ Procedure:
 ------------------------
 
 *Decoy Device*:  
- * **UNTESTED**.  
+ * **READY FOR TEST**.  
  
 Notes:  
 
 Procedure:
+1. Open Assets/Scenes/DemoScenes/Sprint3DemoScene.Unity
+2. Use the key: 5 (or r1) to go cycle through equipped tools until their is a red trajectory in front of you
+3. Use the key: 3 to launch a decoy pellet
+4. Observe that the pellet dissapears after time has passed
+5. Observe that pressing 1, 2, or 4 will unequip the decoy tool
+6. Observe that pressing 3 or 5 while no non-core tool is equipped will equip the last one equipped
+7. Navigate to where the guard is
+8. Use a Decoy in front of the guard to distract it
+9. Navigate to the charge point
+10. Use the key: 2 to connect to the charge point
+11. Observe that attempting to move upward off of the charge point (with spacebar) dissengages you from it
+12. Use the key: 2 to connect to the charge point
+13. Observe that pressing 1, 3, or 4 will dissengage from the charge point
 
 ------------------------
 
