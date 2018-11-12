@@ -138,10 +138,12 @@ public class ChargePointTool : ToolComponent
             root.position = Vector3.Lerp(root.position, targetPosition, 3.75f * Time.fixedDeltaTime);
             // Ensure minimum movement
             root.position = Vector3.MoveTowards(root.position, targetPosition, .0001f);
+            droneMovement.RotateTo(connected.transform);
             //root.rotation = Quaternion.RotateTowards(root.rotation, connected.transform.rotation, 15);
 
             // Check if our animation is finished
-            if (root.position == targetPosition)// && root.rotation == connected.transform.rotation)
+            // 1E-5 seems to be too small.
+            if ((root.position - targetPosition).magnitude < 1E-3)// && root.rotation == connected.transform.rotation)
             {
                 // If we are close enough to the charge point, jump the last bit and attempt to hack
                 root.position = targetPosition;
@@ -184,13 +186,6 @@ public class ChargePointTool : ToolComponent
         droneMovement.EngineOn = false;
         droneMovement.UseGravity = false;
         droneRigidbody.velocity = Vector3.zero;
-        // Find the Virtual Camera
-        vCam = chargePoint.gameObject.transform.Find("ChargePointVCam").gameObject.GetComponent<CinemachineVirtualCamera>();
-        // Activate it
-        vCam.Priority = 11;
-        // Disable the Virtual Camera Controller of the drone
-        CameraController.enabled = false;
-
         droneRigidbody.isKinematic = true;
         finishedConnecting = false;
     }
@@ -203,14 +198,8 @@ public class ChargePointTool : ToolComponent
         // Start engine
         droneMovement.EngineOn = true;
         droneMovement.UseGravity = true;
-        // Deactivate the Virtual Camera
-        if (vCam != null)
-        {
-            vCam.Priority = -1;
-        }
-        // Enable the Virtual Camera Controller of the drone
-        CameraController.enabled = true;
-
+        droneRigidbody.velocity = Vector3.zero;
+        droneMovement.StopTransition();
         droneRigidbody.isKinematic = false;
         finishedConnecting = false;
     }
