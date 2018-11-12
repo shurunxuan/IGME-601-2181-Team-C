@@ -83,6 +83,11 @@ Notes:
 
 Procedure:
 
+1. When enemy can't hear or listen anything then it should be in PATROL state.
+2. When it detects something, you should be able to see that in DEBUG console. 
+3.  When detected it should wait for few moments before it actually moves to the destination. This is the time we give our player where he can evade safely. 
+4.  Regarding Audio range: It should not be able to hear anything which is outside the trigger zone and if a object is in trigger zone but the distance between the enemy and audio source is greater than the max we have set up. (Using Decoy object for demoing this).
+5.  When our enemy moves to INVESTIGATE state and moves to the target's position but can't find anything there, then it should go back to patrol in few seconds with alert set to the 0f. Again, you can use DEBUG console view relevant statements.
 ------------------------
 
 *Hacking*:  
