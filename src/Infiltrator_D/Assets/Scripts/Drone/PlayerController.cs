@@ -129,11 +129,11 @@ public class PlayerController : MonoBehaviour
         // Use the currently equipped non-core tool
         if (Input.GetButtonDown("UseTool"))
         {
+            cameraTool.Cancel();
+            chargeTool.Cancel();
             if (toolSet && tools.Count > 0)
             {
                 tools[selectedTool].TryActivate();
-                cameraTool.Cancel();
-                chargeTool.Cancel();
             }
             else
             {
