@@ -87,6 +87,8 @@ public class PlayerController : MonoBehaviour
         // Toggle through equipped non-core tools
         if (Input.GetButtonDown("ToolSelect"))
         {
+            cameraTool.Cancel();
+            chargeTool.Cancel();
             if (toolSet)
             {
                 tools[selectedTool].SetCurrent(false);
