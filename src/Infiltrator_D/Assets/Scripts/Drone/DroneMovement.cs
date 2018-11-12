@@ -13,6 +13,7 @@ public class DroneMovement : MonoBehaviour
     {
         set
         {
+            // The drone will not rotate if the engine is off
             if (EngineOn)
                 forward = value.normalized;
         }
@@ -26,8 +27,6 @@ public class DroneMovement : MonoBehaviour
     public Vector3 Gravity { get; private set; }
 
     public bool SkipLerpRotation { get; set; }
-
-    public Transform FirstPersonPosition;
 
     public Vector3 TargetForce
     {
@@ -49,6 +48,8 @@ public class DroneMovement : MonoBehaviour
 
     private Vector3 targetForce;
 
+    private bool inTransition;
+
     // Use this for initialization
     void Start()
     {
@@ -60,6 +61,8 @@ public class DroneMovement : MonoBehaviour
         propellerBL = transform.Find("PropellerBL").gameObject.GetComponent<PropellerController>();
 
         Gravity = Vector3.down * droneRigidbody.mass;
+
+        inTransition = false;
     }
 
     // Update is called once per frame
@@ -125,20 +128,25 @@ public class DroneMovement : MonoBehaviour
             localUp.x *= TiltFactor;
             localUp.z *= TiltFactor;
         }
-
-        // Tilt
-        Quaternion tiltRotation = Quaternion.FromToRotation(Vector3.up, localUp);
-        // Look Direction
-        Quaternion yawRotation = Quaternion.FromToRotation(Vector3.forward, Forward);
-        // Combine rotation
-        Quaternion rotate = tiltRotation * yawRotation;
-        transform.rotation = SkipLerpRotation ? rotate : Quaternion.Slerp(transform.rotation, rotate, 3.0f * Time.deltaTime);
+        if (!inTransition)
+        {
+            // Tilt
+            Quaternion tiltRotation = Quaternion.FromToRotation(Vector3.up, localUp);
+            // Look Direction
+            Quaternion yawRotation = Quaternion.FromToRotation(Vector3.forward, Forward);
+            yawRotation = Quaternion.Euler(0, yawRotation.eulerAngles.y, 0);
+            // Combine rotation
+            Quaternion rotate = tiltRotation * yawRotation;
+            transform.rotation = SkipLerpRotation
+                ? rotate
+                : Quaternion.Slerp(transform.rotation, rotate, 3.0f * Time.deltaTime);
+        }
 
         if (UseGravity)
             droneRigidbody.AddForce(Gravity * SpeedFactor);
         droneRigidbody.AddForce(TargetForce * SpeedFactor);
 
-        FirstPersonPosition.LookAt(FirstPersonPosition.position + Forward);
+        //FirstPersonPosition.LookAt(FirstPersonPosition.position + Forward);
     }
 
     void OnDrawGizmos()
@@ -153,5 +161,18 @@ public class DroneMovement : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + (Gravity + TargetForce));
+    }
+
+    public void RotateTo(Transform target)
+    {
+        forward = Vector3.Cross(Camera.main.transform.right, Camera.main.transform.up);
+        inTransition = true;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, 5);
+    }
+
+    public void StopTransition()
+    {
+        //transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.up, 0.1f);
+        inTransition = false;
     }
 }

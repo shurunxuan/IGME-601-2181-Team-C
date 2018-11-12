@@ -8,11 +8,16 @@ public class PlayerController : MonoBehaviour
     // Inspector Properties
     public float energyLostPerSecond;
     public List<ToolComponent> tools;
-    public List<string> buttonBinds;
 
     // Component links
     private DroneMovement movement;
     private EnergyComponent energy;
+    private ChargePointTool chargeTool;
+    private CameraTool cameraTool;
+
+    // Tool Selection
+    private int selectedTool;
+    private bool toolSet;
 
     // Use this for initialization
     void Start()
@@ -20,10 +25,20 @@ public class PlayerController : MonoBehaviour
         movement = GetComponent<DroneMovement>();
         energy = GetComponent<EnergyComponent>();
 
+        chargeTool = GetComponentInChildren<ChargePointTool>();
+        chargeTool.Assign(energy);
+
+        cameraTool = GetComponentInChildren<CameraTool>();
+        cameraTool.Assign(energy);
+
+        selectedTool = 0;
+        toolSet = false;
+
         // Link the tools to the energy component
         for (int i = 0; i < tools.Count; i++)
         {
             tools[i].Assign(energy);
+            tools[i].SetCurrent(false);
         }
     }
 
@@ -48,17 +63,87 @@ public class PlayerController : MonoBehaviour
         }
 
         // Tool logic
-        bool cancel = Input.GetButton("Cancel");
-        for (int i = 0; i < tools.Count && i < buttonBinds.Count; i++)
+        if(Input.GetButton("Cancel"))
         {
-            if (cancel)
+            chargeTool.Cancel();
+            cameraTool.Cancel();
+            if (toolSet)
             {
-                tools[i].Cancel();
-            }
-            else if (Input.GetButtonDown(buttonBinds[i]))
-            {
-                tools[i].TryActivate();
+                if (tools.Count > 0)
+                {
+                    tools[selectedTool].Cancel();
+                    tools[selectedTool].SetCurrent(false);
+                }
+                toolSet = false;
             }
         }
+
+        // Allow movement off of charge points
+        if(chargeTool.Connected && !Input.GetButton("ChargeTool") && Input.GetAxisRaw("Up") > 0)
+        {
+            chargeTool.Cancel();
+        }
+
+        // Toggle through equipped non-core tools
+        if (Input.GetButtonDown("ToolSelect"))
+        {
+            cameraTool.Cancel();
+            chargeTool.Cancel();
+            if (toolSet)
+            {
+                tools[selectedTool].SetCurrent(false);
+                selectedTool = (selectedTool + 1) % tools.Count;
+            }
+            else
+            {
+                // If we don't have a tool equipped, set it to the last tool equipped
+                toolSet = true;
+            }
+            tools[selectedTool].SetCurrent(true);
+        }
+
+        // Camera tool is a core tool
+        if (Input.GetButtonDown("CameraTool"))
+        {
+            cameraTool.TryActivate();
+            chargeTool.Cancel();
+            if (tools.Count > 0)
+            {
+                tools[selectedTool].Cancel();
+                tools[selectedTool].SetCurrent(false);
+                toolSet = false;
+            }
+        }
+
+        // Charge point tool is a core tool
+        if (Input.GetButtonDown("ChargeTool"))
+        {
+            chargeTool.TryActivate();
+            cameraTool.Cancel();
+            if (tools.Count > 0)
+            {
+                tools[selectedTool].Cancel();
+                tools[selectedTool].SetCurrent(false);
+                toolSet = false;
+            }
+        }
+
+        // Use the currently equipped non-core tool
+        if (Input.GetButtonDown("UseTool"))
+        {
+            cameraTool.Cancel();
+            chargeTool.Cancel();
+            if (toolSet && tools.Count > 0)
+            {
+                tools[selectedTool].TryActivate();
+            }
+            else
+            {
+                // If no tool is set, set the last tool set
+                toolSet = true;
+                tools[selectedTool].SetCurrent(true);
+            }
+        }
+        
     }
 }

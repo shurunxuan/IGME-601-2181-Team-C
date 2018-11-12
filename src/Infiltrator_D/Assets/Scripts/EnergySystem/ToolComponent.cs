@@ -4,8 +4,10 @@ using UnityEngine;
 
 public abstract class ToolComponent : MonoBehaviour {
 
-    protected EnergyComponent _energy;
+    // Cost of initially using the tool
     public float InitialEnergyCost;
+    protected EnergyComponent _energy;
+
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +38,7 @@ public abstract class ToolComponent : MonoBehaviour {
 
     // Abstract implementation
     protected abstract void Activate();
+    public virtual void SetCurrent(bool state) { enabled = state; }
     public abstract void Cancel();
     protected bool CanActivate() { return true; }
 }

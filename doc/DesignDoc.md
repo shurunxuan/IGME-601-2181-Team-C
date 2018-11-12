@@ -84,6 +84,7 @@ For more details, see [the full architecture document](architecture.md).
   * `CameraTool`: Activate once to enter camera mode, activate again to attempt to gain visual information
   * `ChargePointTool`: Activate to connect to nearby tagged Chargepoints and recharge energy. If a charge point is hackable,
 you will also hack it for information or an effect.
+  * `DecoyTool`: Equip to display trajectory. Activate to launch a decoy pellet for 10 energy
 
 * Energy: Tools expend energy to function. 
   * ChargePoints: Points the drone can charge at.
