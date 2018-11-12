@@ -32,26 +32,26 @@ public class EnemyHearingAbility{
     /// <param name="agentPosition">Agent's Current position</param>
     /// <param name="target">This is an out parameter which holds target's posiotion.</param>
     /// <returns>Returns True if we are able to hear something else false</returns>
-    public bool  Hear(Vector3 agentPosition,out Transform target)
-    { 
-        //check for collosion
-        Collider[] objectsInRadius = Physics.OverlapSphere(agentPosition, HearingRadius, soundMask);
-        if(objectsInRadius.Length > 0)
+    public bool Hear(Vector3 agentPosition, out Transform target)
+    {
+        //Get objects on the sound layer.
+        GameObject[] soundsources = GameObject.FindGameObjectsWithTag("SoundSource");
+       
+        if (soundsources.Length > 0)
         {
             int i = 0;
 
-            for (i = 0; i < objectsInRadius.Length; i++) { 
-                if (Getdistance(agentPosition, objectsInRadius[i].transform.position)<=MaxHearDistance)
+            for (i = 0; i < soundsources.Length; i++)
+            {
+                if (soundsources[i].activeInHierarchy && Getdistance(agentPosition, soundsources[i].transform.position) <= MaxHearDistance)
                 {
-                    //Debug.Log("I can hear you!!");
                     break;
                 }
-              
                 
             }
-            if (i < objectsInRadius.Length)
+            if (i < soundsources.Length)
             {
-                target = objectsInRadius[i].transform;
+                target = soundsources[i].transform;
             }
             else
             {
@@ -60,6 +60,7 @@ public class EnemyHearingAbility{
 
             return target != null;
         }
+
         target = null;
         return false;
        

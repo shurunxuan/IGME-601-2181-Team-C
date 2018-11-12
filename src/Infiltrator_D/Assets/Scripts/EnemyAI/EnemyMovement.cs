@@ -18,7 +18,7 @@ public class EnemyMovement : MonoBehaviour
     public Vector3[] PatrolPoints;
     public int Speed;
     public float WaitTime = 2f;
-    private float timer = 0f;
+    private float waitTimer = 0f;
     private int nextPoint = -1;
     public EnemyState State = EnemyState.PATROL;
 
@@ -34,6 +34,7 @@ public class EnemyMovement : MonoBehaviour
 
     //investigation parameters
     private float sleepTime = 5f;
+    private float sleepTimer = 0f;
     private Transform target;
    
     //Collision detection parameters
@@ -85,7 +86,7 @@ public class EnemyMovement : MonoBehaviour
                 targetUpdated = true;
                 LastPlayerPostion = target.position;
                 Debug.Log("Hey..What's that?");
-                timer = (State == EnemyState.PATROL)?0:timer;
+                sleepTimer = (State == EnemyState.PATROL)?0:sleepTimer;
                 AlertTimer = 10f;
             }
 
@@ -104,7 +105,7 @@ public class EnemyMovement : MonoBehaviour
                     Debug.Log("There's Nothing here!! I am going back to position");
                     State = EnemyState.PATROL;
                     nextPoint = -1;
-                    timer = 0;
+                    waitTimer = 0;
                 }
                 else
                 {
@@ -126,13 +127,13 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void Patrol()
     {
-        if (timer <= 0)
+        if (waitTimer <= 0)
         {
             nextPoint = (nextPoint + 1 < PatrolPoints.Length) ? nextPoint + 1 : 0;
             Agent.SetDestination(PatrolPoints[nextPoint]);
             Debug.Log("Next " + nextPoint);
                 
-            timer = WaitTime;
+            waitTimer = WaitTime;
         }
         else
         {
@@ -140,8 +141,9 @@ public class EnemyMovement : MonoBehaviour
 
             if (Vector3.Distance(transform.position, PatrolPoints[nextPoint]) < 2f)
             {
-                timer-=Time.deltaTime;
-                Debug.Log(timer);
+                
+                waitTimer-=Time.deltaTime;
+              
             }
         }
     }
@@ -158,30 +160,30 @@ public class EnemyMovement : MonoBehaviour
         transform.forward = delta;
 
         
-        if (timer <= sleepTime && State != EnemyState.INVESTIGATE)
+        if (sleepTimer <= sleepTime )
         {
             Agent.isStopped = true;
-            timer += Time.deltaTime;
-            //Debug.Log(timer);
+            sleepTimer += Time.deltaTime;
+            
         }
         else
         {
-            
             if (targetUpdated)
             {
-                timer = 0;
+                waitTimer = 0;
                 Agent.SetDestination(LastPlayerPostion);
                 Agent.isStopped = false;
-            }
-            if (timer == 0)
-            {
+                targetUpdated = false;
                 Debug.Log("I am going to check it out!!");
-                timer = WaitTime;
+            }
+            if (waitTimer == 0)
+            { 
+                waitTimer = WaitTime;
             }
             else if (Vector3.Distance(transform.position, LastPlayerPostion) <= 2f)
             {
                 Alertness += 0.05f;
-                timer-=Time.deltaTime;
+                waitTimer-=Time.deltaTime;
             }
         }
     }

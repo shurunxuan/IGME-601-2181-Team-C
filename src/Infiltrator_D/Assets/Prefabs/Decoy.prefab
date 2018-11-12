@@ -22,11 +22,11 @@ GameObject:
   - component: {fileID: 33021943329879860}
   - component: {fileID: 114437615092798844}
   - component: {fileID: 23505278464603554}
-  - component: {fileID: 135822428657697730}
   - component: {fileID: 54324614085307220}
-  m_Layer: 9
+  - component: {fileID: 135172568795936216}
+  m_Layer: 0
   m_Name: Decoy
-  m_TagString: Untagged
+  m_TagString: SoundSource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4169369700378794}
   - component: {fileID: 33363744041740158}
-  - component: {fileID: 135061593885191614}
   m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
@@ -150,28 +149,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbac2204e7aeb4f45967f435902202b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundArea: {fileID: 135061593885191614}
+  SoundSource: {fileID: 1358592962585584}
   SoundPeriod: 0
   LifeSpan: 8
---- !u!135 &135061593885191614
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1358592962585584}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135822428657697730
+--- !u!135 &135172568795936216
 SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1216029318937130}
-  m_Material: {fileID: 13400000, guid: 2e88b4a03d1a8c44aa9dfee907282061, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

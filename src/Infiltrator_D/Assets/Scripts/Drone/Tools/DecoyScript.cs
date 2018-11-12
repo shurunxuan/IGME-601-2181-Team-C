@@ -5,7 +5,7 @@ using UnityEngine;
 public class DecoyScript : MonoBehaviour {
     
     // Collider for the sound emitted on collision
-    public Collider SoundArea;
+    public GameObject SoundSource;
     // The period for which the sound is active after collision
     public float SoundPeriod;
 
@@ -19,7 +19,7 @@ public class DecoyScript : MonoBehaviour {
     void Start ()
     {
         timer = 0;
-        SoundArea.enabled = false;
+        SoundSource.SetActive(false);
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class DecoyScript : MonoBehaviour {
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                SoundArea.enabled = false;
+                SoundSource.SetActive(false);
             }
         }
         // Check if lifespan is up
@@ -46,6 +46,6 @@ public class DecoyScript : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         timer = SoundPeriod;
-        SoundArea.enabled = true;
+        SoundSource.SetActive(true);
     }
 }
