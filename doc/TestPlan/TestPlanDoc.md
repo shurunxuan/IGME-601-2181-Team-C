@@ -77,7 +77,7 @@ Procedure:
 
 
 *Enemy Sound Detection*:  
- * **UNTESTED**.  
+ * **PASSED** MD 11/12.  
 
 Notes:  
 
