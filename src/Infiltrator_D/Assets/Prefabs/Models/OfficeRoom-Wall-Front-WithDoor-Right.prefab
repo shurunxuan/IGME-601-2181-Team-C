@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 23615593554380404}
   - component: {fileID: 33850590231677314}
   - component: {fileID: 114201932925751750}
+  - component: {fileID: 64661510909200670}
   m_Layer: 0
   m_Name: OfficeRoom-Wall-Front-WithDoor-Right
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1482061648778472}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 955, y: 15, z: 483.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -83,6 +84,20 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1482061648778472}
+  m_Mesh: {fileID: 4300000, guid: 5fd0c459d140b344a8ce0adff3355aeb, type: 2}
+--- !u!64 &64661510909200670
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1482061648778472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 5fd0c459d140b344a8ce0adff3355aeb, type: 2}
 --- !u!114 &114201932925751750
 MonoBehaviour:
