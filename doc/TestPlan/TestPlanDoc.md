@@ -78,7 +78,8 @@ Procedure:
 
 *Enemy Sound Detection*:  
  * **PASSED** MD 11/12.  
-
+ * **PASSED** VS 11/12.  
+ 
 Notes:  
 
 Procedure:
