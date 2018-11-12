@@ -25,7 +25,9 @@ public class TransformBehavior : EnvironmentBehavior {
     {
         // Since this script will not act until it is activated, we don't need to update it every frame
         enabled = false;
-	}
+        transform.position = StartLocation.position;
+        transform.rotation = StartLocation.rotation;
+    }
 	
 	// Update is called once per frame
 	void Update ()
