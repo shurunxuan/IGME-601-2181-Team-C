@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine;
 
 public class ChargePointTool : ToolComponent
 {
@@ -24,6 +23,8 @@ public class ChargePointTool : ToolComponent
 
     // The charge point and it's virtual camera we are currently connected to
     private GameObject connected;
+    public bool Connected { get { return connected != null; } }
+
     private CinemachineVirtualCamera vCam;
 
     // A private bool that denotes whether we have finished plugging in to the connected charge point
@@ -135,6 +136,8 @@ public class ChargePointTool : ToolComponent
             Transform root = transform.root;
             Vector3 targetPosition = connected.transform.position - (DroneConnectionPoint.transform.position - root.transform.position);
             root.position = Vector3.Lerp(root.position, targetPosition, 3.75f * Time.fixedDeltaTime);
+            // Ensure minimum movement
+            root.position = Vector3.MoveTowards(root.position, targetPosition, .0001f);
             droneMovement.RotateTo(connected.transform);
             //root.rotation = Quaternion.RotateTowards(root.rotation, connected.transform.rotation, 15);
 
