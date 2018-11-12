@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ChargePoint
   - NarrowColumn
+  - SoundSource
   layers:
   - Default
   - TransparentFX
