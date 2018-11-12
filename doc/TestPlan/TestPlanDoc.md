@@ -108,7 +108,8 @@ Procedure:
 ------------------------
 
 *Decoy Device*:  
- * **PASSED** VS 11/12.  
+ * **PASSED** VS 11/12. 
+ * **PASSED** SJ 11/12. 
  
 Notes:  
 
