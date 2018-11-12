@@ -108,7 +108,7 @@ Procedure:
 ------------------------
 
 *Decoy Device*:  
- * **READY FOR TEST**.  
+ * **PASSED** VS 11/12.  
  
 Notes:  
 
