@@ -134,6 +134,7 @@ public class DroneMovement : MonoBehaviour
             Quaternion tiltRotation = Quaternion.FromToRotation(Vector3.up, localUp);
             // Look Direction
             Quaternion yawRotation = Quaternion.FromToRotation(Vector3.forward, Forward);
+            yawRotation = Quaternion.Euler(0, yawRotation.eulerAngles.y, 0);
             // Combine rotation
             Quaternion rotate = tiltRotation * yawRotation;
             transform.rotation = SkipLerpRotation
