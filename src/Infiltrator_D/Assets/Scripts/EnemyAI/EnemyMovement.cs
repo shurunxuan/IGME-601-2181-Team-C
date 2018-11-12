@@ -17,7 +17,7 @@ public class EnemyMovement : MonoBehaviour
     public NavMeshAgent Agent;
     public Vector3[] PatrolPoints;
     public int Speed;
-    public float WaitTime = 250f;
+    public float WaitTime = 2f;
     private float timer = 0f;
     private int nextPoint = -1;
     public EnemyState State = EnemyState.PATROL;
@@ -27,6 +27,8 @@ public class EnemyMovement : MonoBehaviour
     public float Alertness = 1f;
 
     //Enemy Abilities
+    public float DetectionRadius = 7f;
+    public float MaxHearingDistance = 10f;
     private EnemySight sight = null;
     private EnemyHearingAbility hearing = null;
 
@@ -43,10 +45,13 @@ public class EnemyMovement : MonoBehaviour
     public static Vector3 LastPlayerPostion = Vector3.zero;
     private static bool targetUpdated = false;
 
+    /// <summary>
+    /// Sets up all of our basic properties for our enemy.
+    /// </summary>
     void Start()
     {
-        sight = new EnemySight(transform, PlayerMask, ObstacleMask);
-        hearing = new EnemyHearingAbility(Agent,SoundMask);
+        sight = new EnemySight(DetectionRadius, transform, PlayerMask, ObstacleMask);
+        hearing = new EnemyHearingAbility(DetectionRadius,MaxHearingDistance,Agent,SoundMask);
         Agent.speed = Speed;
 
         
@@ -104,6 +109,7 @@ public class EnemyMovement : MonoBehaviour
                 else
                 {
                     AlertTimer -= Time.deltaTime;
+                   
                 }
             }
         }
@@ -120,7 +126,7 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void Patrol()
     {
-        if (timer == 0)
+        if (timer <= 0)
         {
             nextPoint = (nextPoint + 1 < PatrolPoints.Length) ? nextPoint + 1 : 0;
             Agent.SetDestination(PatrolPoints[nextPoint]);
@@ -134,7 +140,8 @@ public class EnemyMovement : MonoBehaviour
 
             if (Vector3.Distance(transform.position, PatrolPoints[nextPoint]) < 2f)
             {
-                timer--;
+                timer-=Time.deltaTime;
+                Debug.Log(timer);
             }
         }
     }
@@ -151,7 +158,7 @@ public class EnemyMovement : MonoBehaviour
         transform.forward = delta;
 
         
-        if (timer <= sleepTime)
+        if (timer <= sleepTime && State != EnemyState.INVESTIGATE)
         {
             Agent.isStopped = true;
             timer += Time.deltaTime;
@@ -159,11 +166,12 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            Agent.isStopped = false;
+            
             if (targetUpdated)
             {
                 timer = 0;
                 Agent.SetDestination(LastPlayerPostion);
+                Agent.isStopped = false;
             }
             if (timer == 0)
             {
@@ -173,7 +181,7 @@ public class EnemyMovement : MonoBehaviour
             else if (Vector3.Distance(transform.position, LastPlayerPostion) <= 2f)
             {
                 Alertness += 0.05f;
-                timer--;
+                timer-=Time.deltaTime;
             }
         }
     }

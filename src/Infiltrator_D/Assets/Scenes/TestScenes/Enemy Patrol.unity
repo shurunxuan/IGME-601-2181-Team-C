@@ -243,7 +243,7 @@ Prefab:
     - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
         type: 2}
       propertyPath: WaitTime
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
         type: 2}
@@ -607,7 +607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &648350184
 BoxCollider:
   m_ObjectHideFlags: 0

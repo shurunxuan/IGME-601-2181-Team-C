@@ -15,9 +15,18 @@ public class EnemySight {
 
     //static varibles
     public static Transform LastPlayerSight;
-    
-    public EnemySight(Transform transform,LayerMask playermask,LayerMask obstaclemask)
+
+
+    /// <summary>
+    /// Constructor to set up the sight component.
+    /// </summary>
+    /// <param name="ViewRadius"> Defines how far our enemy can see.</param>
+    /// <param name="transform">Transform of our agent.</param>
+    /// <param name="playermask">Collision mask for the player.</param>
+    /// <param name="obstaclemask">Collision mask for the obstacles.</param>
+    public EnemySight(float ViewRadius,Transform transform,LayerMask playermask,LayerMask obstaclemask)
     {
+        this.ViewRadius = ViewRadius;
         this.Transform = transform;
         this.playerMask = playermask;
         this.obstacleMask = obstaclemask;
