@@ -52,6 +52,7 @@ public class EnemyHearingAbility{
             if (i < soundsources.Length)
             {
                 target = soundsources[i].transform;
+                Debug.Log("Heard " + target.name);
             }
             else
             {

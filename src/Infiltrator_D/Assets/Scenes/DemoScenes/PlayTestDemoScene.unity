@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3363929}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PointA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-10346
+  m_Name: pb_Mesh-1838
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -614,6 +614,14 @@ Prefab:
     - target: {fileID: 1867774079868164, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
       propertyPath: m_Name
       value: MonitorInfo-Opened
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747898232467718, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867774079868164, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -2623,6 +2631,14 @@ Prefab:
       propertyPath: info
       value: 4th Dimension
       objectReference: {fileID: 0}
+    - target: {fileID: 1545495744373584, guid: 1623e1bc57fe0674192864fe6eb926ec, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1599696339631238, guid: 1623e1bc57fe0674192864fe6eb926ec, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1623e1bc57fe0674192864fe6eb926ec, type: 2}
   m_IsPrefabAsset: 0
@@ -3492,7 +3508,7 @@ GameObject:
   - component: {fileID: 156614261}
   - component: {fileID: 156614260}
   - component: {fileID: 156614259}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3520,7 +3536,7 @@ BoxCollider:
   m_GameObject: {fileID: 156614257}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -3577,7 +3593,7 @@ GameObject:
   - component: {fileID: 158049178}
   - component: {fileID: 158049177}
   - component: {fileID: 158049176}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3605,7 +3621,7 @@ BoxCollider:
   m_GameObject: {fileID: 158049174}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -4343,7 +4359,7 @@ GameObject:
   - component: {fileID: 192513838}
   - component: {fileID: 192513837}
   - component: {fileID: 192513836}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4371,7 +4387,7 @@ BoxCollider:
   m_GameObject: {fileID: 192513834}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -4480,6 +4496,14 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5ac26feadeb6ad048a34c7fcac78e403, type: 2}
+    - target: {fileID: 1747898232467718, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867774079868164, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
@@ -5845,6 +5869,14 @@ Prefab:
       propertyPath: info
       value: Play Time
       objectReference: {fileID: 0}
+    - target: {fileID: 1596719006938410, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689458046045498, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
   m_IsPrefabAsset: 0
@@ -6312,6 +6344,14 @@ Prefab:
     - target: {fileID: 1545495744373584, guid: 1623e1bc57fe0674192864fe6eb926ec, type: 2}
       propertyPath: m_Name
       value: InfoCarrier-WhiteBoard (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545495744373584, guid: 1623e1bc57fe0674192864fe6eb926ec, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1599696339631238, guid: 1623e1bc57fe0674192864fe6eb926ec, type: 2}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1623e1bc57fe0674192864fe6eb926ec, type: 2}
@@ -7952,6 +7992,14 @@ Prefab:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1849061083379418, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548036909376934, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114851644043366666, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
     - {fileID: 114252269008334348, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
@@ -9429,6 +9477,14 @@ Prefab:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1849061083379418, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548036909376934, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114851644043366666, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
     - {fileID: 114252269008334348, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
@@ -9761,7 +9817,7 @@ GameObject:
   - component: {fileID: 445691642}
   - component: {fileID: 445691641}
   - component: {fileID: 445691640}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9789,7 +9845,7 @@ BoxCollider:
   m_GameObject: {fileID: 445691638}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -9933,7 +9989,7 @@ GameObject:
   - component: {fileID: 447667071}
   - component: {fileID: 447667070}
   - component: {fileID: 447667069}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9961,7 +10017,7 @@ BoxCollider:
   m_GameObject: {fileID: 447667067}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -10830,6 +10886,14 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 029dd460f73b30647bd766d62435b9b0, type: 2}
+    - target: {fileID: 1747898232467718, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867774079868164, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
@@ -12328,7 +12392,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh17088
+  m_Name: pb_Mesh13950
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -12568,7 +12632,7 @@ GameObject:
   - component: {fileID: 531376422}
   - component: {fileID: 531376421}
   - component: {fileID: 531376420}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12596,7 +12660,7 @@ BoxCollider:
   m_GameObject: {fileID: 531376418}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -14195,6 +14259,18 @@ Prefab:
       propertyPath: info
       value: Art
       objectReference: {fileID: 0}
+    - target: {fileID: 1167346238033974, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1596719006938410, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689458046045498, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
@@ -14632,7 +14708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 691802532}
   - component: {fileID: 691802533}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PropellerBR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15259,7 +15335,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 705537374}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PointB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15439,7 +15515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 774673113}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Corridor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16065,7 +16141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 798733346}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16096,7 +16172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 805648705}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16534,7 +16610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 843420793}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Room-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16777,7 +16853,7 @@ GameObject:
   - component: {fileID: 855256874}
   - component: {fileID: 855256873}
   - component: {fileID: 855256872}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16805,7 +16881,7 @@ BoxCollider:
   m_GameObject: {fileID: 855256870}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -18667,7 +18743,7 @@ GameObject:
   - component: {fileID: 916461908}
   - component: {fileID: 916461907}
   - component: {fileID: 916461906}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18695,7 +18771,7 @@ BoxCollider:
   m_GameObject: {fileID: 916461904}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -18746,7 +18822,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh17450
+  m_Name: pb_Mesh14332
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -19059,7 +19135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 930706224}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Room-4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19497,7 +19573,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -20723,6 +20799,14 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a2043db05e09e1143bc280591bd9d2a9, type: 2}
+    - target: {fileID: 1747898232467718, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867774079868164, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
@@ -21202,7 +21286,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-10164
+  m_Name: pb_Mesh-1666
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -21752,6 +21836,14 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1747898232467718, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867774079868164, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
@@ -21979,6 +22071,14 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6b3f10c8fc20e724f808a43068a532f9, type: 2}
+    - target: {fileID: 1747898232467718, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867774079868164, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
@@ -23356,7 +23456,7 @@ GameObject:
   - component: {fileID: 1189469069}
   - component: {fileID: 1189469068}
   - component: {fileID: 1189469067}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BoneF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23930,6 +24030,14 @@ Prefab:
       propertyPath: info
       value: 5th Dimension
       objectReference: {fileID: 0}
+    - target: {fileID: 1596719006938410, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689458046045498, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
@@ -24169,7 +24277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1226250354}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ConferenceRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24459,7 +24567,7 @@ GameObject:
   - component: {fileID: 1255971009}
   - component: {fileID: 1255971008}
   - component: {fileID: 1255971007}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24487,7 +24595,7 @@ BoxCollider:
   m_GameObject: {fileID: 1255971005}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -24542,7 +24650,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1259298387}
   - component: {fileID: 1259298388}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PropellerFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25142,7 +25250,7 @@ GameObject:
   - component: {fileID: 1289872742}
   - component: {fileID: 1289872741}
   - component: {fileID: 1289872740}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25170,7 +25278,7 @@ BoxCollider:
   m_GameObject: {fileID: 1289872738}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -25799,7 +25907,7 @@ GameObject:
   - component: {fileID: 1315710282}
   - component: {fileID: 1315710281}
   - component: {fileID: 1315710280}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25827,7 +25935,7 @@ BoxCollider:
   m_GameObject: {fileID: 1315710278}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -28607,6 +28715,18 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1167346238033974, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1596719006938410, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689458046045498, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 114175763254095486, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
@@ -28628,7 +28748,7 @@ GameObject:
   - component: {fileID: 1395536128}
   - component: {fileID: 1395536127}
   - component: {fileID: 1395536126}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28656,7 +28776,7 @@ BoxCollider:
   m_GameObject: {fileID: 1395536124}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -28868,7 +28988,7 @@ GameObject:
   - component: {fileID: 1399332114}
   - component: {fileID: 1399332113}
   - component: {fileID: 1399332112}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28896,7 +29016,7 @@ BoxCollider:
   m_GameObject: {fileID: 1399332110}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -29037,7 +29157,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1406799929}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30487,7 +30607,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1452291251}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Room-3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32006,7 +32126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1465670309}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FirstFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32252,6 +32372,14 @@ Prefab:
       value: Tree (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1055172551617246, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849061083379418, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548036909376934, guid: c39efc4a5e8c33f449db06c704fc8613, type: 2}
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
@@ -32849,7 +32977,7 @@ GameObject:
   - component: {fileID: 1507713350}
   - component: {fileID: 1507713349}
   - component: {fileID: 1507713348}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BoneB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33258,6 +33386,14 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1161007818}
+    - target: {fileID: 1747898232467718, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867774079868164, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
   m_IsPrefabAsset: 0
@@ -34134,7 +34270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1566553443}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ConferenceRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35071,7 +35207,7 @@ GameObject:
   - component: {fileID: 1647011345}
   - component: {fileID: 1647011344}
   - component: {fileID: 1647011343}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MonitorInfo-Closed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35559,7 +35695,7 @@ GameObject:
   - component: {fileID: 1692796004}
   - component: {fileID: 1692796003}
   - component: {fileID: 1692796002}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35587,7 +35723,7 @@ BoxCollider:
   m_GameObject: {fileID: 1692796000}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -35747,7 +35883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1710414161}
   - component: {fileID: 1710414162}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PropellerBL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36973,7 +37109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ba9594c3fa1c743b394a5639441afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Capacity: 100
+  Capacity: 1000
   Infinite: 0
 --- !u!114 &1783698567
 MonoBehaviour:
@@ -37507,7 +37643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1796460864}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OfficeRooms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37870,7 +38006,7 @@ GameObject:
   - component: {fileID: 1818707371}
   - component: {fileID: 1818707370}
   - component: {fileID: 1818707369}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37898,7 +38034,7 @@ BoxCollider:
   m_GameObject: {fileID: 1818707367}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -38601,7 +38737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1875025070}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SecondFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38904,7 +39040,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1898902257}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Room-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42485,6 +42621,14 @@ Prefab:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1596719006938410, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689458046045498, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
   m_IsPrefabAsset: 0
@@ -42737,7 +42881,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4540094315014134, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.056
       objectReference: {fileID: 0}
     - target: {fileID: 4540094315014134, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_LocalPosition.z
@@ -42769,7 +42913,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4540094315014134, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 4540094315014134, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_LocalScale.z
@@ -42788,7 +42932,7 @@ Prefab:
     - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
         type: 2}
       propertyPath: ObstacleMask.m_Bits
-      value: 1024
+      value: 5120
       objectReference: {fileID: 0}
     - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
         type: 2}
@@ -42862,6 +43006,10 @@ Prefab:
     - target: {fileID: 1256659464641644, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_Name
       value: Hallway Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256659464641644, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
@@ -43305,6 +43453,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1636335885864072, guid: 7cf8c376cb61394448b0d85d61161264, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114015501524138026, guid: 7cf8c376cb61394448b0d85d61161264, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 7cf8c376cb61394448b0d85d61161264, type: 2}
@@ -43533,7 +43685,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4540094315014134, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.83
+      value: -3.958
       objectReference: {fileID: 0}
     - target: {fileID: 4540094315014134, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_LocalPosition.z
@@ -43565,7 +43717,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4540094315014134, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 4540094315014134, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_LocalScale.z
@@ -43584,7 +43736,7 @@ Prefab:
     - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
         type: 2}
       propertyPath: ObstacleMask.m_Bits
-      value: 1024
+      value: 5120
       objectReference: {fileID: 0}
     - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
         type: 2}
@@ -43657,7 +43809,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1256659464641644, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
       propertyPath: m_Name
-      value: Hallway Enemy (1)
+      value: Classroom Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
         type: 2}
@@ -43815,7 +43967,7 @@ GameObject:
   - component: {fileID: 2100158310}
   - component: {fileID: 2100158309}
   - component: {fileID: 2100158308}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Blade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43843,7 +43995,7 @@ BoxCollider:
   m_GameObject: {fileID: 2100158306}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -43898,7 +44050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2103406255}
   - component: {fileID: 2103406256}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PropellerFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
