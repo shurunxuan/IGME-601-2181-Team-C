@@ -25,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
     //Enemy Alertness
     public float AlertTimer = 10f;
     public float Alertness = 1f;
+    private Renderer myRenderer;
 
     //Enemy Abilities
     public float DetectionRadius = 7f;
@@ -54,7 +55,7 @@ public class EnemyMovement : MonoBehaviour
         sight = new EnemySight(DetectionRadius, transform, PlayerMask, ObstacleMask);
         hearing = new EnemyHearingAbility(DetectionRadius,MaxHearingDistance,Agent,SoundMask);
         Agent.speed = Speed;
-
+        myRenderer = GetComponent<Renderer>();
         
     }
 
@@ -65,10 +66,12 @@ public class EnemyMovement : MonoBehaviour
         switch (State)
         {
             case EnemyState.PATROL:
+                myRenderer.material.color = Color.green;
                 Agent.isStopped = false;
                 Patrol();
                 break;
             case EnemyState.INVESTIGATE:
+                myRenderer.material.color = Color.yellow;
                 Investigate();
                 break;      
         }
@@ -138,8 +141,9 @@ public class EnemyMovement : MonoBehaviour
         else
         {
 
-
-            if (Vector3.Distance(transform.position, PatrolPoints[nextPoint]) < 2f)
+            Vector3 pos = transform.position;
+            pos.y = PatrolPoints[nextPoint].y;
+            if (Vector3.Distance(pos, PatrolPoints[nextPoint]) < 2f)
             {
                 
                 waitTimer-=Time.deltaTime;
