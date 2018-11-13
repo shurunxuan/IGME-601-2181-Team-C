@@ -623,6 +623,11 @@ Prefab:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114942935335963924, guid: e33e710e002857644a4476c39c0ccb97,
+        type: 2}
+      propertyPath: Reversible
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: e33e710e002857644a4476c39c0ccb97, type: 2}
