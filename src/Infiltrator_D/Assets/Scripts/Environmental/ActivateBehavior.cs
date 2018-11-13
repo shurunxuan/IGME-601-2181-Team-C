@@ -10,6 +10,9 @@ public class ActivateBehavior : EnvironmentBehavior {
     // Object to Activate
     public GameObject Track;
 
+    // If true, can dissapear if activated a second time
+    public bool Reversible;
+
     // Use this for initialization
     void Start ()
     {
@@ -24,7 +27,7 @@ public class ActivateBehavior : EnvironmentBehavior {
 	
     public override void Activate()
     {
-        Activate(true);
+        Activate(Reversible ? !Track.activeSelf : true);
     }
 
     public override void Activate(bool state)
