@@ -7,8 +7,9 @@ public class FirstPersonFollowing : MonoBehaviour {
     public Transform DroneTransform;
 
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+	{
+	    transform.parent = null;
 	}
 	
 	// Update is called once per frame
