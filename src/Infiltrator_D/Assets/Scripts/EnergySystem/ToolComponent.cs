@@ -8,6 +8,8 @@ public abstract class ToolComponent : MonoBehaviour {
     public float InitialEnergyCost;
     protected EnergyComponent _energy;
 
+    // Toggled on allows child classes to negate the energy cost assosiated with the tool
+    protected bool _toggledOn;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +30,7 @@ public abstract class ToolComponent : MonoBehaviour {
     // Player Controller will use this to request activation
     public bool TryActivate()
     {
-        if(CanActivate() && _energy.TryExpend(InitialEnergyCost))
+        if(CanActivate() && (_toggledOn || _energy.TryExpend(InitialEnergyCost)))
         {
             Activate();
             return true;
