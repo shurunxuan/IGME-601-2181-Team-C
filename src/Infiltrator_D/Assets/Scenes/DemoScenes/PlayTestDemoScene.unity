@@ -3486,7 +3486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &153767376
 Transform:
   m_ObjectHideFlags: 0
@@ -36955,7 +36955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1767642946
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -41440,10 +41440,10 @@ MonoBehaviour:
   Agent: {fileID: 1913604813}
   PatrolPoints:
   - {x: 931.2071, y: 0.1, z: 442.1471}
-  - {x: 931.2071, y: 0.1, z: 423.01294}
+  - {x: 931.2071, y: 0.1, z: 420.1942}
   - {x: 945.3964, y: 0.1, z: 396.15405}
   - {x: 988.30475, y: 0.1, z: 395.9856}
-  Speed: 15
+  Speed: 10
   WaitTime: 5
   State: 1
   AlertTimer: 20
@@ -42587,7 +42587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1998891914
 MeshCollider:
   m_ObjectHideFlags: 0

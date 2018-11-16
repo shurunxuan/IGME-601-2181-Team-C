@@ -131,7 +131,7 @@ public class EnemyMovement : MonoBehaviour
     {
         // Update position based on animation movement using navigation surface height
         Vector3 position = GuardAnimator.rootPosition;
-        position.y = Agent.nextPosition.y;
+        //position.y = Agent.nextPosition.y;
         transform.position = position;
     }
 
