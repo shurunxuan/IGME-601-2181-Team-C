@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Threading;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -48,6 +49,8 @@ public class EnemyMovement : MonoBehaviour
     public static Vector3 LastPlayerPostion = Vector3.zero;
     private static bool targetUpdated = false;
 
+    public Animator GuardAnimator;
+
     /// <summary>
     /// Sets up all of our basic properties for our enemy.
     /// </summary>
@@ -67,12 +70,12 @@ public class EnemyMovement : MonoBehaviour
         switch (State)
         {
             case EnemyState.PATROL:
-                myRenderer.material.color = Color.green;
+                //myRenderer.material.color = Color.green;
                 Agent.isStopped = false;
                 Patrol();
                 break;
             case EnemyState.INVESTIGATE:
-                myRenderer.material.color = Color.yellow;
+                //myRenderer.material.color = Color.yellow;
                 Investigate();
                 break;
         }
@@ -82,6 +85,7 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        GuardAnimator.SetFloat("Speed", Agent.velocity.magnitude);
         //check if player is in sight and update the behaviour
         if (sight.isPlayerVisible(out target) || hearing.Hear(transform.position, out target))
         {
@@ -135,6 +139,17 @@ public class EnemyMovement : MonoBehaviour
         if (waitTimer <= 0)
         {
             nextPoint = (nextPoint + 1 < PatrolPoints.Length) ? nextPoint + 1 : 0;
+            Vector3 currentDirection = transform.forward;
+            Vector3 nextDirection = PatrolPoints[nextPoint] - transform.position;
+            float angle = Vector3.Angle(currentDirection, nextDirection);
+            if (angle > 45)
+            {
+                GuardAnimator.SetTrigger("TurnRight");
+            }
+            else if (angle < -45)
+            {
+                GuardAnimator.SetTrigger("TurnLeft");
+            }
             Agent.SetDestination(PatrolPoints[nextPoint]);
             Debug.Log(gameObject.name + ": " + "Heading to waypoint " + (nextPoint + 1));
 
