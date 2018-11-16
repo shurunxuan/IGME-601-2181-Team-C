@@ -198,7 +198,6 @@ public class ChargePointTool : ToolComponent
         // Start engine
         droneMovement.EngineOn = true;
         droneMovement.UseGravity = true;
-        droneRigidbody.velocity = Vector3.zero;
         droneMovement.StopTransition();
         droneRigidbody.isKinematic = false;
         finishedConnecting = false;

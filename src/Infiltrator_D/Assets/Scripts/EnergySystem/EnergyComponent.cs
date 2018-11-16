@@ -7,18 +7,24 @@ public class EnergyComponent : MonoBehaviour {
     // The maximum allotment of energy
     public float Capacity = 100;
 
+    // Unlimited Power
+    public bool Infinite;
+
     // The amount of energy the drone currently has
-    private float _energy;
-    public float CurrentEnergy { get { return _energy; } }
+    private float energy;
+    public float CurrentEnergy { get { return energy; } }
 
 	// Use this for initialization
 	void Start () {
-        _energy = Capacity;
+        energy = Capacity;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(Infinite)
+        {
+            energy = Capacity;
+        }
 	}
 
     /// <summary>
@@ -27,10 +33,10 @@ public class EnergyComponent : MonoBehaviour {
     /// </summary>
     public bool Charge(float amount)
     {
-        _energy += amount;
-        if(_energy > Capacity)
+        energy += amount;
+        if(energy > Capacity)
         {
-            _energy = Capacity;
+            energy = Capacity;
             return true;
         }
         return false;
@@ -41,10 +47,10 @@ public class EnergyComponent : MonoBehaviour {
     /// </summary>
     public void Expend(float amount)
     {
-        _energy -= amount;
-        if(_energy < 0)
+        energy -= amount;
+        if(energy < 0)
         {
-            _energy = 0;
+            energy = 0;
         }
     }
 
@@ -53,9 +59,9 @@ public class EnergyComponent : MonoBehaviour {
     /// </summary>
     public bool TryExpend(float amount)
     {
-        if(_energy >= amount)
+        if(energy >= amount)
         {
-            _energy -= amount;
+            energy -= amount;
             return true;
         }
         return false;

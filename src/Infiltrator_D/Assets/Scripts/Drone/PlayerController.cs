@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        // Deparent to avoid issues
+        transform.parent = null;
+
         movement = GetComponent<DroneMovement>();
         energy = GetComponent<EnergyComponent>();
 

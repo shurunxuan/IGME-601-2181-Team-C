@@ -71,8 +71,9 @@ public class EnemySight {
                 Debug.DrawLine(Transform.position, target.position, Color.red);
                 if (!Physics.Raycast(Transform.position, dirToTarget, distanceToTarget, obstacleMask))
                 {
-                   //Found You
+                    //Found You
                     player = target;
+                    Debug.Log("Saw " + player.name);
                     LastPlayerSight = target;
                     return true;
                 }

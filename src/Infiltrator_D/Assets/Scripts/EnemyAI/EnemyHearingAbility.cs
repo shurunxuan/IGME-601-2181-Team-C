@@ -8,7 +8,7 @@ public class EnemyHearingAbility{
     public float HearingRadius = 7f;
     public float MaxHearDistance = 7f;
 
-    private LayerMask soundMask;
+    //private LayerMask soundMask;
     private NavMeshAgent agent;
 
     /// <summary>
@@ -23,7 +23,7 @@ public class EnemyHearingAbility{
         this.HearingRadius = HearingRadius;
         this.MaxHearDistance = MaxHearDistance;
         this.agent = agent;
-        this.soundMask = soundMask;
+        //this.soundMask = soundMask;
     }
 
     /// <summary>
@@ -52,6 +52,7 @@ public class EnemyHearingAbility{
             if (i < soundsources.Length)
             {
                 target = soundsources[i].transform;
+                Debug.Log("Heard " + target.name);
             }
             else
             {
