@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,7 +11,7 @@ public class EnemyMovement : MonoBehaviour
     public enum EnemyState
     {
         PATROL = 1,
-        INVESTIGATE = 2   
+        INVESTIGATE = 2
     }
 
     //basic movement parameters
@@ -25,6 +26,7 @@ public class EnemyMovement : MonoBehaviour
     //Enemy Alertness
     public float AlertTimer = 10f;
     public float Alertness = 1f;
+    private Renderer myRenderer;
 
     //Enemy Abilities
     public float DetectionRadius = 7f;
@@ -33,10 +35,10 @@ public class EnemyMovement : MonoBehaviour
     private EnemyHearingAbility hearing = null;
 
     //investigation parameters
-    private float sleepTime = 5f;
+    private readonly float sleepTime = 5f;
     private float sleepTimer = 0f;
     private Transform target;
-   
+
     //Collision detection parameters
     public LayerMask PlayerMask;
     public LayerMask ObstacleMask;
@@ -52,10 +54,10 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         sight = new EnemySight(DetectionRadius, transform, PlayerMask, ObstacleMask);
-        hearing = new EnemyHearingAbility(DetectionRadius,MaxHearingDistance,Agent,SoundMask);
+        hearing = new EnemyHearingAbility(DetectionRadius, MaxHearingDistance, Agent, SoundMask);
         Agent.speed = Speed;
+        myRenderer = GetComponent<Renderer>();
 
-        
     }
 
     // Update is called once per frame
@@ -65,19 +67,22 @@ public class EnemyMovement : MonoBehaviour
         switch (State)
         {
             case EnemyState.PATROL:
+                myRenderer.material.color = Color.green;
                 Agent.isStopped = false;
                 Patrol();
                 break;
             case EnemyState.INVESTIGATE:
+                myRenderer.material.color = Color.yellow;
                 Investigate();
-                break;      
+                break;
         }
-        Debug.DrawLine(transform.position, transform.position + transform.forward * 2f, Color.green);
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 20f, Color.green);
+        //Debug.Log(Agent.velocity.magnitude);
     }
 
     void FixedUpdate()
     {
-        //check if player is in sight and update the beaviour
+        //check if player is in sight and update the behaviour
         if (sight.isPlayerVisible(out target) || hearing.Hear(transform.position, out target))
         {
             Alertness += 0.05f;
@@ -85,8 +90,8 @@ public class EnemyMovement : MonoBehaviour
             {
                 targetUpdated = true;
                 LastPlayerPostion = target.position;
-                Debug.Log("Hey..What's that?");
-                sleepTimer = (State == EnemyState.PATROL)?0:sleepTimer;
+                Debug.Log(gameObject.name + ": " + "Target " + target.name + " Found");
+                sleepTimer = (State == EnemyState.PATROL) ? 0 : sleepTimer;
                 AlertTimer = 10f;
             }
 
@@ -102,7 +107,7 @@ public class EnemyMovement : MonoBehaviour
                 if (AlertTimer <= 0)
                 {
                     Alertness = 0;
-                    Debug.Log("There's Nothing here!! I am going back to position");
+                    Debug.Log(gameObject.name + ": " + "Returning to patrol from state " + State);
                     State = EnemyState.PATROL;
                     nextPoint = -1;
                     waitTimer = 0;
@@ -110,11 +115,11 @@ public class EnemyMovement : MonoBehaviour
                 else
                 {
                     AlertTimer -= Time.deltaTime;
-                   
+
                 }
             }
         }
-      
+
     }
 
     private void Transition()
@@ -131,19 +136,20 @@ public class EnemyMovement : MonoBehaviour
         {
             nextPoint = (nextPoint + 1 < PatrolPoints.Length) ? nextPoint + 1 : 0;
             Agent.SetDestination(PatrolPoints[nextPoint]);
-            Debug.Log("Next " + nextPoint);
-                
+            Debug.Log(gameObject.name + ": " + "Heading to waypoint " + (nextPoint + 1));
+
             waitTimer = WaitTime;
         }
         else
         {
 
-
-            if (Vector3.Distance(transform.position, PatrolPoints[nextPoint]) < 2f)
+            Vector3 pos = transform.position;
+            pos.y = PatrolPoints[nextPoint].y;
+            if (Vector3.Distance(pos, PatrolPoints[nextPoint]) < 2f)
             {
-                
-                waitTimer-=Time.deltaTime;
-              
+
+                waitTimer -= Time.deltaTime;
+
             }
         }
     }
@@ -159,12 +165,12 @@ public class EnemyMovement : MonoBehaviour
         delta.y = 0;
         transform.forward = delta;
 
-        
-        if (sleepTimer <= sleepTime )
+
+        if (sleepTimer <= sleepTime)
         {
             Agent.isStopped = true;
             sleepTimer += Time.deltaTime;
-            
+
         }
         else
         {
@@ -174,16 +180,16 @@ public class EnemyMovement : MonoBehaviour
                 Agent.SetDestination(LastPlayerPostion);
                 Agent.isStopped = false;
                 targetUpdated = false;
-                Debug.Log("I am going to check it out!!");
+                Debug.Log(gameObject.name + ": " + "Investigate");
             }
-            if (waitTimer == 0)
-            { 
+            if (Math.Abs(waitTimer) < 0.001f)
+            {
                 waitTimer = WaitTime;
             }
             else if (Vector3.Distance(transform.position, LastPlayerPostion) <= 2f)
             {
                 Alertness += 0.05f;
-                waitTimer-=Time.deltaTime;
+                waitTimer -= Time.deltaTime;
             }
         }
     }
