@@ -31,7 +31,7 @@ public class CamoTool : ToolComponent {
         if (!_toggledOn)
         {
             _toggledOn = true;
-            SetLayers(transform.root, 14);
+            SetLayers(transform.root, 15);
             SetShaderSettings(true);
         }
         else
