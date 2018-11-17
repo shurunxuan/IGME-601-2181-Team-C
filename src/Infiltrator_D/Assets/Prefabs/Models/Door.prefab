@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 33282375489585558}
   - component: {fileID: 64532457264444272}
   m_Layer: 10
-  m_Name: Door-OfficeRoom
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

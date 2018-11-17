@@ -16,32 +16,23 @@ MonoBehaviour:
   - pbDisableAutoUV2Generation
   - pbForceConvex
   - pbMeshesAreAssets
-  - pbGrowSelectionUsingAngle
-  - pbGrowSelectionAngleIterative
   m_Int_keys:
-  - pbHandleAlignment
   - pbDefaultCollider
   - pbShadowCastingMode
   - pbDefaultStaticFlags
-  - pbDefaultEditLevel
-  - pbDefaultSelectionMode
   m_Float_keys:
   - pbEditorScroll.x
   - pbEditorScroll.y
-  - pbGrowSelectionAngle
-  m_String_keys:
-  - pbCurrentMaterialPalette
+  m_String_keys: []
   m_Color_keys: []
   m_Material_keys:
   - pbDefaultMaterial
-  m_Bool_values: 010000010100
-  m_Int_values: 000000000200000002000000000000000400000002000000
+  m_Bool_values: 01000001
+  m_Int_values: 020000000200000000000000
   m_Float_values:
   - 0
   - 0
-  - 42
-  m_String_values:
-  - Assets/ProBuilder Data/Default Material Palette.asset
+  m_String_values: []
   m_Color_values: []
   m_Material_values:
   - {fileID: 2100000, guid: f8af10ae2c674e569782e57b09c76a13, type: 2}

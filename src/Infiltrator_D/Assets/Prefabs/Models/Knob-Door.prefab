@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114776802528159674}
   - component: {fileID: 64631391459210096}
   m_Layer: 0
-  m_Name: Knob
+  m_Name: Knob-Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
