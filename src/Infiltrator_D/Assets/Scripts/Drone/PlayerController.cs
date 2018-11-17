@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
                 {
                     tools[selectedTool].Cancel();
                     tools[selectedTool].SetCurrent(false);
-                    UIDeathTracker.ActiveInScene.Show("You ran out of energy.");
+                    UIDeathTracker.ActiveInScene.Show(UIDeathTracker.DeathTypes.EnergyLoss);
                 }
             }
         }

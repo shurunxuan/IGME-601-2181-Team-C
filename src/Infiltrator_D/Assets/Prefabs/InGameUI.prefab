@@ -195,6 +195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathMessage: {fileID: 114053188593203614}
+  OnDeathMessages:
+  - You ran out of energy.
 --- !u!114 &114254638725479680
 MonoBehaviour:
   m_ObjectHideFlags: 1

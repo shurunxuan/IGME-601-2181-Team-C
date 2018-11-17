@@ -20407,16 +20407,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114771739555894968, guid: 47507741b0a4d274eb950ce172ef9bba,
-        type: 2}
-      propertyPath: energy
-      value: 
-      objectReference: {fileID: 1783698566}
     - target: {fileID: 114835284373391234, guid: 47507741b0a4d274eb950ce172ef9bba,
         type: 2}
       propertyPath: info
       value: 
       objectReference: {fileID: 1783698565}
+    - target: {fileID: 114771739555894968, guid: 47507741b0a4d274eb950ce172ef9bba,
+        type: 2}
+      propertyPath: energy
+      value: 
+      objectReference: {fileID: 1783698566}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47507741b0a4d274eb950ce172ef9bba, type: 2}
   m_IsPrefabAsset: 0
@@ -36883,7 +36883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ba9594c3fa1c743b394a5639441afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Capacity: 5
+  Capacity: 1000
   Infinite: 0
 --- !u!114 &1783698567
 MonoBehaviour:

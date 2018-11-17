@@ -6,8 +6,20 @@ using UnityEngine.UI;
 // This script allows us to declare death and rewrite the death message
 public class UIDeathTracker : MonoBehaviour {
 
+    // Ways to die
+    public enum DeathTypes
+    {
+        EnergyLoss,
+        Shooting
+    }
+
     // The text attributed to the death tracker
     public Text DeathMessage;
+
+    // Messages
+    public List<string> OnDeathMessages;
+
+
 
     // The most recently awoken DeathTracker
     public static UIDeathTracker ActiveInScene { get; private set; }
@@ -24,10 +36,10 @@ public class UIDeathTracker : MonoBehaviour {
     }
 
     // Shows the death message 
-    public void Show(string deathMessage)
+    public void Show(DeathTypes dType)
     {
         gameObject.SetActive(true);
-        DeathMessage.text = deathMessage;
+        DeathMessage.text = OnDeathMessages[(int) dType];
     }
 
     // Hides the death indicator
