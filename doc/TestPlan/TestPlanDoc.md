@@ -142,15 +142,34 @@ Procedure:
 Notes:  
 
 Procedure:
+1. Open Assets/Scenes/DemoScenes/PlayTestDemoScene.unity
+2. Navigate to the first guard
+	Go through the vent
+	Use computer to hack open the door
+	Exit into hallway
+	Turn left
+	Go through first door on the right
+3. Activate Camo tool
+4. Observe the cool shader effects on the drone
+5. Observe an initial energy cost and an increase to the energy loss over time effect
+6. Fly in front of guard
+7. Observe lack of response
+8. Deactivate the Camo tool
+9. Observe that deactivating the tool does not cost energy
+9. Observe immediate response from guard
 
 ------------------------
 
 *Player Can Die*:  
- * **UNTESTED**.  
+ * **READY FOR TEST**.  
  
 Notes:  
 
 Procedure:
+1. Open Assets/Scenes/DemoScenes/PlayTestDemoScene.unity
+2. Waste all of your energy using tools
+3. Observe as the death message appears and the drone falls to the ground
+4. Press backspace to restart the level
 
 ------------------------
 
