@@ -89,7 +89,7 @@ you will also hack it for information or an effect.
 * Energy: Tools expend energy to function. 
   * ChargePoints: Points the drone can charge at.
   * Tools: Tools each have an energy cost.
-  * Drain: Player energy drains constantly over time when the engine is running.
+  * Drain: Player energy drains constantly over time when the engine is running. When energy runs out, the player will die.
 
 * Information System: Scoring system that tracks the player's gathering of information
   * `TopSecretInfo`: An simple component that denotes type and content of information. All information is currently named 
@@ -99,12 +99,15 @@ and if two pieces of info share a name, they will be considered the same.
   * `InfoGather`: A component that records and stores information. It is smart enough to avoid transcribing duplicate info.
   
 * Enemy AI
-  * `Enemy Movement`: A component that handles enemy behaviour of Patrol,Investigate and many more.
+  * `Enemy Movement`: A component that handles enemy behaviour of Patrol, Investigate and many more.
   * `Enemy Sight`: A component that enables enemy to look around and detect player's presence.
   * `Enemy Hearing Ability`: A component that enables enemy detect suspicious things by listening.
 
 * Environment Behaviors
   * `TransformBehavior` A component that listens for calls to its Activate and responds by lerping between two points.
+
+* UI
+  * `UIDeathTracker` A UI component that handles the logic for the death message on the UI.
 
 ## Issues and Risks
 
