@@ -8,18 +8,18 @@ using UnityEngine.UI;
 public class UIInfoTracker : MonoBehaviour {
 
     public InfoGatherer info;
-    private Text _text;
+    private Slider slider;
 
 	// Use this for initialization
 	void Start () {
-        _text = GetComponent<Text>();
+        slider = GetComponent<Slider>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(info != null)
         {
-            _text.text = (int)(info.GetInfoPercentage() * 100) + "%";
+            slider.value = info.GetInfoPercentage();
         }
 	}
 }
