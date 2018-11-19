@@ -19,9 +19,14 @@ public class PlayerController : MonoBehaviour
     private int selectedTool;
     private bool toolSet;
 
+    // Tracks if we died
+    private bool live;
+
     // Use this for initialization
     void Start()
     {
+        live = true;
+
         // Deparent to avoid issues
         transform.parent = null;
 
@@ -63,92 +68,106 @@ public class PlayerController : MonoBehaviour
         if (movement.EngineOn)
         {
             energy.Expend(energyLostPerSecond * Time.deltaTime);
-        }
-
-        // Tool logic
-        if(Input.GetButton("Cancel"))
-        {
-            chargeTool.Cancel();
-            cameraTool.Cancel();
-            if (toolSet)
+            if(energy.CurrentEnergy <= 0)
             {
+                movement.FallToDeath();
+
+                live = false;
                 if (tools.Count > 0)
                 {
                     tools[selectedTool].Cancel();
                     tools[selectedTool].SetCurrent(false);
+                    UIDeathTracker.ActiveInScene.Show(UIDeathTracker.DeathTypes.EnergyLoss);
                 }
-                toolSet = false;
             }
         }
 
-        // Allow movement off of charge points
-        if(chargeTool.Connected && !Input.GetButton("ChargeTool") && Input.GetAxisRaw("Up") > 0)
+        // Tool logic
+        if (live)
         {
-            chargeTool.Cancel();
-        }
+            if (Input.GetButton("Cancel"))
+            {
+                chargeTool.Cancel();
+                cameraTool.Cancel();
+                if (toolSet)
+                {
+                    if (tools.Count > 0)
+                    {
+                        tools[selectedTool].Cancel();
+                        tools[selectedTool].SetCurrent(false);
+                    }
+                    toolSet = false;
+                }
+            }
 
-        // Toggle through equipped non-core tools
-        if (Input.GetButtonDown("ToolSelect"))
-        {
-            cameraTool.Cancel();
-            chargeTool.Cancel();
-            if (toolSet)
+            // Allow movement off of charge points
+            if (chargeTool.Connected && !Input.GetButton("ChargeTool") && Input.GetAxisRaw("Up") > 0)
             {
-                tools[selectedTool].SetCurrent(false);
-                selectedTool = (selectedTool + 1) % tools.Count;
+                chargeTool.Cancel();
             }
-            else
-            {
-                // If we don't have a tool equipped, set it to the last tool equipped
-                toolSet = true;
-            }
-            tools[selectedTool].SetCurrent(true);
-            UIToolTracker.ActiveInScene.Show(selectedTool);
-        }
 
-        // Camera tool is a core tool
-        if (Input.GetButtonDown("CameraTool"))
-        {
-            cameraTool.TryActivate();
-            chargeTool.Cancel();
-            if (tools.Count > 0)
+            // Toggle through equipped non-core tools
+            if (Input.GetButtonDown("ToolSelect"))
             {
-                tools[selectedTool].Cancel();
-                tools[selectedTool].SetCurrent(false);
-                toolSet = false;
-            }
-        }
-
-        // Charge point tool is a core tool
-        if (Input.GetButtonDown("ChargeTool"))
-        {
-            chargeTool.TryActivate();
-            cameraTool.Cancel();
-            if (tools.Count > 0)
-            {
-                tools[selectedTool].Cancel();
-                tools[selectedTool].SetCurrent(false);
-                toolSet = false;
-            }
-        }
-
-        // Use the currently equipped non-core tool
-        if (Input.GetButtonDown("UseTool"))
-        {
-            cameraTool.Cancel();
-            chargeTool.Cancel();
-            if (toolSet && tools.Count > 0)
-            {
-                tools[selectedTool].TryActivate();
-            }
-            else
-            {
-                // If no tool is set, set the last tool set
-                toolSet = true;
+                cameraTool.Cancel();
+                chargeTool.Cancel();
+                if (toolSet)
+                {
+                    tools[selectedTool].SetCurrent(false);
+                    selectedTool = (selectedTool + 1) % tools.Count;
+                }
+                else
+                {
+                    // If we don't have a tool equipped, set it to the last tool equipped
+                    toolSet = true;
+                }
                 tools[selectedTool].SetCurrent(true);
                 UIToolTracker.ActiveInScene.Show(selectedTool);
             }
+
+            // Camera tool is a core tool
+            if (Input.GetButtonDown("CameraTool"))
+            {
+                cameraTool.TryActivate();
+                chargeTool.Cancel();
+                if (tools.Count > 0)
+                {
+                    tools[selectedTool].Cancel();
+                    tools[selectedTool].SetCurrent(false);
+                    toolSet = false;
+                }
+            }
+
+            // Charge point tool is a core tool
+            if (Input.GetButtonDown("ChargeTool"))
+            {
+                chargeTool.TryActivate();
+                cameraTool.Cancel();
+                if (tools.Count > 0)
+                {
+                    tools[selectedTool].Cancel();
+                    tools[selectedTool].SetCurrent(false);
+                    toolSet = false;
+                }
+            }
+
+            // Use the currently equipped non-core tool
+            if (Input.GetButtonDown("UseTool"))
+            {
+                cameraTool.Cancel();
+                chargeTool.Cancel();
+                if (toolSet && tools.Count > 0)
+                {
+                    tools[selectedTool].TryActivate();
+                }
+                else
+                {
+                    // If no tool is set, set the last tool set
+                    toolSet = true;
+                    tools[selectedTool].SetCurrent(true);
+                    UIToolTracker.ActiveInScene.Show(selectedTool);
+                }
+            }
         }
-        
     }
 }
