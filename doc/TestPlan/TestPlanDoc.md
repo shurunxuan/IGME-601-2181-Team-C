@@ -62,11 +62,14 @@ Procedure:
 ------------------------
 
 *Guards 3D Asset*:  
- * **UNTESTED**.  
+ * **READY FOR TEST**.  
 
 Notes:  
 
 Procedure:
+1. Open Assets/Scenes/DemoScenes/PlayTestDemoScene.unity
+2. Go to the big classroom
+3. Observe the enemy behavior
 
 ------------------------
 
