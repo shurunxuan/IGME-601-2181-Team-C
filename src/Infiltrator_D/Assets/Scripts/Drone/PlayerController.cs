@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     // Tool Selection
     private int selectedTool;
     private bool toolSet;
+    public int CurrentTool
+    {
+        get { return toolSet ? selectedTool : -1; }
+    }
 
     // Use this for initialization
     void Start()
@@ -66,7 +70,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Tool logic
-        if(Input.GetButton("Cancel"))
+        if (Input.GetButton("Cancel"))
         {
             chargeTool.Cancel();
             cameraTool.Cancel();
@@ -82,7 +86,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Allow movement off of charge points
-        if(chargeTool.Connected && !Input.GetButton("ChargeTool") && Input.GetAxisRaw("Up") > 0)
+        if (chargeTool.Connected && !Input.GetButton("ChargeTool") && Input.GetAxisRaw("Up") > 0)
         {
             chargeTool.Cancel();
         }
@@ -147,6 +151,6 @@ public class PlayerController : MonoBehaviour
                 tools[selectedTool].SetCurrent(true);
             }
         }
-        
+
     }
 }

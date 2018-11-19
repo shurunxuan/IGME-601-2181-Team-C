@@ -8,12 +8,24 @@ public class CamoTool : ToolComponent {
     public float EnergyCostPerSecond;
 
     // Material connected to the shader
-    public Material DroneMaterial;
+    public Material CloakMaterial;
+
+    // All MeshRenderers of the drone
+    private MeshRenderer[] meshRenderers;
+
+    // The original materials
+    private Material[] originalMaterials;
 
     // Use this for initialization
     void Awake()
     {
-
+        meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        // Backup the original materials
+        originalMaterials = new Material[meshRenderers.Length];
+        for (int i = 0; i < meshRenderers.Length; ++i)
+        {
+            originalMaterials[i] = meshRenderers[i].material;
+        }
     }
 
     // Update is called once per frame
@@ -32,7 +44,7 @@ public class CamoTool : ToolComponent {
         {
             _toggledOn = true;
             SetLayers(transform.root, 15);
-            SetShaderSettings(true);
+            SetCloakMaterial(true);
         }
         else
         {
@@ -45,7 +57,7 @@ public class CamoTool : ToolComponent {
     {
         _toggledOn = false;
         SetLayers(transform.root, 9);
-        SetShaderSettings(false);
+        SetCloakMaterial(false);
     }
 
     // If inactive, cancel the stealth
@@ -68,9 +80,24 @@ public class CamoTool : ToolComponent {
         obj.gameObject.layer = layer;
     }
 
-    // Communicates the current state of the object to the shader
-    private void SetShaderSettings(bool state)
+    // Communicates the current state of the object to the material
+    private void SetCloakMaterial(bool state)
     {
-        // Stub
+        // Set the material and layer
+        for (int i = 0; i < meshRenderers.Length; ++i)
+        {
+            meshRenderers[i].material = state ? CloakMaterial : originalMaterials[i];
+            // Find the Mesh Renderer that is layered with Player
+            if (meshRenderers[i].gameObject.layer == LayerMask.NameToLayer(state ? "Player" : "InvisiblePlayer"))
+            {
+                // Set it to InvisiblePlayer
+                meshRenderers[i].gameObject.layer = LayerMask.NameToLayer(state ? "InvisiblePlayer" : "Player");
+            }
+        }
+    }
+
+    public override string GetName()
+    {
+        return "Camo Tool";
     }
 }
