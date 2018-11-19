@@ -18,7 +18,7 @@ Procedure:
 
 *Refined Camera*:  
  * **PASSED** MD 11/7.  
- * **PASSED** JJ 11/7.  
+ * **PASSED** FJ 11/7.  
 
 Notes: 
 
@@ -144,6 +144,7 @@ Procedure:
 
 *Camouflage*:  
  * **PASSED** MD 11/18.
+ * **PASSED** FJ 11/18.
  
 Notes:  
 
