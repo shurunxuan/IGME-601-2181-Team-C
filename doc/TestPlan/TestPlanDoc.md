@@ -74,7 +74,8 @@ Procedure:
 ------------------------
 
 *Guard States*:  
- * **PASSED** MD 11/19.  
+ * **PASSED** MD 11/19.
+ * **PASSED** SJ 11/19.
 
 Notes:  
 
