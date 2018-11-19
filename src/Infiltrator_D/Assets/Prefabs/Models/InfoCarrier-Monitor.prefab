@@ -54,14 +54,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1747898232467718}
-  m_LocalRotation: {x: -0, y: 0.65940416, z: -0, w: 0.7517887}
-  m_LocalPosition: {x: -21.5, y: 6, z: 48.5}
+  m_LocalRotation: {x: -0, y: 0.3381137, z: -0, w: 0.9411053}
+  m_LocalPosition: {x: 23, y: 6.015625, z: -49.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4779675566099296}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 82.509, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 39.524002, z: 0}
 --- !u!4 &4779675566099296
 Transform:
   m_ObjectHideFlags: 1
@@ -158,7 +158,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1747898232467718}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 2656bd6ac4a0a5842b18b19caec31b17, type: 2}
 --- !u!64 &64522800952618164
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -199,3 +199,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Track: {fileID: 0}
+  Reversible: 0
