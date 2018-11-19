@@ -2207,6 +2207,7 @@ GameObject:
   - component: {fileID: 626963508}
   - component: {fileID: 626963507}
   - component: {fileID: 626963515}
+  - component: {fileID: 626963516}
   m_Layer: 9
   m_Name: Drone
   m_TagString: Player
@@ -2307,6 +2308,7 @@ MonoBehaviour:
   energyLostPerSecond: 1
   tools:
   - {fileID: 626963515}
+  - {fileID: 626963516}
 --- !u!54 &626963513
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2360,6 +2362,20 @@ MonoBehaviour:
   DecoyDevice: {fileID: 1216029318937130, guid: 67e3debbf60bf8444847a9011706ccfa,
     type: 2}
   MuzzleSpeed: 40
+--- !u!114 &626963516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 626963506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f67bac205c11d4e8cbfb86ddccc572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialEnergyCost: 5
+  EnergyCostPerSecond: 10
+  DroneMaterial: {fileID: 0}
 --- !u!43 &644130109
 Mesh:
   m_ObjectHideFlags: 0

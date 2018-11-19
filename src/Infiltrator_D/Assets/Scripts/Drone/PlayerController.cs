@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     // Tool Selection
     private int selectedTool;
     private bool toolSet;
+    public int CurrentTool
+    {
+        get { return toolSet ? selectedTool : -1; }
+    }
 
     // Tracks if we died
     private bool live;
@@ -143,7 +147,7 @@ public class PlayerController : MonoBehaviour
             {
                 chargeTool.TryActivate();
                 cameraTool.Cancel();
-                if (tools.Count > 0)
+                if (tools.Count > 0 && chargeTool.Connected)
                 {
                     tools[selectedTool].Cancel();
                     tools[selectedTool].SetCurrent(false);

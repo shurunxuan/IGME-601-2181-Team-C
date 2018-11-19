@@ -27,8 +27,9 @@ public class UIToolTracker : MonoBehaviour {
         for (int i = 0; i < ToolIcons.Count; i++)
         {
             ToolIcons[i].enabled = false;
+            ToolIcons[i].CrossFadeAlpha(0, FadePeriod, false);
         }
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -44,7 +45,8 @@ public class UIToolTracker : MonoBehaviour {
             ToolIcons[index].CrossFadeAlpha(1, 0, false);
         }
         ToolIcons[index].enabled = true;
-        StopCoroutine(Fade());
+        this.index = index;
+        StopAllCoroutines();
         StartCoroutine(Fade());
     }
 

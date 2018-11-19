@@ -36842,6 +36842,7 @@ GameObject:
   - component: {fileID: 1783698565}
   - component: {fileID: 1783698564}
   - component: {fileID: 1783698563}
+  - component: {fileID: 1783698571}
   m_Layer: 9
   m_Name: Drone
   m_TagString: Player
@@ -36980,6 +36981,7 @@ MonoBehaviour:
   energyLostPerSecond: 1
   tools:
   - {fileID: 1783698563}
+  - {fileID: 1783698571}
 --- !u!54 &1783698570
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -36995,6 +36997,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &1783698571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1783698561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f67bac205c11d4e8cbfb86ddccc572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialEnergyCost: 5
+  EnergyCostPerSecond: 10
+  CloakMaterial: {fileID: 2100000, guid: 6fc3adb1dbd9b16428ef40fa34a1a5a0, type: 2}
 --- !u!43 &1787200996
 Mesh:
   m_ObjectHideFlags: 0

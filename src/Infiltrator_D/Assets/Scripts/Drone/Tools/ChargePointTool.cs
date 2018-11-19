@@ -225,4 +225,9 @@ public class ChargePointTool : ToolComponent
             droneInfoGatherer.AddInfo(hackInfo.info);
         }
     }
+
+    public override string GetName()
+    {
+        return "Charge Point Tool";
+    }
 }
