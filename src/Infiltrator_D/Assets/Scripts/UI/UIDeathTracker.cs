@@ -27,7 +27,7 @@ public class UIDeathTracker : MonoBehaviour {
     // Use this for initialization
     void Awake() {
         ActiveInScene = this;
-        Hide();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
