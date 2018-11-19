@@ -92,4 +92,9 @@ public class CameraTool : ToolComponent {
         }
         return false;
     }
+
+    public override string GetName()
+    {
+        return "Camera Tool";
+    }
 }

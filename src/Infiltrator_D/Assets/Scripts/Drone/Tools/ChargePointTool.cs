@@ -225,4 +225,9 @@ public class ChargePointTool : ToolComponent
             hackDetector.Hack();
         }
     }
+
+    public override string GetName()
+    {
+        return "Charge Point Tool";
+    }
 }
