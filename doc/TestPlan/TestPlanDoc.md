@@ -40,11 +40,14 @@ Procedure:
 ------------------------
 
 *Prototype Level*:  
- * **UNTESTED**.  
+ * **READY FOR TEST**.  
 
 Notes:  
 
 Procedure:
+
+1. Open Assets/Scenes/DemoScenes/PrototypeLevel.Unity
+2. Fly around and check if everything goes well.
 
 ------------------------
 
