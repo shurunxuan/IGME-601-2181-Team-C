@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23505278464603554}
   - component: {fileID: 54324614085307220}
   - component: {fileID: 135172568795936216}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Decoy
   m_TagString: SoundSource
   m_Icon: {fileID: 0}

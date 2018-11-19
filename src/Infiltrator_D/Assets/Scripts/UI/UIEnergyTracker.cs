@@ -8,18 +8,22 @@ using UnityEngine.UI;
 public class UIEnergyTracker : MonoBehaviour {
 
     public EnergyComponent energy;
-    private Text _text;
+    private Slider slider;
 
 	// Use this for initialization
 	void Start () {
-        _text = GetComponent<Text>();
-	}
+        slider = GetComponent<Slider>();
+        if(energy == null)
+        {
+            energy = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<EnergyComponent>();
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		if(energy != null)
         {
-            _text.text = "" + (int)(energy.CurrentEnergy);
+            slider.value = energy.CurrentEnergy / energy.Capacity;
         }
 	}
 }

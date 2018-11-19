@@ -12,10 +12,13 @@ public class EnemyMovement : MonoBehaviour
     public enum EnemyState
     {
         PATROL = 1,
-        INVESTIGATE = 2
+        INVESTIGATE = 2,
+        CHASE=3 // We are merging chase and shoot in same state. If player is visible our guard will shoot him down. If he's running away our guard will chase him.
+
     }
 
     //basic movement parameters
+    [Header("Movement Parameters")]
     public NavMeshAgent Agent;
     public Vector3[] PatrolPoints;
     public int Speed;
@@ -25,22 +28,33 @@ public class EnemyMovement : MonoBehaviour
     public EnemyState State = EnemyState.PATROL;
 
     //Enemy Alertness
+    [Header("Alertness")]
     public float AlertTimer = 10f;
     public float Alertness = 1f;
     private Renderer myRenderer;
 
     //Enemy Abilities
+    [Header("Abilities")]
     public float DetectionRadius = 7f;
     public float MaxHearingDistance = 10f;
     private EnemySight sight = null;
     private EnemyHearingAbility hearing = null;
 
     //investigation parameters
+    [Header("Investigation Parameters")]
     private readonly float sleepTime = 5f;
     private float sleepTimer = 0f;
     private Transform target;
 
+    //shooting parameters
+    [Header("Shooting System")]
+    public GameObject Gun;
+    public ParticleSystem ImpactEffect;
+    public float ImpactForce = 10f;
+    private Time nextShootTime = null;
+
     //Collision detection parameters
+    [Header("Collision Detection Parameters")]
     public LayerMask PlayerMask;
     public LayerMask ObstacleMask;
     public LayerMask SoundMask;
@@ -59,7 +73,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         sight = new EnemySight(DetectionRadius, transform, PlayerMask, ObstacleMask);
-        hearing = new EnemyHearingAbility(DetectionRadius, MaxHearingDistance, Agent, SoundMask);
+        hearing = new EnemyHearingAbility(DetectionRadius, MaxHearingDistance, Agent);
         Agent.speed = Speed;
         Agent.updatePosition = false;
         
@@ -70,17 +84,21 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Alertness:" + Alertness);
         //Enemy behaviour can be modified depending upon the current state of enemy.
         switch (State)
         {
             case EnemyState.PATROL:
-                //myRenderer.material.color = Color.green;
                 Agent.isStopped = false;
                 Patrol();
                 break;
             case EnemyState.INVESTIGATE:
-                //myRenderer.material.color = Color.yellow;
+                Agent.stoppingDistance = 0.5f;
                 Investigate();
+                break;
+            case EnemyState.CHASE:
+                Agent.stoppingDistance = 2f;
+                Chase();
                 break;
         }
         Debug.DrawLine(transform.position, transform.position + transform.forward * 20f, Color.green);
@@ -138,47 +156,52 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         //check if player is in sight and update the behaviour
-        if (sight.isPlayerVisible(out target) || hearing.Hear(transform.position, out target))
+        Debug.Log("Enemy State="+   State);
+        if (State != EnemyState.CHASE)
         {
-            Alertness += 0.05f;
-            if (Vector3.Distance(LastPlayerPostion, target.position) > 2f)
+            if (sight.isPlayerVisible(out target) || hearing.Hear(transform.position, out target))
             {
-                targetUpdated = true;
-                LastPlayerPostion = target.position;
-                Debug.Log(gameObject.name + ": " + "Target " + target.name + " Found");
-                sleepTimer = (State == EnemyState.PATROL) ? 0 : sleepTimer;
-                AlertTimer = 10f;
-            }
-
-            if (State != EnemyState.INVESTIGATE)
-            {
-                State = EnemyState.INVESTIGATE;
-            }
-        }
-        else // Defines the enemy decisions when player is not visible or in audible range.
-        {
-            if (State != EnemyState.PATROL)
-            {
-                if (AlertTimer <= 0)
+                Alertness += 0.5f;
+                if (Alertness >= 50)
                 {
-                    Alertness = 0;
-                    Debug.Log(gameObject.name + ": " + "Returning to patrol from state " + State);
-                    State = EnemyState.PATROL;
-                    nextPoint = -1;
-                    waitTimer = 0;
+                    State = EnemyState.CHASE;
                 }
                 else
                 {
-                    AlertTimer -= Time.deltaTime;
+                    if (Vector3.Distance(LastPlayerPostion, target.position) > 2f)
+                    {
+                        targetUpdated = true;
+                        LastPlayerPostion = target.position;
+                        sleepTimer = (State == EnemyState.PATROL) ? 0 : sleepTimer;
+                        AlertTimer = 10f;
+                    }
 
+                    if (State != EnemyState.INVESTIGATE)
+                    {
+                        State = EnemyState.INVESTIGATE;
+                    }
+                }
+            }
+            else // Defines the enemy decisions when player is not visible or in audible range.
+            {
+                if (State != EnemyState.PATROL)
+                {
+                    if (AlertTimer <= 0)
+                    {
+                        Alertness = 0;
+                        Debug.Log(gameObject.name + ": " + "Returning to patrol from state " + State);
+                        State = EnemyState.PATROL;
+                        nextPoint = -1;
+                        waitTimer = 0;
+                    }
+                    else
+                    {
+                        AlertTimer -= Time.fixedDeltaTime;
+
+                    }
                 }
             }
         }
-
-    }
-
-    private void Transition()
-    {
 
     }
 
@@ -227,11 +250,8 @@ public class EnemyMovement : MonoBehaviour
     private void Investigate()
     {
         //Debug.Log(State);
-        //Make our guard look towards the suspicious thing.
-        Vector3 delta = LastPlayerPostion - transform.position;
-        delta.y = 0;
-        transform.forward = delta;
-
+       
+        LookAt();
 
         if (sleepTimer <= sleepTime)
         {
@@ -255,9 +275,42 @@ public class EnemyMovement : MonoBehaviour
             }
             else if (Vector3.Distance(transform.position, LastPlayerPostion) <= 2f)
             {
-                Alertness += 0.05f;
+                Alertness += 0.5f;
                 waitTimer -= Time.deltaTime;
             }
         }
+    }
+
+    /// <summary>
+    /// Make our enemy to look in the direction of player/sound source.
+    /// </summary>
+    private void LookAt()
+    {
+        Vector3 delta = LastPlayerPostion - transform.position;
+        delta.y = 0;
+        transform.forward = delta;
+    }
+
+    /// <summary>
+    /// This method will handle chase and shooting behavior of the guard.
+    /// </summary>
+    private void Chase()
+    {
+        LookAt();
+        // It will keep chasing player 
+        Agent.SetDestination(target.transform.position);
+
+        if(sight.isPlayerVisible(out target))
+        {
+            Shoot();
+        }
+
+    }
+
+    private void Shoot()
+    {
+        //Creating a stub method for now.
+        Debug.Log("Dead drone!!!!!");
+     
     }
 }
