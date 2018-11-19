@@ -187,7 +187,7 @@ Procedure:
 ------------------------
 
 *Heads Up Display*:  
- * **READY FOR TEST**.  
+ * **PASSED** VS 11/19.  
  
 Notes:  
 
