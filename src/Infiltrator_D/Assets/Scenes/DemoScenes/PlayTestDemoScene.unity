@@ -18562,7 +18562,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4793745169714912, guid: cf82092941339144ca771a7dbe6c992c,
     type: 2}
   m_PrefabInternal: {fileID: 899557964}
-<<<<<<< HEAD
 --- !u!1 &901866234
 GameObject:
   m_ObjectHideFlags: 0
@@ -18651,8 +18650,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 901866234}
   m_CullTransparentMesh: 0
-=======
->>>>>>> master
 --- !u!1 &907395761
 GameObject:
   m_ObjectHideFlags: 0
