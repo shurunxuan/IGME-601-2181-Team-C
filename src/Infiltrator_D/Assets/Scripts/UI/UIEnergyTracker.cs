@@ -13,7 +13,11 @@ public class UIEnergyTracker : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         slider = GetComponent<Slider>();
-	}
+        if(energy == null)
+        {
+            energy = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<EnergyComponent>();
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {

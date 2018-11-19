@@ -213,16 +213,16 @@ public class ChargePointTool : ToolComponent
         }
 
         // Attempt to hack
-        TopSecretInfo hackInfo = connected.GetComponent<TopSecretInfo>();
-        if (hackInfo != null && hackInfo.type == TopSecretInfo.InfoType.Digital)
-        {
-            droneInfoGatherer.AddInfo(hackInfo.info);
-        }
-
         HackableDetector hackDetector = connected.GetComponent<HackableDetector>();
         if (hackDetector != null)
         {
             hackDetector.Hack();
+        }
+
+        TopSecretInfo hackInfo = connected.GetComponent<TopSecretInfo>();
+        if (hackInfo != null && hackInfo.type == TopSecretInfo.InfoType.Digital)
+        {
+            droneInfoGatherer.AddInfo(hackInfo.info);
         }
     }
 }

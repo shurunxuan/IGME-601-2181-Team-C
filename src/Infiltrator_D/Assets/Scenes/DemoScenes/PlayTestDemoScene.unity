@@ -20407,16 +20407,56 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114835284373391234, guid: 47507741b0a4d274eb950ce172ef9bba,
+    - target: {fileID: 224576731023724300, guid: 47507741b0a4d274eb950ce172ef9bba,
         type: 2}
-      propertyPath: info
-      value: 
-      objectReference: {fileID: 1783698565}
-    - target: {fileID: 114771739555894968, guid: 47507741b0a4d274eb950ce172ef9bba,
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224576731023724300, guid: 47507741b0a4d274eb950ce172ef9bba,
         type: 2}
-      propertyPath: energy
-      value: 
-      objectReference: {fileID: 1783698566}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224250221255147502, guid: 47507741b0a4d274eb950ce172ef9bba,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224250221255147502, guid: 47507741b0a4d274eb950ce172ef9bba,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224250221255147502, guid: 47507741b0a4d274eb950ce172ef9bba,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224171602514407754, guid: 47507741b0a4d274eb950ce172ef9bba,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224171602514407754, guid: 47507741b0a4d274eb950ce172ef9bba,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224765110665980084, guid: 47507741b0a4d274eb950ce172ef9bba,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224765110665980084, guid: 47507741b0a4d274eb950ce172ef9bba,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224765110665980084, guid: 47507741b0a4d274eb950ce172ef9bba,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47507741b0a4d274eb950ce172ef9bba, type: 2}
   m_IsPrefabAsset: 0
@@ -23471,7 +23511,7 @@ MonoBehaviour:
   positionIndicator: {fileID: 970112524}
   detectionLayer:
     serializedVersion: 2
-    m_Bits: 7479
+    m_Bits: 7185
 --- !u!1 &1189469065
 GameObject:
   m_ObjectHideFlags: 0
@@ -28753,6 +28793,11 @@ Prefab:
     - target: {fileID: 1689458046045498, guid: ee0504a4d4837c543aae1f218765dd9d, type: 2}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397024880822840, guid: ee0504a4d4837c543aae1f218765dd9d,
+        type: 2}
+      propertyPath: ShowMessage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -36872,6 +36917,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843d2fda6e6b1374c919adbc69764a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NewInfoColor: {r: 0, g: 0.8398378, b: 1, a: 1}
+  RepeatInfoColor: {r: 1, g: 0.6039734, b: 0, a: 1}
+  Prefix: 'Top Secret Info: '
 --- !u!114 &1783698566
 MonoBehaviour:
   m_ObjectHideFlags: 0

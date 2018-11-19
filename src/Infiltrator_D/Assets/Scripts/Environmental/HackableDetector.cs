@@ -6,6 +6,8 @@ public class HackableDetector : EnvironmentDetector {
 
     public string HackMessage = "Hack Succesful.";
 
+    public bool ShowMessage = true;
+
     public Color MessageColor = Color.green;
 
     // Use this for initialization
@@ -21,7 +23,10 @@ public class HackableDetector : EnvironmentDetector {
     // Calls the base Trigger function based on its current state.
     public void Hack()
     {
-        UITextManager.ActiveInScene.Show(HackMessage, MessageColor);
+        if (ShowMessage)
+        {
+            UITextManager.ActiveInScene.Show(HackMessage, MessageColor);
+        }
         Trigger();
     }
 }

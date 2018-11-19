@@ -13,7 +13,11 @@ public class UIInfoTracker : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         slider = GetComponent<Slider>();
-	}
+        if (info == null)
+        {
+            info = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<InfoGatherer>();
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
