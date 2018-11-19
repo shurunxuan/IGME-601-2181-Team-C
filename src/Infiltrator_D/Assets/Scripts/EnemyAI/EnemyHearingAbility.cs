@@ -18,12 +18,11 @@ public class EnemyHearingAbility{
     /// <param name="MaxHearDistance">Max distance our agent can hear from</param>
     /// <param name="agent">Navmesh component of enemy</param>
     /// <param name="soundMask">Layer mask for collision</param>
-    public EnemyHearingAbility(float HearingRadius, float MaxHearDistance, NavMeshAgent agent,LayerMask soundMask)
+    public EnemyHearingAbility(float HearingRadius, float MaxHearDistance, NavMeshAgent agent)
     {
         this.HearingRadius = HearingRadius;
         this.MaxHearDistance = MaxHearDistance;
         this.agent = agent;
-        //this.soundMask = soundMask;
     }
 
     /// <summary>
