@@ -27,7 +27,7 @@ public class UIDeathTracker : MonoBehaviour {
     // Use this for initialization
     void Awake() {
         ActiveInScene = this;
-        Hide();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -40,12 +40,14 @@ public class UIDeathTracker : MonoBehaviour {
     {
         gameObject.SetActive(true);
         DeathMessage.text = OnDeathMessages[(int) dType];
+        UIReticuleController.ActiveInScene.Show(-1);
     }
 
     // Hides the death indicator
     public void Hide()
     {
         gameObject.SetActive(false);
+        UIReticuleController.ActiveInScene.Show(0);
     }
 
 }

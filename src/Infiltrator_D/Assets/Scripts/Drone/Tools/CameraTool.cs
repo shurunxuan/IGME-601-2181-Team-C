@@ -44,10 +44,12 @@ public class CameraTool : ToolComponent {
             case CameraToolState.Inactive:
                 CameraAim.SetFirstPerson(true);
                 State = CameraToolState.Aiming;
+                UIReticuleController.ActiveInScene.Show(1);
                 break;
             case CameraToolState.Aiming:
                 TryCaptureInfo();
-                Cancel();
+                // Cancels after the flash animation
+                StartCoroutine(CancelAfter(UICameraFlash.ActiveInScene.Show()));
                 break;
             default:
                 break;
@@ -62,6 +64,7 @@ public class CameraTool : ToolComponent {
             case CameraToolState.Aiming:
                 CameraAim.SetFirstPerson(false);
                 State = CameraToolState.Inactive;
+                UIReticuleController.ActiveInScene.Show(0);
                 break;
             default:
                 break;
@@ -96,5 +99,12 @@ public class CameraTool : ToolComponent {
     public override string GetName()
     {
         return "Camera Tool";
+    }
+
+    // Cancels after a delay
+    private IEnumerator CancelAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Cancel();
     }
 }

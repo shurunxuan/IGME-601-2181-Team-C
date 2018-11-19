@@ -108,6 +108,12 @@ and if two pieces of info share a name, they will be considered the same.
 
 * UI
   * `UIDeathTracker` A UI component that handles the logic for the death message on the UI.
+  * `UICameraFlash` A UI component that handles the logic for the camera flash.
+  * `UIEnergyTracker` A UI component that handles the logic for the energy bar on the UI.
+  * `UIInfoTracker` A UI component that handles the logic for the info bar on the UI.
+  * `UIReticuleController` A UI component that handles the logic for swapping reticules on the UI.
+  * `UITextManager` A UI component that handles the logic for floating notifications on the UI.
+  * `UIToolTracker` A UI component that handles the logic for the tool icon on the UI.
 
 ## Issues and Risks
 

@@ -243,6 +243,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Events:
   - {fileID: 0}
+  HackMessage: Hack Succesful.
+  ShowMessage: 1
+  MessageColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &114529416859994306
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class InfoGatherer : MonoBehaviour {
 
+    // Colors for info messages
+    public Color NewInfoColor;
+    public Color RepeatInfoColor;
+
+    public string Prefix;
+
     private List<string> info;
 
 	// Use this for initialization
@@ -21,9 +27,11 @@ public class InfoGatherer : MonoBehaviour {
     {
         if (!info.Contains(newInfo))
         {
+            UITextManager.ActiveInScene.Show(Prefix + newInfo, NewInfoColor);
             info.Add(newInfo);
             return true;
         }
+        UITextManager.ActiveInScene.Show(Prefix + newInfo, RepeatInfoColor);
         return false;
     }
 
