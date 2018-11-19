@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
                 toolSet = true;
             }
             tools[selectedTool].SetCurrent(true);
+            UIToolTracker.ActiveInScene.Show(selectedTool);
         }
 
         // Camera tool is a core tool
@@ -145,6 +146,7 @@ public class PlayerController : MonoBehaviour
                 // If no tool is set, set the last tool set
                 toolSet = true;
                 tools[selectedTool].SetCurrent(true);
+                UIToolTracker.ActiveInScene.Show(selectedTool);
             }
         }
         

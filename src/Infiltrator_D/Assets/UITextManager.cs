@@ -23,12 +23,7 @@ public class UITextManager : MonoBehaviour {
     // The number of text components in use
     private int inUse;
 
-    // This is the timer used to fade out text
-    private float timer;
-
     private RectTransform pos;
-
-    private bool fading;
 
     public static UITextManager ActiveInScene;
 
@@ -39,6 +34,7 @@ public class UITextManager : MonoBehaviour {
         foreach(Text obj in text)
         {
             obj.enabled = false;
+            obj.CrossFadeAlpha(0, 0, true);
         }
 
         pos = GetComponent<RectTransform>();
@@ -47,25 +43,7 @@ public class UITextManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(inUse > 0)
-        {
-            timer -= Time.deltaTime;
-            if(timer < FadePeriod)
-            {
-                if(timer < 0)
-                {
-                    timer = SolidPeriod + FadePeriod;
-                    text[(index + inUse - 1) % text.Count].enabled = false;
-                    inUse--;
-                    fading = false;
-                }
-                else if (!fading)
-                {
-                    fading = true;
-                    text[(index + inUse - 1) % text.Count].CrossFadeAlpha(0, FadePeriod, false);
-                }
-            }
-        }
+		
 	}
 
     public void Show(string data, Color col)
@@ -77,10 +55,9 @@ public class UITextManager : MonoBehaviour {
         text[index].CrossFadeAlpha(1, FadePeriod, false);
 
         // Reset timer if it is inactive or we're overflowing
-        if (inUse == 0 || inUse == text.Count)
+        if (inUse == 0)
         {
-            timer = SolidPeriod + FadePeriod;
-            fading = false;
+            StartCoroutine(Fade());
         }
 
         // Increment count unless overflowing
@@ -98,6 +75,19 @@ public class UITextManager : MonoBehaviour {
         {
             text[(index + i) % text.Count].rectTransform.anchoredPosition = Vector2.down * Spread * i;
         }
+    }
+
+    // Logic for fading out the icon
+    private IEnumerator Fade()
+    {
+        do
+        {
+            yield return new WaitForSeconds(SolidPeriod);
+            text[(index + inUse - 1) % text.Count].CrossFadeAlpha(0, FadePeriod, false);
+            yield return new WaitForSeconds(FadePeriod);
+            text[(index + inUse - 1) % text.Count].enabled = false;
+            inUse--;
+        } while (inUse > 0);
     }
 
 }
