@@ -230,9 +230,4 @@ public class ChargePointTool : ToolComponent
     {
         return "Charge Point Tool";
     }
-
-    public override string GetName()
-    {
-        return "Charge Point Tool";
-    }
 }
