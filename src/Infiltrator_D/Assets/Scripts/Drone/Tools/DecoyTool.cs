@@ -63,4 +63,9 @@ public class DecoyTool : ToolComponent {
             indicator.Disappear();
         }
     }
+
+    public override string GetName()
+    {
+        return "Decoy Tool";
+    }
 }

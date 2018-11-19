@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     // Tool Selection
     private int selectedTool;
     private bool toolSet;
+    public int CurrentTool
+    {
+        get { return toolSet ? selectedTool : -1; }
+    }
 
     // Tracks if we died
     private bool live;
@@ -167,6 +171,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
+
     }
 }
