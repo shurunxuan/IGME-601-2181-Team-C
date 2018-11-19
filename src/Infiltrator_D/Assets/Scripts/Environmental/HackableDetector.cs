@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class HackableDetector : EnvironmentDetector {
 
-	// Use this for initialization
-	void Start () {
+    public string HackMessage = "Hack Succesful.";
+
+    public Color MessageColor = Color.green;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -17,6 +21,7 @@ public class HackableDetector : EnvironmentDetector {
     // Calls the base Trigger function based on its current state.
     public void Hack()
     {
+        UITextManager.ActiveInScene.Show(HackMessage, MessageColor);
         Trigger();
     }
 }
