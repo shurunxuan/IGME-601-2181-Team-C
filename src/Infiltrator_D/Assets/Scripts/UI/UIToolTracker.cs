@@ -59,5 +59,4 @@ public class UIToolTracker : MonoBehaviour {
         yield return new WaitForSeconds(FadePeriod);
         ToolIcons[index].enabled = false;
     }
-
 }

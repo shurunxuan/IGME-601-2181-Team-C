@@ -107,5 +107,4 @@ public class CameraTool : ToolComponent {
         yield return new WaitForSeconds(seconds);
         Cancel();
     }
-
 }
