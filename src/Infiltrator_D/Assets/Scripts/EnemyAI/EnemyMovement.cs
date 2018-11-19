@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Threading;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -62,6 +63,10 @@ public class EnemyMovement : MonoBehaviour
     public static Vector3 LastPlayerPostion = Vector3.zero;
     private static bool targetUpdated = false;
 
+    public Animator GuardAnimator;
+
+    private Vector2 smoothDeltaPosition = Vector2.zero;
+    private Vector2 velocity = Vector2.zero;
     /// <summary>
     /// Sets up all of our basic properties for our enemy.
     /// </summary>
@@ -70,6 +75,8 @@ public class EnemyMovement : MonoBehaviour
         sight = new EnemySight(DetectionRadius, transform, PlayerMask, ObstacleMask);
         hearing = new EnemyHearingAbility(DetectionRadius, MaxHearingDistance, Agent);
         Agent.speed = Speed;
+        Agent.updatePosition = false;
+        
         myRenderer = GetComponent<Renderer>();
 
     }
@@ -82,23 +89,68 @@ public class EnemyMovement : MonoBehaviour
         switch (State)
         {
             case EnemyState.PATROL:
-                myRenderer.material.color = Color.green;
                 Agent.isStopped = false;
                 Patrol();
                 break;
             case EnemyState.INVESTIGATE:
                 Agent.stoppingDistance = 0.5f;
-                myRenderer.material.color = Color.yellow;
                 Investigate();
                 break;
             case EnemyState.CHASE:
                 Agent.stoppingDistance = 2f;
-                myRenderer.material.color = Color.grey;
                 Chase();
                 break;
         }
         Debug.DrawLine(transform.position, transform.position + transform.forward * 20f, Color.green);
-        //Debug.Log(Agent.velocity.magnitude);
+
+        Vector3 worldDeltaPosition = Agent.nextPosition - transform.position;
+
+        // Map 'worldDeltaPosition' to local space
+        float dx = Vector3.Dot(transform.right, worldDeltaPosition);
+        float dy = Vector3.Dot(transform.forward, worldDeltaPosition);
+        Vector2 deltaPosition = new Vector2(dx, dy);
+
+        // Low-pass filter the deltaMove
+        float smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
+        smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
+
+        //// Update velocity if time advances
+        if (Time.deltaTime > 1e-5f)
+            velocity = smoothDeltaPosition / Time.deltaTime;
+
+        bool shouldMove = /*Agent.desiredVelocity.magnitude > 4f && */Agent.remainingDistance > 10 * Agent.radius;
+        //if (shouldMove) Debug.Log(Agent.desiredVelocity.magnitude);
+        Agent.updateRotation = shouldMove;
+        GuardAnimator.SetBool("ShouldMove", shouldMove);
+        //Debug.Log(Agent.desiredVelocity.magnitude);
+        if (shouldMove)
+        {
+            GuardAnimator.SetFloat("Speed", Mathf.Lerp(GuardAnimator.GetFloat("Speed"), Agent.desiredVelocity.magnitude, 4 * Time.deltaTime));
+            GuardAnimator.SetFloat("XSpeed",
+                Mathf.Lerp(GuardAnimator.GetFloat("XSpeed"), Vector3.Dot(Agent.desiredVelocity, transform.right),
+                    Time.deltaTime));
+            GuardAnimator.SetFloat("ZSpeed",
+                Mathf.Lerp(GuardAnimator.GetFloat("ZSpeed"), Vector3.Dot(Agent.desiredVelocity, transform.forward),
+                    Time.deltaTime));
+        }
+        else
+        {
+            GuardAnimator.SetFloat("Speed", 0);
+            GuardAnimator.SetFloat("XSpeed", Mathf.Lerp(GuardAnimator.GetFloat("XSpeed"), 0, Time.deltaTime));
+            GuardAnimator.SetFloat("ZSpeed", Mathf.Lerp(GuardAnimator.GetFloat("ZSpeed"), 0, Time.deltaTime));
+        }
+
+        // Pull agent towards character
+        if (worldDeltaPosition.magnitude > Agent.radius)
+            Agent.nextPosition = transform.position + 0.9f * worldDeltaPosition;
+    }
+
+    void OnAnimatorMove()
+    {
+        // Update position based on animation movement using navigation surface height
+        Vector3 position = GuardAnimator.rootPosition;
+        //position.y = Agent.nextPosition.y;
+        transform.position = position;
     }
 
     void FixedUpdate()
@@ -161,6 +213,17 @@ public class EnemyMovement : MonoBehaviour
         if (waitTimer <= 0)
         {
             nextPoint = (nextPoint + 1 < PatrolPoints.Length) ? nextPoint + 1 : 0;
+            Vector3 currentDirection = transform.forward;
+            Vector3 nextDirection = PatrolPoints[nextPoint] - transform.position;
+            float angle = Vector3.Angle(currentDirection, nextDirection);
+            if (angle > 45)
+            {
+                GuardAnimator.SetTrigger("TurnRight");
+            }
+            else if (angle < -45)
+            {
+                GuardAnimator.SetTrigger("TurnLeft");
+            }
             Agent.SetDestination(PatrolPoints[nextPoint]);
             Debug.Log(gameObject.name + ": " + "Heading to waypoint " + (nextPoint + 1));
 
@@ -171,7 +234,8 @@ public class EnemyMovement : MonoBehaviour
 
             Vector3 pos = transform.position;
             pos.y = PatrolPoints[nextPoint].y;
-            if (Vector3.Distance(pos, PatrolPoints[nextPoint]) < 2f)
+            //Debug.Log(Vector3.Distance(pos, PatrolPoints[nextPoint]));
+            if (Vector3.Distance(pos, PatrolPoints[nextPoint]) < 20 * Agent.radius)
             {
 
                 waitTimer -= Time.deltaTime;
