@@ -144,17 +144,12 @@ public class EnemyMovement : MonoBehaviour
                     }
                     else
                     {
-                        AlertTimer -= Time.deltaTime;
+                        AlertTimer -= Time.fixedDeltaTime;
 
                     }
                 }
             }
         }
-
-    }
-
-    private void Transition()
-    {
 
     }
 
@@ -241,7 +236,7 @@ public class EnemyMovement : MonoBehaviour
         // It will keep chasing player 
         Agent.SetDestination(target.transform.position);
 
-        if(Vector3.Distance(target.transform.position,transform.position) <= DetectionRadius)
+        if(sight.isPlayerVisible(out target))
         {
             Shoot();
         }
@@ -250,16 +245,8 @@ public class EnemyMovement : MonoBehaviour
 
     private void Shoot()
     {
-        RaycastHit hit;
-        
-        if(Physics.Raycast(Gun.transform.position,Gun.transform.forward,out hit, DetectionRadius))
-        {
-            Debug.Log("Shooting");
-            if (hit.rigidbody != null)
-            {
-                hit.rigidbody.AddForce(-hit.normal * ImpactForce);
-            }
-        }
-
+        //Creating a stub method for now.
+        Debug.Log("Dead drone!!!!!");
+     
     }
 }
