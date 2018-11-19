@@ -189,6 +189,7 @@ Procedure:
 
 *Heads Up Display*:  
  * **PASSED** VS 11/19.  
+ * **PASSED** FJ 11/19.
  
 Notes:  
 
