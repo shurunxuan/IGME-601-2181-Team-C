@@ -183,10 +183,24 @@ Procedure:
 ------------------------
 
 *Heads Up Display*:  
- * **UNTESTED**.  
+ * **READY FOR TEST**.  
  
 Notes:  
 
 Procedure:
+1. Open Assets/Scenes/DemoScenes/PlayTestDemoScene.unity
+2. Observe the yellow bar that tracks your energy
+3. Observe the blue bar that tracks your info
+4. Connect to the charge point
+5. Observe the hack pop up
+6. Observe the info gained pop up
+7. Disconnect and reconnect from the charger
+8. Observe the different color text for already owned info
+9. Press 3 to equip a tool
+10. Observe the tool equiped icon appearing.
+11. Activate the camera
+12. Observe the reticule changing
+13. Activate the camera again
+14. Observe the camera flash
 
 
