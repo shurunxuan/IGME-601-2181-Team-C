@@ -137,7 +137,7 @@ Procedure:
 ------------------------
 
 *Camouflage*:  
- * **READY FOR TEST**.
+ * **PASSED** MD 11/18.
  
 Notes:  
 
