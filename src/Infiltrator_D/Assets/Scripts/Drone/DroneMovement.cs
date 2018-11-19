@@ -175,4 +175,12 @@ public class DroneMovement : MonoBehaviour
         //transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.up, 0.1f);
         inTransition = false;
     }
+
+    public void FallToDeath()
+    {
+        EngineOn = false;
+        droneRigidbody.constraints = RigidbodyConstraints.None;
+        UseGravity = true;
+        inTransition = true;
+    }
 }
