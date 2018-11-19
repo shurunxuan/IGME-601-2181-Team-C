@@ -62,7 +62,7 @@ Procedure:
 ------------------------
 
 *Guards 3D Asset*:  
- * **READY FOR TEST**.  
+ * **PASSED** MD 11/19.  
 
 Notes:  
 
@@ -74,7 +74,7 @@ Procedure:
 ------------------------
 
 *Guard States*:  
- * **UNTESTED**.  
+ * **PASSED** MD 11/19.  
 
 Notes:  
 
