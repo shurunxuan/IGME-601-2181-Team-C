@@ -72,6 +72,12 @@ Procedure:
 Notes:  
 
 Procedure:
+Testing Scenarios:
+
+1.Use enemy prefab from prefabs folder in the main game or use the enemy patrol scene.
+2.See enemy alertness and state transitions in the debug log as well as enemy prefab's color.
+3.Once the enemy moves to the investigate state, you should still be able to run away. The enemy will come to your position (last seen  position) and look around for some time and then should go back to patrolling.
+4.The enemy state should be changed to chase where he chases you and shoots at you.
 
 ------------------------
 
@@ -164,6 +170,7 @@ Procedure:
 
 *Player Can Die*:  
  * **PASSED** VS 11/18. 
+ * **PASSED** SJ 11/18. 
  
 Notes:  
 
