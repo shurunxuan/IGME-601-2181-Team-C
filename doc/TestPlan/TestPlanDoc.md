@@ -137,7 +137,7 @@ Procedure:
 ------------------------
 
 *Camouflage*:  
- * **UNTESTED**.
+ * **READY FOR TEST**.
  
 Notes:  
 
@@ -145,23 +145,25 @@ Procedure:
 1. Open Assets/Scenes/DemoScenes/PlayTestDemoScene.unity
 2. Navigate to the first guard
 	Go through the vent
-	Use computer to hack open the door
+	Use the computer to hack open the door
 	Exit into hallway
 	Turn left
-	Go through first door on the right
+	Go through the first door on the right
 3. Activate Camo tool
 4. Observe the cool shader effects on the drone
-5. Observe an initial energy cost and an increase to the energy loss over time effect
-6. Fly in front of guard
+5. Observe an initial energy cost and an increase in the energy loss over time effect
+6. Fly in front of the guard
 7. Observe lack of response
 8. Deactivate the Camo tool
 9. Observe that deactivating the tool does not cost energy
-9. Observe immediate response from guard
+10. Observe immediate response from guard
+11. Reactivate the Camo tool
+12. Observe that as soon as the energy runs out, the Camo tool will be deactivated.
 
 ------------------------
 
 *Player Can Die*:  
- * **READY FOR TEST**.  
+ * **PASSED** VS 11/18. 
  
 Notes:  
 
