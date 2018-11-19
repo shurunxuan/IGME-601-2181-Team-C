@@ -40,12 +40,14 @@ public class UIDeathTracker : MonoBehaviour {
     {
         gameObject.SetActive(true);
         DeathMessage.text = OnDeathMessages[(int) dType];
+        UIReticuleController.ActiveInScene.Show(-1);
     }
 
     // Hides the death indicator
     public void Hide()
     {
         gameObject.SetActive(false);
+        UIReticuleController.ActiveInScene.Show(0);
     }
 
 }
