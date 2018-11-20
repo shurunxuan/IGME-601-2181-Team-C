@@ -31,7 +31,7 @@ Procedure:
 ------------------------
 
 *Drone 3D Asset*: 
- * **UNTESTED**.  
+ * **PASSED** VS 11/20.  
 
 Notes:  
 Procedure:
@@ -55,7 +55,7 @@ Procedure:
 ------------------------
 
 *Environment Assets*:  
- * **PASSED**.SJ 11/19  
+ * **PASSED** SJ 11/19  
 
 Notes:  
 
