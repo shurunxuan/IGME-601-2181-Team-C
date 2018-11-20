@@ -32,6 +32,7 @@ Procedure:
 
 *Drone 3D Asset*: 
  * **PASSED** VS 11/20.  
+ * **PASSED** FJ 11/20.  
 
 Notes:  
 Procedure:
