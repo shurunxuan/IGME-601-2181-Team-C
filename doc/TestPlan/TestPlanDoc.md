@@ -34,8 +34,10 @@ Procedure:
  * **UNTESTED**.  
 
 Notes:  
-
 Procedure:
+
+1. Open Assets/Scenes/DemoScenes/Sprint4DemoScene.Unity
+2. Test the objects placed in the atrium and main lab.
 
 ------------------------
 
@@ -58,7 +60,8 @@ Procedure:
 Notes:  
 
 Procedure:
-1. Open Assets/Scenes/DemoScenes/EnvironmentAssetScene.unity
+
+1. Open Assets/Scenes/DemoScenes/Sprint4DemoScene.Unity
 2. Test the objects placed in the atrium and main lab.
 
 ------------------------
