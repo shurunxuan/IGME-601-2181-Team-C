@@ -53,7 +53,7 @@ Procedure:
 ------------------------
 
 *Environment Assets*:  
- * **UNTESTED**.  
+ * **PASSED**.SJ 11/19  
 
 Notes:  
 
