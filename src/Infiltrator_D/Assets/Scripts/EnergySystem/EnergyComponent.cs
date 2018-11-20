@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnergyComponent : MonoBehaviour {
+public class EnergyComponent : MonoBehaviour
+{
 
     // The maximum allotment of energy
     public float Capacity = 100;
@@ -14,18 +15,44 @@ public class EnergyComponent : MonoBehaviour {
     private float energy;
     public float CurrentEnergy { get { return energy; } }
 
-	// Use this for initialization
-	void Start () {
+    private const string cheatCommand = "infinite";
+    private int cheatCommandPtr = 0;
+
+    // Use this for initialization
+    void Start()
+    {
         energy = Capacity;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if(Infinite)
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Infinite)
         {
             energy = Capacity;
         }
-	}
+        
+        // Cheating Command
+        if (Input.anyKeyDown)
+        {
+            string inputString = Input.inputString;
+            if (inputString.Length == 0) return;
+            char key = inputString[0];
+            if (key == cheatCommand.ToLower()[cheatCommandPtr])
+            {
+                cheatCommandPtr++;
+                if (cheatCommandPtr == cheatCommand.Length)
+                {
+                    Infinite = !Infinite;
+                    cheatCommandPtr = 0;
+                }
+            }
+            else
+            {
+                cheatCommandPtr = 0;
+            }
+        }
+    }
 
     /// <summary>
     /// Charges the device by a given amount of energy.
@@ -34,7 +61,7 @@ public class EnergyComponent : MonoBehaviour {
     public bool Charge(float amount)
     {
         energy += amount;
-        if(energy > Capacity)
+        if (energy > Capacity)
         {
             energy = Capacity;
             return true;
@@ -48,7 +75,7 @@ public class EnergyComponent : MonoBehaviour {
     public void Expend(float amount)
     {
         energy -= amount;
-        if(energy < 0)
+        if (energy < 0)
         {
             energy = 0;
         }
@@ -59,7 +86,7 @@ public class EnergyComponent : MonoBehaviour {
     /// </summary>
     public bool TryExpend(float amount)
     {
-        if(energy >= amount)
+        if (energy >= amount)
         {
             energy -= amount;
             return true;

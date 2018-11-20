@@ -819,6 +819,8 @@ GameObject:
   - component: {fileID: 95731879253759344}
   - component: {fileID: 114292458750001748}
   - component: {fileID: 195474613105005378}
+  - component: {fileID: 54965148238583080}
+  - component: {fileID: 136884677311637706}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1145,8 +1147,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1755433821696486}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.787709, y: 0.0000009536743, z: 26.838623}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -73.48016, y: -9.75, z: -72.609985}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4889125144402074}
@@ -2132,6 +2134,21 @@ Transform:
   m_Father: {fileID: 4612913475147334}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54965148238583080
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1755433821696486}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!95 &95731879253759344
 Animator:
   serializedVersion: 3
@@ -2163,17 +2180,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Agent: {fileID: 195474613105005378}
   PatrolPoints:
-  - {x: 74.70112, y: 0.1, z: 114.899666}
-  - {x: 178.0256, y: 0.1, z: 56.906227}
-  - {x: 182.17606, y: 0.1, z: 142.77875}
-  - {x: 74.52904, y: 0.1, z: 35.957985}
-  Speed: 10
+  - {x: 941.77985, y: 0.1, z: 447.2783}
+  - {x: 943.59296, y: 0.1, z: 399.43976}
+  - {x: 989.13947, y: 0.1, z: 397.57755}
+  Speed: 15
   WaitTime: 5
   State: 1
   AlertTimer: 20
   Alertness: 1
   DetectionRadius: 120
   MaxHearingDistance: 50
+  Gun: {fileID: 0}
+  ImpactEffect: {fileID: 0}
+  ImpactForce: 10
   PlayerMask:
     serializedVersion: 2
     m_Bits: 512
@@ -2184,6 +2203,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   GuardAnimator: {fileID: 95731879253759344}
+--- !u!136 &136884677311637706
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1755433821696486}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!137 &137912167669787656
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

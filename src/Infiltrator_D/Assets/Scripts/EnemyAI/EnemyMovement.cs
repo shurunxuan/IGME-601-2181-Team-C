@@ -13,7 +13,7 @@ public class EnemyMovement : MonoBehaviour
     {
         PATROL = 1,
         INVESTIGATE = 2,
-        CHASE=3 // We are merging chase and shoot in same state. If player is visible our guard will shoot him down. If he's running away our guard will chase him.
+        CHASE = 3 // We are merging chase and shoot in same state. If player is visible our guard will shoot him down. If he's running away our guard will chase him.
 
     }
 
@@ -67,6 +67,7 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector2 smoothDeltaPosition = Vector2.zero;
     private Vector2 velocity = Vector2.zero;
+    private bool shouldMove;
     /// <summary>
     /// Sets up all of our basic properties for our enemy.
     /// </summary>
@@ -76,7 +77,7 @@ public class EnemyMovement : MonoBehaviour
         hearing = new EnemyHearingAbility(DetectionRadius, MaxHearingDistance, Agent);
         Agent.speed = Speed;
         Agent.updatePosition = false;
-        
+
         myRenderer = GetComponent<Renderer>();
 
     }
@@ -97,7 +98,7 @@ public class EnemyMovement : MonoBehaviour
                 Investigate();
                 break;
             case EnemyState.CHASE:
-                Agent.stoppingDistance = 2f;
+                Agent.stoppingDistance = 0f;
                 Chase();
                 break;
         }
@@ -118,7 +119,7 @@ public class EnemyMovement : MonoBehaviour
         if (Time.deltaTime > 1e-5f)
             velocity = smoothDeltaPosition / Time.deltaTime;
 
-        bool shouldMove = /*Agent.desiredVelocity.magnitude > 4f && */Agent.remainingDistance > 10 * Agent.radius;
+
         //if (shouldMove) Debug.Log(Agent.desiredVelocity.magnitude);
         Agent.updateRotation = shouldMove;
         GuardAnimator.SetBool("ShouldMove", shouldMove);
@@ -156,14 +157,18 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         //check if player is in sight and update the behaviour
-        Debug.Log("Enemy State="+   State);
+        Debug.Log("Enemy State=" + State);
         if (State != EnemyState.CHASE)
         {
             if (sight.isPlayerVisible(out target) || hearing.Hear(transform.position, out target))
             {
+                
                 Alertness += 0.5f;
-                if (Alertness >= 50)
+                if (Alertness >= 50 && (target != null && target.gameObject.tag == "Player"))
                 {
+                    UIDeathTracker.ActiveInScene.Show(UIDeathTracker.DeathTypes.Shooting);
+                    shouldMove = false;
+                    Agent.isStopped = true;
                     State = EnemyState.CHASE;
                 }
                 else
@@ -228,6 +233,7 @@ public class EnemyMovement : MonoBehaviour
             Debug.Log(gameObject.name + ": " + "Heading to waypoint " + (nextPoint + 1));
 
             waitTimer = WaitTime;
+            shouldMove = true;
         }
         else
         {
@@ -237,7 +243,7 @@ public class EnemyMovement : MonoBehaviour
             //Debug.Log(Vector3.Distance(pos, PatrolPoints[nextPoint]));
             if (Vector3.Distance(pos, PatrolPoints[nextPoint]) < 20 * Agent.radius)
             {
-
+                shouldMove = false;
                 waitTimer -= Time.deltaTime;
 
             }
@@ -250,12 +256,13 @@ public class EnemyMovement : MonoBehaviour
     private void Investigate()
     {
         //Debug.Log(State);
-       
+
         LookAt();
 
         if (sleepTimer <= sleepTime)
         {
             Agent.isStopped = true;
+            shouldMove = false;
             sleepTimer += Time.deltaTime;
 
         }
@@ -266,6 +273,7 @@ public class EnemyMovement : MonoBehaviour
                 waitTimer = 0;
                 Agent.SetDestination(LastPlayerPostion);
                 Agent.isStopped = false;
+                shouldMove = true;
                 targetUpdated = false;
                 Debug.Log(gameObject.name + ": " + "Investigate");
             }
@@ -297,10 +305,14 @@ public class EnemyMovement : MonoBehaviour
     private void Chase()
     {
         LookAt();
+        shouldMove = true;
         // It will keep chasing player 
-        Agent.SetDestination(target.transform.position);
-
-        if(sight.isPlayerVisible(out target))
+        if (target != null)
+        {
+            Agent.SetDestination(target.position);
+        }
+        Debug.LogWarning(shouldMove);
+        if (sight.isPlayerVisible(out target))
         {
             Shoot();
         }
@@ -311,6 +323,6 @@ public class EnemyMovement : MonoBehaviour
     {
         //Creating a stub method for now.
         Debug.Log("Dead drone!!!!!");
-     
+
     }
 }
