@@ -55,7 +55,8 @@ Procedure:
 ------------------------
 
 *Environment Assets*:  
- * **PASSED** SJ 11/19  
+ * **PASSED** SJ 11/19.  
+ * **PASSED** VS 11/20.
 
 Notes:  
 
@@ -67,7 +68,8 @@ Procedure:
 ------------------------
 
 *Guards 3D Asset*:  
- * **PASSED** MD 11/19.  
+ * **PASSED** MD 11/19.
+ * **PASSED** SJ 11/19.
 
 Notes:  
 
