@@ -37,4 +37,8 @@ After Imagine RIT: We will plan for this as the date approaches.
 * Since the game will now be a side project with all members involved in other courses and new projects, team will have to reassess the time that can be devoted to this project. 
 * Efforts and deadlines might be shifted based on the availability of team members so the above schedule will have to be flexible around the final showcase. 
 * Controls still don't feel quite right. They need to.
+
+## Potential Solutions to Minimize Risks
 * Possibility of adding more people.
+* Increasing the sprint size.
+* Willingness to reevaluate the schedule.
