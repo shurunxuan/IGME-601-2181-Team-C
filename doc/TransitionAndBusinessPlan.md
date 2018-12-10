@@ -4,7 +4,7 @@
 Current prototype demonstrates a solid gameplay that is mostly functional. However, most of the functionallity and content is still rough and could use refinement or replacement. Our next steps should be to consider refactoring and changes to exist controls and mechanics while simmultaneously moving forward in areas we have overlooked up until this time.
 
 ## Key Milestones
-| Time         	| Related Work 	| Milestone                                                                                                                                                                                      	|
+| Milestones/Checkpoints    | Related Work 	| Objective                                                                                                                                                                                      	|
 |--------------	|--------------	|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
 | December Mid 	| Gameplay     	| Make a list of current gameplay elements we want to refactor.                                                                                                                                  	|
 | December End 	| Gameplay; UI 	| Refined game loop, game opens to a main menu. Menu can be navigated to start the game. We have a playable mission with some sort of win condition that takes the player out of the level.  	|
@@ -25,6 +25,7 @@ Current prototype demonstrates a solid gameplay that is mostly functional. Howev
 |              	| Level Design 	| At least two levels are polished and playable with objectives that reflect the story.                                                                                                        	|
 |              	| Story        	| Story elements are present in the levels.                                                                                                                                                      	|
 | April        	| Production   	| Get the game ready to be showcased at Imagine RIT.                                                                                                                                             	|
+The milestones have been placed to have about 30-50 man hours of work. Some may seem lighter or heavier, but it is expected that we will get ahead on the easier milestones to mitigate the harder ones. For now, we don't intend on heavily relying on external resources apart from free software and assets.
 
 After Imagine RIT: We will plan for this as the date approaches.
 
