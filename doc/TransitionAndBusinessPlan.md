@@ -25,6 +25,7 @@ Current prototype demonstrates a solid gameplay that is mostly functional. Howev
 |              	| Level Design 	| At least two levels are polished and playable with objectives that reflect the story.                                                                                                        	|
 |              	| Story        	| Story elements are present in the levels.                                                                                                                                                      	|
 | April        	| Production   	| Get the game ready to be showcased at Imagine RIT.                                                                                                                                             	|
+
 The milestones have been placed to have about 30-50 man hours of work. Some may seem lighter or heavier, but it is expected that we will get ahead on the easier milestones to mitigate the harder ones. For now, we don't intend on heavily relying on external resources apart from free software and assets.
 
 After Imagine RIT: We will plan for this as the date approaches.
