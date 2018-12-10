@@ -23,3 +23,6 @@
 
 ## Team Organization and Roles
  Roles were rather fluid at times. Fluid roles worked out well and continued usage of our current roles will probably be sufficient moving forward.
+
+## Retroactive Action Plan Results
+ Our test plan got better. Our Trello usage got more consistant. It is hard to evaluate whether or not our usage of story points is better based on two sprints. We will continue to monitor this area moving forward.
