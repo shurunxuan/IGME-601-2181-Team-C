@@ -37,6 +37,7 @@ public class MenuManager : MonoBehaviour {
     // Tracks the current state
     private MenuState state;
 
+    // Hides all menus and UIs and goes to start menu
     private void Awake()
     {
         Background.SetActive(false);
@@ -50,6 +51,7 @@ public class MenuManager : MonoBehaviour {
         LoadMenu(MenuState.StartMenu);
     }
 
+    // Handles any menu logic that needs to be checked frame by frame
     private void Update()
     {
         if(state == MenuState.StartMenu && (Input.anyKeyDown || Input.GetMouseButton(0)))
@@ -58,16 +60,19 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
+    // Quits the application
     public void Exit()
     {
         Application.Quit();
     }
 
+    // Loads a menu and unloads the current menu
     public void LoadMenu(int state)
     {
         LoadMenu((MenuState) state);
     }
 
+    // Performs logic to exit one menu state and enter another
     public void LoadMenu(MenuState newState)
     {
         // Unload old menus
@@ -92,6 +97,9 @@ public class MenuManager : MonoBehaviour {
                 HeadsUpDisplay.SetActive(false);
                 break;
             case MenuState.StartMenu:
+                // This is the only state that uses Update logic
+                enabled = false;
+                break;
             case MenuState.Off:
                 break;
             default:
@@ -122,6 +130,8 @@ public class MenuManager : MonoBehaviour {
                 break;
             case MenuState.StartMenu:
                 Background.SetActive(true);
+                // This is the only state that uses Update logic
+                enabled = false;
                 break;
             case MenuState.Off:
                 break;
