@@ -221,4 +221,19 @@ Procedure:
 13. Activate the camera again
 14. Observe the camera flash
 
+------------------------
+
+*Main Menu*:
+ 
+Notes:  
+
+Procedure:
+1. Build an executable of the project
+2. Run the executbale
+3. Observe the Title Screen (Temporarily the Sell Sheet)
+4. Press any button
+5. Observe the main menu opening with three buttons
+6. Press a button and observe that the proper response occurs. Some responses may open unfinished menus.
+7. Repeat step 6 for each menu option. If another finished menu prevents you from returning to the main menu without alt-f4ing, file an error under that menu NOT this one. 
+
 
