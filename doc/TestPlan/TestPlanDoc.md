@@ -228,7 +228,7 @@ Procedure:
 Notes:  
 
 Procedure:
-1. Build an executable of the project
+1. Build an executable of the project (Note: The Quit button cannot function in the editor.)
 2. Run the executbale
 3. Observe the Title Screen (Temporarily the Sell Sheet)
 4. Press any button
