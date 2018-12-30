@@ -131,7 +131,7 @@ public class MenuManager : MonoBehaviour {
             case MenuState.StartMenu:
                 Background.SetActive(true);
                 // This is the only state that uses Update logic
-                enabled = false;
+                enabled = true;
                 break;
             case MenuState.Off:
                 break;
