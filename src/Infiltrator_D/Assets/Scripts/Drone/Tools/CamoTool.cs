@@ -5,10 +5,14 @@ using UnityEngine;
 public class CamoTool : ToolComponent {
 
     // Cost of maintaining the cloak
-    public float EnergyCostPerSecond;
+    [SerializeField]
+    public float energyCostPerSecond;
 
-    // Material connected to the shader
-    public Material CloakMaterial;
+    [SerializeField]
+    private float transitionSpeed;
+
+    [SerializeField]
+    private float transitionState = 0;
 
     // All MeshRenderers of the drone
     private MeshRenderer[] meshRenderers;
@@ -17,87 +21,73 @@ public class CamoTool : ToolComponent {
     private Material[] originalMaterials;
 
     // Use this for initialization
-    void Awake()
-    {
+    void Awake() {
         meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
         // Backup the original materials
         originalMaterials = new Material[meshRenderers.Length];
-        for (int i = 0; i < meshRenderers.Length; ++i)
-        {
+        for (int i = 0; i < meshRenderers.Length; ++i) {
             originalMaterials[i] = meshRenderers[i].material;
         }
     }
 
+    private void Update() {
+        float oldState = transitionState;
+        float tDir = _toggledOn ? 1 : -1;
+        transitionState += tDir * transitionSpeed * Time.deltaTime;
+        transitionState = Mathf.Clamp01(transitionState);
+        if (oldState != transitionState) {
+            SetCloakMaterial(transitionState);
+        }
+    }
+
     // Update is called once per frame
-    void FixedUpdate ()
-    {
-        if (_toggledOn && !_energy.TryExpend(EnergyCostPerSecond * Time.fixedDeltaTime))
-        {
+    void FixedUpdate() {
+        if (_toggledOn && !_energy.TryExpend(energyCostPerSecond * Time.fixedDeltaTime)) {
             Cancel();
         }
-	}
+    }
 
     // Go into cloaked mode
-    protected override void Activate()
-    {
-        if (!_toggledOn)
-        {
+    protected override void Activate() {
+        if (!_toggledOn) {
             _toggledOn = true;
             SetLayers(transform.root, 15);
-            SetCloakMaterial(true);
-        }
-        else
-        {
+        } else {
             Cancel();
         }
     }
 
     // This tool does not require anything done on cancel
-    public override void Cancel()
-    {
+    public override void Cancel() {
         _toggledOn = false;
         SetLayers(transform.root, 9);
-        SetCloakMaterial(false);
     }
 
     // If inactive, cancel the stealth
-    public override void SetCurrent(bool state)
-    {
-        if(!state)
-        {
+    public override void SetCurrent(bool state) {
+        if (!state) {
             Cancel();
         }
     }
 
     // Sets collision layers recursively to handle enemy detection
     // If we change how AI detection works, we will likely need to change this
-    private static void SetLayers(Transform obj, int layer)
-    {
-        for (int i = 0; i < obj.childCount; i++)
-        {
+    private static void SetLayers(Transform obj, int layer) {
+        for (int i = 0; i < obj.childCount; i++) {
             SetLayers(obj.GetChild(i), layer);
         }
         obj.gameObject.layer = layer;
     }
 
     // Communicates the current state of the object to the material
-    private void SetCloakMaterial(bool state)
-    {
+    private void SetCloakMaterial(float amt) {
         // Set the material and layer
-        for (int i = 0; i < meshRenderers.Length; ++i)
-        {
-            meshRenderers[i].material = state ? CloakMaterial : originalMaterials[i];
-            // Find the Mesh Renderer that is layered with Player
-            if (meshRenderers[i].gameObject.layer == LayerMask.NameToLayer(state ? "Player" : "InvisiblePlayer"))
-            {
-                // Set it to InvisiblePlayer
-                meshRenderers[i].gameObject.layer = LayerMask.NameToLayer(state ? "InvisiblePlayer" : "Player");
-            }
+        for (int i = 0; i < meshRenderers.Length; ++i) {
+            meshRenderers[i].material.SetFloat("_Transition", amt);
         }
     }
 
-    public override string GetName()
-    {
+    public override string GetName() {
         return "Camo Tool";
     }
 }

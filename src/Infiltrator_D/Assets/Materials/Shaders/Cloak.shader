@@ -52,7 +52,7 @@
 
 		void surf(Input i, inout SurfaceOutputStandard o) {
 
-			fixed4 t = tex2D(_TransitionMap, i.uv_MainTex);
+			fixed4 t = tex2D(_TransitionMap, i.screenPos);
 
 			if (t.r - _Transition > 0) {
 				
