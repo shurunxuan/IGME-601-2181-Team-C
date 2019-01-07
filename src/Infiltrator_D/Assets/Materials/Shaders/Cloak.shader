@@ -8,6 +8,7 @@
 		_Metallic("Metallic", Range(0,1)) = 0.0
 		// Transition
 		_TransitionMap("TransitionMap", 2D) = "white" {}
+		_TransitionScale("TransitionScale", Range(0,20)) = 1.0
 		_Transition("Transition", Range(0,1)) = 0
 		// Cloak on
 		_DistortionMap("DistortionMap", 2D) = "black" {}
@@ -41,6 +42,7 @@
 
 		// Trainsition
 		sampler2D _TransitionMap;
+		float _TransitionScale;
 		float _Transition;
 
 		// Cloak on
@@ -52,7 +54,7 @@
 
 		void surf(Input i, inout SurfaceOutputStandard o) {
 
-			fixed4 t = tex2D(_TransitionMap, i.screenPos);
+			fixed4 t = tex2D(_TransitionMap, i.screenPos * _TransitionScale);
 
 			if (t.r - _Transition > 0) {
 				
