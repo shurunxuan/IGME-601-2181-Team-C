@@ -1,6 +1,7 @@
 ﻿Shader "Custom/Cloak" {
 
-	Properties{
+	Properties
+	{
 		// Cloak off
 		_Color("Color", Color) = (1,1,1,1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
@@ -17,7 +18,8 @@
 		_RippleSpeed("RippleSpeed", Range(0, 20)) = 0.0
 	}
 
-	SubShader {
+	SubShader
+	{
 
 		Tags{"RenderType"="Opaque"  "Queue"="Transparent+0"  "IsEmissive"="true"}
 		Cull Back
@@ -29,7 +31,8 @@
 		#pragma target 3.0
 		#pragma surface surf Standard keepalpha addshadow fullforwardshadows
 
-		struct Input {
+		struct Input
+		{
 			float4 screenPos : TEXCOORD0;
 			float2 uv_MainTex : TEXCOORD1;
 		};
@@ -52,12 +55,12 @@
 		float _RippleScale;
 		float _RippleSpeed;
 
-		void surf(Input i, inout SurfaceOutputStandard o) {
-
+		void surf(Input i, inout SurfaceOutputStandard o)
+		{
 			fixed4 t = tex2D(_TransitionMap, i.screenPos * _TransitionScale);
 
-			if (t.r - _Transition > 0) {
-				
+			if (t.r - _Transition > 0)
+			{
 				// Standard unity surface
 				// Albedo comes from a texture tinted by color
 				fixed4 c = tex2D(_MainTex, i.uv_MainTex) * _Color;
@@ -66,9 +69,9 @@
 				o.Metallic = _Metallic;
 				o.Smoothness = _Glossiness;
 				o.Alpha = c.a;
-
-			} else {
-
+			}
+			else
+			{
 				o.Albedo = float3(0, 0, 0);
 
 				// Calculate distorted position
@@ -84,7 +87,6 @@
 				o.Metallic = 0;
 				o.Smoothness = 0;
 				o.Alpha = 0;
-
 			}
 
 		}
