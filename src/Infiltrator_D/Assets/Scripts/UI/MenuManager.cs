@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
 
+    public delegate void RefreshUIEvent();
+    public static RefreshUIEvent Refresh;
+
     // Enum that controls the menu
     public enum MenuState
     {
@@ -140,5 +143,30 @@ public class MenuManager : MonoBehaviour {
                 break;
         }
         state = newState;
+    }
+
+    // Loads a stage async
+    public void LoadStage(string stageName)
+    {
+        // Loads scene async with a loading screen
+        StartCoroutine(LoadStageHelper(stageName));
+    }
+
+    private IEnumerator LoadStageHelper(string stageName)
+    {
+        Loading = true;
+        LoadingScreen.SetActive(true);
+        yield return SceneManager.LoadSceneAsync(stageName, LoadSceneMode.Additive);
+        LoadingScreen.SetActive(false);
+        Loading = false;
+        LoadMenu(MenuState.HeadsUpDisplay);
+
+        Background.SetActive(false);
+        
+        // Send a refresh signal
+        if (Refresh != null)
+        {
+            Refresh();
+        }
     }
 }

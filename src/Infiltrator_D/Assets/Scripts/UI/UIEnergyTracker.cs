@@ -26,4 +26,19 @@ public class UIEnergyTracker : MonoBehaviour {
             slider.value = energy.CurrentEnergy / energy.Capacity;
         }
 	}
+
+    // OnRefresh is called when a scene is loaded
+    void OnRefresh()
+    {
+        slider = GetComponent<Slider>();
+        if (energy == null)
+        {
+            energy = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<EnergyComponent>();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        MenuManager.Refresh -= OnRefresh;
+    }
 }
