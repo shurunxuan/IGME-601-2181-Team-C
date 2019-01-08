@@ -9,9 +9,11 @@ public class CamoTool : ToolComponent
     [SerializeField]
     public float energyCostPerSecond;
 
+    // Time to transition from fully cloaked to fully uncloaked or vice-versa
     [SerializeField]
     private float transitionSpeed;
 
+    // State of transition to cloaked material (0-1)
     [SerializeField]
     private float transitionState = 0;
 
@@ -98,7 +100,7 @@ public class CamoTool : ToolComponent
     // Communicates the current state of the object to the material
     private void SetCloakMaterial(float amt)
     {
-        // Set the material and layer
+        // Set the state of the transition
         for (int i = 0; i < meshRenderers.Length; ++i)
         {
             meshRenderers[i].material.SetFloat("_Transition", amt);
