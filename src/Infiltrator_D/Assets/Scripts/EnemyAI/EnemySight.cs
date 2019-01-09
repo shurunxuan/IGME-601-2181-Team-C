@@ -54,7 +54,7 @@ public class EnemySight {
     /// </summary>
     /// <param name="player">This is an out parameter which holds target's posiotion.</param>
     /// <returns>Returns True if we cam see the target else false.</returns>
-    public bool isPlayerVisible(out Transform player)
+    public bool See(out Transform player)
     {
         //checks if target is in the view radius
         Collider[] playerInViewRadius = Physics.OverlapSphere(Transform.position, ViewRadius, playerMask);

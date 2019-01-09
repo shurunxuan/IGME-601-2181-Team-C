@@ -16,7 +16,6 @@ public class EnemyMovement : MonoBehaviour
         WALKTOTHESOURCE=3,
         INVESTIGATE = 4,
         CHASE = 5 // This is the most alert state.
-
     }
 
     private List<Action> stateHandlers = new List<Action>();
@@ -34,7 +33,6 @@ public class EnemyMovement : MonoBehaviour
 
     //Enemy Alertness
     [Header("Alertness")]
-    public float AlertTimer = 10f;
     public float Alertness = 1f;
     private Renderer myRenderer;
 
@@ -47,8 +45,6 @@ public class EnemyMovement : MonoBehaviour
 
     //investigation parameters
     [Header("Investigation Parameters")]
-    private readonly float sleepTime = 5f;
-    private float sleepTimer = 0f;
     private Transform target;
 
     //shooting parameters
@@ -78,14 +74,15 @@ public class EnemyMovement : MonoBehaviour
         sight = new EnemySight(DetectionRadius, transform, PlayerMask, ObstacleMask);
         hearing = new EnemyHearingAbility(DetectionRadius, MaxHearingDistance, Agent);
         Agent.speed = Speed;
+        //Uncomment following method when we need to manage animations in our script.
         //Agent.updatePosition = false;
         myRenderer = GetComponent<Renderer>();
 
         //Updating state handlers list
         stateHandlers.Add(Patrol);
-        //stateHandlers.Add(Stand);
+        stateHandlers.Add(Stand);
         stateHandlers.Add(Investigate);
-        //stateHandlers.Add(WalkToSource);
+        stateHandlers.Add(WalkToSource);
         stateHandlers.Add(Chase);        
     }
 
@@ -104,8 +101,9 @@ public class EnemyMovement : MonoBehaviour
     /// <returns>Tru if player detected and False if otherwise.</returns>
     public bool IsPlayerDetected()
     {
-        if (sight.isPlayerVisible(out target) || hearing.Hear(transform.position, out target))
+        if (sight.See(out target) || hearing.Hear(transform.position, out target))
         {
+          
             if (Vector3.Distance(LastPlayerPostion, target.position) > 2f )
             {
                 targetUpdated = true;
@@ -120,7 +118,13 @@ public class EnemyMovement : MonoBehaviour
     /// This is the method which handles enemy's patrol between different points.
     /// </summary>
     private void Patrol()
-    {        
+    {
+        if (IsPlayerDetected())
+        {
+            State = EnemyState.STAND;
+            Timer = 3;
+            Agent.isStopped = true;
+        }
         if (Timer <= 0)
         {
             nextPoint = (nextPoint + 1 < PatrolPoints.Length) ? nextPoint + 1 : 0;
@@ -136,6 +140,7 @@ public class EnemyMovement : MonoBehaviour
                 Timer -= Time.deltaTime;
             }
         }
+        
         //Detection and changing part
     }
 
@@ -144,12 +149,17 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void Stand()
     {
+        Debug.Log("In Stand." + Timer);
+
         if (Timer <= 0)
             State = EnemyState.WALKTOTHESOURCE;
         else
             Timer -= Time.deltaTime;
     }
 
+    /// <summary>
+    /// Method will make the enemy walk to the source of sound/visible detection of suspicious thing.
+    /// </summary>
     private void WalkToSource()
     {
         if (targetUpdated)
@@ -159,11 +169,17 @@ public class EnemyMovement : MonoBehaviour
             Agent.isStopped = false;
             //shouldMove = true;
             targetUpdated = false;
-            Debug.Log(gameObject.name + ": " + "Investigate");
         }
-        else if (Vector3.Distance(transform.position, LastPlayerPostion) <= 2f)
+        else if (Vector3.Distance(transform.position, LastPlayerPostion) <= 2f || Alertness>=100)
         {
             State = EnemyState.INVESTIGATE;
+        }
+       
+        //Check to see for target position and alertness.
+        if(IsPlayerDetected())
+        {
+
+            Alertness += (Alertness > 0) ? Time.deltaTime : 0; //We want to increase the Alertness only if the AI has been to investigate state and came back here
         }
 
     }
@@ -173,13 +189,30 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void Investigate()
     {
-        //Debug.Log(State);
-        LookAt();
-       
+        if (IsPlayerDetected())
+        {
+            Alertness += Time.deltaTime;
+            if (Alertness >= 100)
+                State = EnemyState.CHASE;
+            
+            if (targetUpdated)
+                State = EnemyState.WALKTOTHESOURCE;
+        }
+        else
+        {
+            Alertness -= 2 * Time.deltaTime;
+            if (Alertness <= 0)
+            {
+                Alertness = 0;
+                State = EnemyState.PATROL;
+            }
+        }
+
+
     }
 
     /// <summary>
-    /// Make our enemy to look in the direction of player/sound source.
+    /// Make our enemy to look in the direction of player/sound source.Also Can be used to point gun at the player.
     /// </summary>
     private void LookAt()
     {
@@ -201,7 +234,7 @@ public class EnemyMovement : MonoBehaviour
             Agent.SetDestination(target.position);
         }
         //Debug.LogWarning(shouldMove);
-        if (sight.isPlayerVisible(out target))
+        if (sight.See(out target))
         {
             Shoot();
         }
