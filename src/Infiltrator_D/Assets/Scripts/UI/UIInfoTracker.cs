@@ -12,11 +12,8 @@ public class UIInfoTracker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        slider = GetComponent<Slider>();
-        if (info == null)
-        {
-            info = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<InfoGatherer>();
-        }
+        OnRefresh();
+        MenuManager.Refresh += OnRefresh;
     }
 	
 	// Update is called once per frame
@@ -26,4 +23,19 @@ public class UIInfoTracker : MonoBehaviour {
             slider.value = info.GetInfoPercentage();
         }
 	}
+
+    // OnRefresh is called when a scene is loaded
+    void OnRefresh()
+    {
+        slider = GetComponent<Slider>();
+        if (info == null)
+        {
+            info = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<InfoGatherer>();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        MenuManager.Refresh -= OnRefresh;
+    }
 }

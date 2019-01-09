@@ -114,6 +114,7 @@ and if two pieces of info share a name, they will be considered the same.
   * `UIReticuleController` A UI component that handles the logic for swapping reticules on the UI.
   * `UITextManager` A UI component that handles the logic for floating notifications on the UI.
   * `UIToolTracker` A UI component that handles the logic for the tool icon on the UI.
+  * `MenuManager` 
 
 ## Issues and Risks
 
