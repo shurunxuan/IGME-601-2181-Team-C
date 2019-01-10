@@ -2,18 +2,19 @@
 
 	Properties
 	{
-		// Cloak off
+		[Header(Cloak Off)]
 		_Color("Color", Color) = (1,1,1,1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
-		// Transition
-		_TransitionMap("TransitionMap", 2D) = "white" {}
-		_TransitionScale("TransitionScale", Range(0,20)) = 1.0
+		[Header(Transition)]
+		_TransitionMap("Transition Map", 2D) = "white" {}
+		_TransitionScale("Transition Scale", Range(0,20)) = 1.0
 		_Transition("Transition", Range(0,1)) = 0
-		// Cloak on
-		_DistortionMap("DistortionMap", 2D) = "black" {}
-		_DistortionScale("DistortionScale", Range(0,1)) = 0.0
+		[Header(Cloak On)]
+		_CloakTint("Cloak Tint", Color) = (1,1,1,1)
+		_DistortionMap("Distortion Map", 2D) = "black" {}
+		_DistortionScale("Distortion Scale", Range(0,1)) = 0.0
 		_RippleScale("RippleScale", Range(0, 20)) = 0.0
 		_RippleSpeed("RippleSpeed", Range(0, 20)) = 0.0
 	}
@@ -49,6 +50,7 @@
 		float _Transition;
 
 		// Cloak on
+		fixed4 _CloakTint;
 		sampler2D _DistortionMap;
 		float _DistortionScale;
 		uniform sampler2D _GrabTexture;
@@ -83,7 +85,7 @@
 				// Get color at distorted position
 				float4 final = tex2Dproj(_GrabTexture, i.screenPos);
 
-				o.Emission = final.rgb;
+				o.Emission = final.rgb * _CloakTint;
 				o.Metallic = 0;
 				o.Smoothness = 0;
 				o.Alpha = 0;
