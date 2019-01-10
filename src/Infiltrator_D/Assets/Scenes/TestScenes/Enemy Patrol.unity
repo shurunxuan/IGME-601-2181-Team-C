@@ -456,7 +456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &648350183
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -816,9 +816,9 @@ MonoBehaviour:
   Speed: 5
   PatrolWaitTimer: 2
   State: 0
-  AlertTimer: 10
   Alertness: 1
-  DetectionRadius: 2
+  AlertnessTimer: 0
+  DetectionRadius: 1
   MaxHearingDistance: 2
   ImpactForce: 10
   PlayerMask:

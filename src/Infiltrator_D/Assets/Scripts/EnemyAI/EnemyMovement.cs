@@ -33,8 +33,8 @@ public class EnemyMovement : MonoBehaviour
 
     //Enemy Alertness
     [Header("Alertness")]
-    public float Alertness = 1f;
-    private Renderer myRenderer;
+    public float Alertness = 0f;
+    public float AlertnessTimer = 0f;
 
     //Enemy Abilities
     [Header("Abilities")]
@@ -76,8 +76,7 @@ public class EnemyMovement : MonoBehaviour
         Agent.speed = Speed;
         //Uncomment following method when we need to manage animations in our script.
         //Agent.updatePosition = false;
-        myRenderer = GetComponent<Renderer>();
-
+     
         //Updating state handlers list
         stateHandlers.Add(Patrol);
         stateHandlers.Add(Stand);
@@ -109,9 +108,30 @@ public class EnemyMovement : MonoBehaviour
                 targetUpdated = true;
                 LastPlayerPostion = target.position;
             }
+            Debug.Log("Player Detected");
             return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Method that handles alertness of player. We have a timer as we don't want the timer to increase to max quickly
+    /// so after each increment timer will be set to whater value we have passed.
+    /// </summary>
+    /// <param name="incr"></param>
+    /// <param timer="timer"></param>
+    private void UpdateAlertNess(float incr, float timer)
+    {
+        if (AlertnessTimer <= 0)
+        {
+            Alertness += 10;
+            AlertnessTimer = timer;
+        }
+        else
+        {
+            AlertnessTimer -= 7;
+        }
+        Debug.Log("Updated Alert Val " + Alertness);
     }
 
     /// <summary>
@@ -119,6 +139,7 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void Patrol()
     {
+        
         if (IsPlayerDetected())
         {
             State = EnemyState.STAND;
@@ -135,7 +156,7 @@ public class EnemyMovement : MonoBehaviour
         {
             Vector3 pos = transform.position;
             pos.y = PatrolPoints[nextPoint].y;
-            if (Vector3.Distance(pos, PatrolPoints[nextPoint]) < 2 * Agent.radius)
+            if (Vector3.Distance(pos, PatrolPoints[nextPoint]) <= 2f)
             {
                 Timer -= Time.deltaTime;
             }
@@ -148,14 +169,14 @@ public class EnemyMovement : MonoBehaviour
     /// Method which handles Stand behavior.
     /// </summary>
     private void Stand()
-    {
-        Debug.Log("In Stand." + Timer);
-
+    {    
         if (Timer <= 0)
             State = EnemyState.WALKTOTHESOURCE;
         else
             Timer -= Time.deltaTime;
     }
+
+ 
 
     /// <summary>
     /// Method will make the enemy walk to the source of sound/visible detection of suspicious thing.
@@ -174,12 +195,12 @@ public class EnemyMovement : MonoBehaviour
         {
             State = EnemyState.INVESTIGATE;
         }
-       
-        //Check to see for target position and alertness.
-        if(IsPlayerDetected())
-        {
 
-            Alertness += (Alertness > 0) ? Time.deltaTime : 0; //We want to increase the Alertness only if the AI has been to investigate state and came back here
+        //Check to see for target position and alertness.
+        //We want to increase the Alertness only if the AI has been to investigate state and came back here so we are checking if alertness in > 0
+        if (IsPlayerDetected() && Alertness > 0)
+        {    
+            UpdateAlertNess(Time.deltaTime,0.5f); 
         }
 
     }
@@ -191,7 +212,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if (IsPlayerDetected())
         {
-            Alertness += Time.deltaTime;
+            UpdateAlertNess(Time.deltaTime, 0.5f);
             if (Alertness >= 100)
                 State = EnemyState.CHASE;
             
@@ -200,7 +221,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            Alertness -= 2 * Time.deltaTime;
+            UpdateAlertNess(-2 * Time.deltaTime,0.5f);
             if (Alertness <= 0)
             {
                 Alertness = 0;
