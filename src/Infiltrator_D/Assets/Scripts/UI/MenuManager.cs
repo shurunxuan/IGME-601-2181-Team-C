@@ -8,6 +8,8 @@ public class MenuManager : MonoBehaviour {
     public delegate void RefreshUIEvent();
     public static RefreshUIEvent Refresh;
 
+    public static MenuManager ActiveManager;
+
     // Enum that controls the menu
     public enum MenuState
     {
@@ -18,7 +20,8 @@ public class MenuManager : MonoBehaviour {
         MissionEndMenu = 4,
         OptionsMenu = 5,
         PauseMenu = 6,
-        HeadsUpDisplay = 7
+        HeadsUpDisplay = 7,
+        MissionBrief = 8
     }
 
     // List of menu/ui subobjects
@@ -30,6 +33,7 @@ public class MenuManager : MonoBehaviour {
     public GameObject PauseMenu;
     public GameObject HeadsUpDisplay;
     public GameObject MissionEndMenu;
+    public GameObject MissionBriefMenu;
 
     // Allows tracking of loading state
     public bool Loading { get; private set; }
@@ -43,6 +47,7 @@ public class MenuManager : MonoBehaviour {
     // Hides all menus and UIs and goes to start menu
     private void Awake()
     {
+        ActiveManager = this;
         Background.SetActive(false);
         MainMenu.SetActive(false);
         MissionSelectMenu.SetActive(false);
@@ -51,6 +56,7 @@ public class MenuManager : MonoBehaviour {
         OptionsMenu.SetActive(false);
         HeadsUpDisplay.SetActive(false);
         MissionEndMenu.SetActive(false);
+        MissionBriefMenu.SetActive(false);
         LoadMenu(MenuState.StartMenu);
     }
 
@@ -105,6 +111,9 @@ public class MenuManager : MonoBehaviour {
                 break;
             case MenuState.Off:
                 break;
+            case MenuState.MissionBrief:
+                MissionBriefMenu.SetActive(false);
+                break;
             default:
                 Debug.Log("Unregistered State: " + state);
                 break;
@@ -137,6 +146,9 @@ public class MenuManager : MonoBehaviour {
                 enabled = true;
                 break;
             case MenuState.Off:
+                break;
+            case MenuState.MissionBrief:
+                MissionBriefMenu.SetActive(true);
                 break;
             default:
                 Debug.Log("Unregistered State: " + state);
