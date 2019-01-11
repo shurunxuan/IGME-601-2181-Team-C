@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamoTool : ToolComponent {
+public class CamoTool : ToolComponent
+{
 
     // Cost of maintaining the cloak
-    public float EnergyCostPerSecond;
+    [SerializeField]
+    public float energyCostPerSecond;
 
-    // Material connected to the shader
-    public Material CloakMaterial;
+    // Time to transition from fully cloaked to fully uncloaked or vice-versa
+    [SerializeField]
+    private float transitionSpeed;
+
+    // State of transition to cloaked material (0-1)
+    [SerializeField]
+    private float transitionState = 0;
 
     // All MeshRenderers of the drone
     private MeshRenderer[] meshRenderers;
@@ -28,14 +35,26 @@ public class CamoTool : ToolComponent {
         }
     }
 
-    // Update is called once per frame
-    void FixedUpdate ()
+    private void Update()
     {
-        if (_toggledOn && !_energy.TryExpend(EnergyCostPerSecond * Time.fixedDeltaTime))
+        float oldState = transitionState;
+        float tDir = _toggledOn ? 1 : -1;
+        transitionState += tDir * transitionSpeed * Time.deltaTime;
+        transitionState = Mathf.Clamp01(transitionState);
+        if (oldState != transitionState)
+        {
+            SetCloakMaterial(transitionState);
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (_toggledOn && !_energy.TryExpend(energyCostPerSecond * Time.fixedDeltaTime))
         {
             Cancel();
         }
-	}
+    }
 
     // Go into cloaked mode
     protected override void Activate()
@@ -44,7 +63,6 @@ public class CamoTool : ToolComponent {
         {
             _toggledOn = true;
             SetLayers(transform.root, 15);
-            SetCloakMaterial(true);
         }
         else
         {
@@ -57,13 +75,12 @@ public class CamoTool : ToolComponent {
     {
         _toggledOn = false;
         SetLayers(transform.root, 9);
-        SetCloakMaterial(false);
     }
 
     // If inactive, cancel the stealth
     public override void SetCurrent(bool state)
     {
-        if(!state)
+        if (!state)
         {
             Cancel();
         }
@@ -81,18 +98,12 @@ public class CamoTool : ToolComponent {
     }
 
     // Communicates the current state of the object to the material
-    private void SetCloakMaterial(bool state)
+    private void SetCloakMaterial(float amt)
     {
-        // Set the material and layer
+        // Set the state of the transition
         for (int i = 0; i < meshRenderers.Length; ++i)
         {
-            meshRenderers[i].material = state ? CloakMaterial : originalMaterials[i];
-            // Find the Mesh Renderer that is layered with Player
-            if (meshRenderers[i].gameObject.layer == LayerMask.NameToLayer(state ? "Player" : "InvisiblePlayer"))
-            {
-                // Set it to InvisiblePlayer
-                meshRenderers[i].gameObject.layer = LayerMask.NameToLayer(state ? "InvisiblePlayer" : "Player");
-            }
+            meshRenderers[i].material.SetFloat("_Transition", amt);
         }
     }
 
