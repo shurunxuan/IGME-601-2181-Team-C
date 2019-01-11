@@ -90,7 +90,7 @@ public class EnemyMovement : MonoBehaviour
     {
         //Enemy behaviour can be modified depending upon the current state of enemy.
         stateHandlers[(int)State].DynamicInvoke();
-    
+        
     }
 
     
@@ -108,7 +108,6 @@ public class EnemyMovement : MonoBehaviour
                 targetUpdated = true;
                 LastPlayerPostion = target.position;
             }
-            Debug.Log("Player Detected");
             return true;
         }
         return false;
@@ -118,20 +117,20 @@ public class EnemyMovement : MonoBehaviour
     /// Method that handles alertness of player. We have a timer as we don't want the timer to increase to max quickly
     /// so after each increment timer will be set to whater value we have passed.
     /// </summary>
-    /// <param name="incr"></param>
-    /// <param timer="timer"></param>
-    private void UpdateAlertNess(float incr, float timer)
+    /// <param name="incr">It is the factor which decides if the alertness increses or decreases. 1 for increment and - for decrement.</param>
+    /// <param timer="timer">It is the value to which countdown timer should be set to.</param>
+    private void UpdateAlertness(float incr, float timer)
     {
         if (AlertnessTimer <= 0)
         {
-            Alertness += 10;
+            Alertness += 5 * incr;
             AlertnessTimer = timer;
         }
         else
         {
-            AlertnessTimer -= 7;
+            AlertnessTimer -= Time.deltaTime;
         }
-        Debug.Log("Updated Alert Val " + Alertness);
+        
     }
 
     /// <summary>
@@ -139,13 +138,19 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void Patrol()
     {
-        
+        //Detection Cycle
         if (IsPlayerDetected())
         {
             State = EnemyState.STAND;
             Timer = 3;
             Agent.isStopped = true;
         }
+        else if (Alertness > 0)
+        {
+            UpdateAlertness(-1, 1f);
+        }
+
+        //Patrol Movement block
         if (Timer <= 0)
         {
             nextPoint = (nextPoint + 1 < PatrolPoints.Length) ? nextPoint + 1 : 0;
@@ -161,15 +166,13 @@ public class EnemyMovement : MonoBehaviour
                 Timer -= Time.deltaTime;
             }
         }
-        
-        //Detection and changing part
     }
 
     /// <summary>
     /// Method which handles Stand behavior.
     /// </summary>
     private void Stand()
-    {    
+    {
         if (Timer <= 0)
             State = EnemyState.WALKTOTHESOURCE;
         else
@@ -191,7 +194,7 @@ public class EnemyMovement : MonoBehaviour
             //shouldMove = true;
             targetUpdated = false;
         }
-        else if (Vector3.Distance(transform.position, LastPlayerPostion) <= 2f || Alertness>=100)
+        else if (Vector3.Distance(transform.position, LastPlayerPostion) <= 5f || Alertness>=100)
         {
             State = EnemyState.INVESTIGATE;
         }
@@ -200,7 +203,11 @@ public class EnemyMovement : MonoBehaviour
         //We want to increase the Alertness only if the AI has been to investigate state and came back here so we are checking if alertness in > 0
         if (IsPlayerDetected() && Alertness > 0)
         {    
-            UpdateAlertNess(Time.deltaTime,0.5f); 
+            UpdateAlertness(1,1f); 
+        }
+        else if (Alertness > 0)
+        {
+            UpdateAlertness(-1, 1f);
         }
 
     }
@@ -210,18 +217,20 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void Investigate()
     {
+        Debug.Log("Investigatin");
+        if (Alertness >= 100)
+            State = EnemyState.CHASE;
         if (IsPlayerDetected())
         {
-            UpdateAlertNess(Time.deltaTime, 0.5f);
-            if (Alertness >= 100)
-                State = EnemyState.CHASE;
-            
+            UpdateAlertness(1, 1f); 
             if (targetUpdated)
                 State = EnemyState.WALKTOTHESOURCE;
         }
         else
         {
-            UpdateAlertNess(-2 * Time.deltaTime,0.5f);
+            Debug.Log("Decresing Alertness");
+            Timer = 0;
+            UpdateAlertness(-1,1f);
             if (Alertness <= 0)
             {
                 Alertness = 0;

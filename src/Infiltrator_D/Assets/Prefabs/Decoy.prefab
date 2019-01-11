@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundSource: {fileID: 1358592962585584}
   SoundPeriod: 0
-  LifeSpan: 8
+  LifeSpan: 3
 --- !u!135 &135172568795936216
 SphereCollider:
   m_ObjectHideFlags: 1

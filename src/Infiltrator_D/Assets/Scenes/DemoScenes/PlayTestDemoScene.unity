@@ -28185,6 +28185,10 @@ Prefab:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 4959318995025720, guid: 612d304ce3297714aaa33d66cd50a5a6, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114740974545585376, guid: 612d304ce3297714aaa33d66cd50a5a6, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 612d304ce3297714aaa33d66cd50a5a6, type: 2}
@@ -41987,6 +41991,10 @@ Prefab:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 4959318995025720, guid: 612d304ce3297714aaa33d66cd50a5a6, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114740974545585376, guid: 612d304ce3297714aaa33d66cd50a5a6, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 612d304ce3297714aaa33d66cd50a5a6, type: 2}
@@ -42042,7 +42050,7 @@ MonoBehaviour:
   Speed: 10
   PatrolWaitTimer: 2
   State: 0
-  Alertness: 1
+  Alertness: 0
   AlertnessTimer: 1
   DetectionRadius: 120
   MaxHearingDistance: 50
