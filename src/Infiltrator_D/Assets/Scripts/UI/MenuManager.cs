@@ -1,9 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManager : MonoBehaviour {
+public class MenuManager : MonoBehaviour
+{
 
     public delegate void RefreshUIEvent();
     public static RefreshUIEvent Refresh;
@@ -62,7 +63,7 @@ public class MenuManager : MonoBehaviour {
     // Handles any menu logic that needs to be checked frame by frame
     private void Update()
     {
-        if(state == MenuState.StartMenu && (Input.anyKeyDown || Input.GetMouseButton(0)))
+        if (state == MenuState.StartMenu && (Input.anyKeyDown || Input.GetMouseButton(0)))
         {
             LoadMenu(MenuState.MainMenu);
         }
@@ -77,7 +78,7 @@ public class MenuManager : MonoBehaviour {
     // Loads a menu and unloads the current menu
     public void LoadMenu(int state)
     {
-        LoadMenu((MenuState) state);
+        LoadMenu((MenuState)state);
     }
 
     // Performs logic to exit one menu state and enter another
@@ -202,7 +203,7 @@ public class MenuManager : MonoBehaviour {
         {
             UIDeathTracker.ActiveInScene.Hide();
         }
-        if(UICameraFlash.ActiveInScene)
+        if (UICameraFlash.ActiveInScene)
         {
             UICameraFlash.ActiveInScene.Hide();
         }
