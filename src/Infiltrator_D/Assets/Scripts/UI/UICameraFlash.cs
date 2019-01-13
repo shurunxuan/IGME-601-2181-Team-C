@@ -32,6 +32,13 @@ public class UICameraFlash : MonoBehaviour {
         return Duration;
     }
 
+    // Hides the flash
+    public void Hide()
+    {
+        StopAllCoroutines();
+        flash.CrossFadeAlpha(0, 0, true);
+    }
+
     IEnumerator CauseFlash()
     {
         flash.CrossFadeAlpha(1, Duration, false);

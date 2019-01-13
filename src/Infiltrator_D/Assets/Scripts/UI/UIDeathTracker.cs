@@ -47,7 +47,10 @@ public class UIDeathTracker : MonoBehaviour {
     public void Hide()
     {
         gameObject.SetActive(false);
-        UIReticuleController.ActiveInScene.Show(0);
+        if (UIReticuleController.ActiveInScene)
+        {
+            UIReticuleController.ActiveInScene.Show(0);
+        }
     }
 
 }

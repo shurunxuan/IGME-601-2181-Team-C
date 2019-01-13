@@ -38,11 +38,10 @@ public class MenuManager : MonoBehaviour {
     // Allows tracking of loading state
     public bool Loading { get; private set; }
 
-    // Camera used when no missions are loaded
-    public Camera DefaultCamera;
-
     // Tracks the current state
     private MenuState state;
+
+    private string currentLevel;
 
     // Hides all menus and UIs and goes to start menu
     private void Awake()
@@ -164,21 +163,48 @@ public class MenuManager : MonoBehaviour {
         StartCoroutine(LoadStageHelper(stageName));
     }
 
+    public void ReloadStage()
+    {
+        // Loads scene async with a loading screen
+        StartCoroutine(LoadStageHelper(currentLevel));
+    }
+
     private IEnumerator LoadStageHelper(string stageName)
     {
+        // Set up loading screen
         Loading = true;
         LoadingScreen.SetActive(true);
+
+        // Unload last level
+        Scene old = SceneManager.GetSceneByName(currentLevel);
+        if (old.isLoaded)
+        {
+            yield return SceneManager.UnloadSceneAsync(old);
+        }
+
+        // Load new level
+        currentLevel = stageName;
         yield return SceneManager.LoadSceneAsync(stageName, LoadSceneMode.Additive);
         LoadingScreen.SetActive(false);
+
+        // Deactivate loading screen
         Loading = false;
         LoadMenu(MenuState.HeadsUpDisplay);
 
         Background.SetActive(false);
-        
+
         // Send a refresh signal
         if (Refresh != null)
         {
             Refresh();
+        }
+        if (UIDeathTracker.ActiveInScene)
+        {
+            UIDeathTracker.ActiveInScene.Hide();
+        }
+        if(UICameraFlash.ActiveInScene)
+        {
+            UICameraFlash.ActiveInScene.Hide();
         }
     }
 }

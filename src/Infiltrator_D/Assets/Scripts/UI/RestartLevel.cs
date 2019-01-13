@@ -14,7 +14,7 @@ public class RestartLevel : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyUp(KeyCode.Backspace))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            MenuManager.ActiveManager.ReloadStage();
         }
 	}
 }
