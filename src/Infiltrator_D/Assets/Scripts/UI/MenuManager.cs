@@ -47,6 +47,7 @@ public class MenuManager : MonoBehaviour
     // Hides all menus and UIs and goes to start menu
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         ActiveManager = this;
         Background.SetActive(false);
         MainMenu.SetActive(false);
@@ -176,16 +177,16 @@ public class MenuManager : MonoBehaviour
         Loading = true;
         LoadingScreen.SetActive(true);
 
-        // Unload last level
-        Scene old = SceneManager.GetSceneByName(currentLevel);
-        if (old.isLoaded)
-        {
-            yield return SceneManager.UnloadSceneAsync(old);
-        }
+        //// Unload last level
+        //Scene old = SceneManager.GetSceneByName(currentLevel);
+        //if (old.isLoaded)
+        //{
+        //    yield return SceneManager.UnloadSceneAsync(old);
+        //}
 
         // Load new level
         currentLevel = stageName;
-        yield return SceneManager.LoadSceneAsync(stageName, LoadSceneMode.Additive);
+        yield return SceneManager.LoadSceneAsync(stageName);
         LoadingScreen.SetActive(false);
 
         // Deactivate loading screen
