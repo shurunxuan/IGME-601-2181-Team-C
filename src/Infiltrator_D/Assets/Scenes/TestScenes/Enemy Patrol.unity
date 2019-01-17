@@ -831,7 +831,6 @@ MonoBehaviour:
   SoundMask:
     serializedVersion: 2
     m_Bits: 8192
-  lastState: 4
 --- !u!136 &1030102921
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1021,7 +1020,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4515676857806320, guid: 255d98f04fc5dd54a91279fa04e877a4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.1880666
+      value: 0.203
       objectReference: {fileID: 0}
     - target: {fileID: 4515676857806320, guid: 255d98f04fc5dd54a91279fa04e877a4, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1029,7 +1028,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4515676857806320, guid: 255d98f04fc5dd54a91279fa04e877a4, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.03356476
+      value: 0.037
       objectReference: {fileID: 0}
     - target: {fileID: 4515676857806320, guid: 255d98f04fc5dd54a91279fa04e877a4, type: 2}
       propertyPath: m_LocalRotation.x
