@@ -73,7 +73,7 @@ public class EnemySight {
                 {
                     //Found You
                     player = target;
-                    Debug.Log("Saw " + player.name);
+                    //Debug.Log("Saw " + player.name);
                     LastPlayerSight = target;
                     return true;
                 }
