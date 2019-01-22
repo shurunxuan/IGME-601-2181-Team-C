@@ -31,7 +31,7 @@ public class EnemyHearingAbility{
     /// <param name="agentPosition">Agent's Current position</param>
     /// <param name="target">This is an out parameter which holds target's posiotion.</param>
     /// <returns>Returns True if we are able to hear something else false</returns>
-    public bool Hear(Vector3 agentPosition, out Transform target)
+    public bool CanHear(Vector3 agentPosition, out Transform target)
     {
         //Get objects on the sound layer.
         GameObject[] soundsources = GameObject.FindGameObjectsWithTag("SoundSource");

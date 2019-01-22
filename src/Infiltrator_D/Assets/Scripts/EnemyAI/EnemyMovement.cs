@@ -65,7 +65,7 @@ public class EnemyMovement : MonoBehaviour
     public static Vector3 LastPlayerPostion = Vector3.zero;
     private static bool targetUpdated = false;
 
-    //Debug vatiables
+    //Debug variables
     private EnemyState lastState = EnemyState.CHASE;
     private readonly bool debug = false;
 
@@ -112,7 +112,7 @@ public class EnemyMovement : MonoBehaviour
     /// <returns>True if player detected and False if otherwise.</returns>
     public bool IsPlayerDetected()
     {
-        if (sight.See(out target) || hearing.Hear(transform.position, out target))
+        if (sight.CanSee(out target) || hearing.CanHear(transform.position, out target))
         {
           
             if (Vector3.Distance(LastPlayerPostion, target.position) > 2f )
@@ -230,6 +230,7 @@ public class EnemyMovement : MonoBehaviour
 
     /// <summary>
     /// This method defines the enemy behavior in Investigate state. 
+    /// The animation for enemy to be done in this state will be handled here.
     /// </summary>
     private void Investigate()
     {
