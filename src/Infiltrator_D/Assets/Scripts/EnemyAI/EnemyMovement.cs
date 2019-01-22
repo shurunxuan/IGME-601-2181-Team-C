@@ -67,7 +67,7 @@ public class EnemyMovement : MonoBehaviour
 
     //Debug vatiables
     private EnemyState lastState = EnemyState.CHASE;
-    private bool debug = false;
+    private readonly bool debug = false;
 
     /// <summary>
     /// Sets up all of our basic properties for our enemy.
