@@ -1653,7 +1653,6 @@ GameObject:
   - component: {fileID: 501930545}
   - component: {fileID: 501930544}
   - component: {fileID: 501930543}
-  - component: {fileID: 501930546}
   m_Layer: 5
   m_Name: Button (3)
   m_TagString: Untagged
@@ -1734,7 +1733,8 @@ MonoBehaviour:
         m_MethodName: SetUp
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 501930546}
+          m_ObjectArgument: {fileID: 11400000, guid: c169f74cc53191245896392487a18c5e,
+            type: 2}
           m_ObjectArgumentAssemblyTypeName: MissionInfo, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1777,22 +1777,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 501930541}
   m_CullTransparentMesh: 0
---- !u!114 &501930546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 501930541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792084dd8660b3a439d1b3f9ea7fcdac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Scene: Sprint4DemoScene
-  Title: 444444
-  Description: 'The 4s will not stop until they have taken over the world..............................................................................................................................................................................................12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
-
-    Wrap works'
 --- !u!1 &553865916
 GameObject:
   m_ObjectHideFlags: 0
@@ -3974,7 +3958,6 @@ GameObject:
   - component: {fileID: 1319294371}
   - component: {fileID: 1319294370}
   - component: {fileID: 1319294369}
-  - component: {fileID: 1319294372}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -4055,7 +4038,8 @@ MonoBehaviour:
         m_MethodName: SetUp
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1319294372}
+          m_ObjectArgument: {fileID: 11400000, guid: 2b7782c2b628b9c4dbcd4a50376e4db5,
+            type: 2}
           m_ObjectArgumentAssemblyTypeName: MissionInfo, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4098,20 +4082,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1319294367}
   m_CullTransparentMesh: 0
---- !u!114 &1319294372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1319294367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792084dd8660b3a439d1b3f9ea7fcdac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Scene: PlayTestDemoScene
-  Title: Escape!
-  Description: Escape the evil terrorist hideout!
 --- !u!1 &1406906734
 GameObject:
   m_ObjectHideFlags: 0
@@ -5705,7 +5675,6 @@ GameObject:
   - component: {fileID: 2034997900}
   - component: {fileID: 2034997899}
   - component: {fileID: 2034997898}
-  - component: {fileID: 2034997901}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -5786,7 +5755,8 @@ MonoBehaviour:
         m_MethodName: SetUp
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2034997901}
+          m_ObjectArgument: {fileID: 11400000, guid: d2cd791558fed8d48b6b826936bb771c,
+            type: 2}
           m_ObjectArgumentAssemblyTypeName: MissionInfo, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -5829,20 +5799,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2034997896}
   m_CullTransparentMesh: 0
---- !u!114 &2034997901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2034997896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792084dd8660b3a439d1b3f9ea7fcdac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Scene: Sprint3DemoScene
-  Title: Sprint 3
-  Description: Old version of the game
 --- !u!1 &2059876639
 GameObject:
   m_ObjectHideFlags: 0
