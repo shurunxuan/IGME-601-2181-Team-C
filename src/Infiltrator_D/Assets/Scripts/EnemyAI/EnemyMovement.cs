@@ -281,10 +281,6 @@ public class EnemyMovement : MonoBehaviour
             Agent.SetDestination(target.position);
         }
         //Debug.LogWarning(shouldMove);
-        if (sight.See(out target))
-        {
-            Shoot();
-        }
 
     }
 
