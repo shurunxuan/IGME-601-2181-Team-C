@@ -1,9 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICameraFlash : MonoBehaviour {
+public class UICameraFlash : MonoBehaviour
+{
 
     // Duration of flash event
     public float Duration;
@@ -13,23 +14,32 @@ public class UICameraFlash : MonoBehaviour {
     // The static tracker
     public static UICameraFlash ActiveInScene;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         ActiveInScene = this;
         flash = GetComponent<Image>();
         flash.CrossFadeAlpha(0, 0, true);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     // Displays a flash, returns the duration
     public float Show()
     {
         StartCoroutine(CauseFlash());
         return Duration;
+    }
+
+    // Hides the flash
+    public void Hide()
+    {
+        StopAllCoroutines();
+        flash.CrossFadeAlpha(0, 0, true);
     }
 
     IEnumerator CauseFlash()
