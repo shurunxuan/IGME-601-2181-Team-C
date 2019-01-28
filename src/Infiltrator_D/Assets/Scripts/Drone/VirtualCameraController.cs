@@ -1,7 +1,8 @@
-﻿using Cinemachine;
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Boo.Lang.Runtime.DynamicDispatching;
 using UnityEngine;
 
 public class VirtualCameraController : MonoBehaviour
@@ -37,6 +38,7 @@ public class VirtualCameraController : MonoBehaviour
     private CinemachineBrain cinemachineBrain;
     private float cameraDistance;
     private MeshRenderer[] renderers;
+    private Rigidbody followingObjectRigidbody;
 
     public Vector3 LookAtDirection
     {
@@ -51,6 +53,7 @@ public class VirtualCameraController : MonoBehaviour
         cinemachineBrain = gameObject.GetComponent<CinemachineBrain>();
         cameraDistance = ThirdPersonVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.magnitude;
         renderers = FollowingObject.gameObject.GetComponentsInChildren<MeshRenderer>();
+        followingObjectRigidbody = FollowingObject.gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -78,16 +81,17 @@ public class VirtualCameraController : MonoBehaviour
         // Rotate the LookAtDirection regarding user input
         float horizontalViewSpeed = useFirstPerson ? HorizontalViewSpeedFirstPerson : HorizontalViewSpeedThirdPerson;
         float verticalViewSpeed = useFirstPerson ? VerticalViewSpeedFirstPerson : VerticalViewSpeedThirdPerson;
-        firstPersonForward = Quaternion.AngleAxis(horizontalCamera * horizontalViewSpeed, Vector3.up) * firstPersonForward;
-        firstPersonForward = Quaternion.AngleAxis(-verticalCamera * verticalViewSpeed, Vector3.Cross(Vector3.up, firstPersonForward)) * firstPersonForward;
 
         // Pitch angle restriction
         float lowestAngle = ThirdPersonLowestAngle;
         float highestAngle = ThirdPersonHighestAngle;
 
+        // Yaw angle restriction
+        float horizontalDistance = -1.0f;
+
         if (!useFirstPerson)
         {
-            // Calculate the angle restriction according to the surrounding
+            // Calculate the pitch angle restriction according to the surrounding
             Ray upRay = new Ray(FollowingObject.gameObject.transform.position, Vector3.up);
             Ray downRay = new Ray(FollowingObject.gameObject.transform.position, Vector3.down);
             RaycastHit hitInfo;
@@ -104,6 +108,26 @@ public class VirtualCameraController : MonoBehaviour
                 float angle = (Mathf.PI / 2 + Mathf.Asin(height / cameraDistance)) * Mathf.Rad2Deg;
                 lowestAngle = Mathf.Max(angle, ThirdPersonLowestAngle);
             }
+
+            // Calculate the yaw angle restriction
+            float direction = 0.0f;
+            if (Mathf.Abs(horizontalCamera) > 0.001f) direction = horizontalCamera / Mathf.Abs(horizontalCamera);
+            else if (followingObjectRigidbody.velocity.magnitude > 0.001f)
+            {
+                direction = Vector3.Dot(-transform.right, followingObjectRigidbody.velocity);
+                direction /= Mathf.Abs(direction);
+            }
+            if (Mathf.Abs(direction) > 0.9f)
+            {
+                Ray horizontalRay = new Ray(transform.position, -transform.right * direction);
+
+                if (Physics.Raycast(horizontalRay, out hitInfo, float.PositiveInfinity, ~IgnoreLayer))
+                {
+                    float distance = Vector3.Distance(hitInfo.point, transform.position);
+                    horizontalDistance = 2.0f - distance;
+                }
+            }
+
         }
 
         // Restrict the pitch angle of firstPersonForward
@@ -124,8 +148,24 @@ public class VirtualCameraController : MonoBehaviour
             newFirstPersonForward = newFirstPersonForward.normalized;
             firstPersonForward = Vector3.Slerp(firstPersonForward, newFirstPersonForward, 20f * Time.fixedDeltaTime);
         }
+            firstPersonForward = Quaternion.AngleAxis(horizontalCamera * horizontalViewSpeed, Vector3.up) * firstPersonForward;
 
+        if (horizontalDistance > 0)
+        {
+            // Restrict the yaw angle of firstPersonForward
+            Vector3 newFirstPersonForward = firstPersonForward;
+            // The rotation angle should be very small thus we can use an approximate
+            newFirstPersonForward = Quaternion.AngleAxis(horizontalDistance * Mathf.Rad2Deg,
+                                        Vector3.down * (horizontalCamera / Mathf.Abs(horizontalCamera))) *
+                                    newFirstPersonForward;
+            firstPersonForward = Vector3.Slerp(firstPersonForward, newFirstPersonForward, 20f * Time.fixedDeltaTime);
+        }
+        else
+        {
+        }
 
+        firstPersonForward = Quaternion.AngleAxis(-verticalCamera * verticalViewSpeed, Vector3.Cross(Vector3.up, firstPersonForward)) * firstPersonForward;
+        Debug.Log("horizontalDistance = " + horizontalDistance);
         //Debug.Log("Curr: " + Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude) * Mathf.Rad2Deg);
         FirstPersonPosition.LookAt(FirstPersonPosition.position + Vector3.Slerp(FirstPersonPosition.forward, firstPersonForward, 30f * Time.deltaTime));
     }
