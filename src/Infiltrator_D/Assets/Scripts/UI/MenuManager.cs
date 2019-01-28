@@ -1,12 +1,15 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManager : MonoBehaviour {
+public class MenuManager : MonoBehaviour
+{
 
     public delegate void RefreshUIEvent();
     public static RefreshUIEvent Refresh;
+
+    public static MenuManager ActiveManager;
 
     // Enum that controls the menu
     public enum MenuState
@@ -18,7 +21,8 @@ public class MenuManager : MonoBehaviour {
         MissionEndMenu = 4,
         OptionsMenu = 5,
         PauseMenu = 6,
-        HeadsUpDisplay = 7
+        HeadsUpDisplay = 7,
+        MissionBrief = 8
     }
 
     // List of menu/ui subobjects
@@ -30,19 +34,21 @@ public class MenuManager : MonoBehaviour {
     public GameObject PauseMenu;
     public GameObject HeadsUpDisplay;
     public GameObject MissionEndMenu;
+    public GameObject MissionBriefMenu;
 
     // Allows tracking of loading state
     public bool Loading { get; private set; }
 
-    // Camera used when no missions are loaded
-    public Camera DefaultCamera;
-
     // Tracks the current state
     private MenuState state;
+
+    private string currentLevel;
 
     // Hides all menus and UIs and goes to start menu
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+        ActiveManager = this;
         Background.SetActive(false);
         MainMenu.SetActive(false);
         MissionSelectMenu.SetActive(false);
@@ -51,13 +57,14 @@ public class MenuManager : MonoBehaviour {
         OptionsMenu.SetActive(false);
         HeadsUpDisplay.SetActive(false);
         MissionEndMenu.SetActive(false);
+        MissionBriefMenu.SetActive(false);
         LoadMenu(MenuState.StartMenu);
     }
 
     // Handles any menu logic that needs to be checked frame by frame
     private void Update()
     {
-        if(state == MenuState.StartMenu && (Input.anyKeyDown || Input.GetMouseButton(0)))
+        if (state == MenuState.StartMenu && (Input.anyKeyDown || Input.GetMouseButton(0)))
         {
             LoadMenu(MenuState.MainMenu);
         }
@@ -72,7 +79,7 @@ public class MenuManager : MonoBehaviour {
     // Loads a menu and unloads the current menu
     public void LoadMenu(int state)
     {
-        LoadMenu((MenuState) state);
+        LoadMenu((MenuState)state);
     }
 
     // Performs logic to exit one menu state and enter another
@@ -104,6 +111,9 @@ public class MenuManager : MonoBehaviour {
                 enabled = false;
                 break;
             case MenuState.Off:
+                break;
+            case MenuState.MissionBrief:
+                MissionBriefMenu.SetActive(false);
                 break;
             default:
                 Debug.Log("Unregistered State: " + state);
@@ -138,6 +148,9 @@ public class MenuManager : MonoBehaviour {
                 break;
             case MenuState.Off:
                 break;
+            case MenuState.MissionBrief:
+                MissionBriefMenu.SetActive(true);
+                break;
             default:
                 Debug.Log("Unregistered State: " + state);
                 break;
@@ -152,21 +165,48 @@ public class MenuManager : MonoBehaviour {
         StartCoroutine(LoadStageHelper(stageName));
     }
 
+    public void ReloadStage()
+    {
+        // Loads scene async with a loading screen
+        StartCoroutine(LoadStageHelper(currentLevel));
+    }
+
     private IEnumerator LoadStageHelper(string stageName)
     {
+        // Set up loading screen
         Loading = true;
         LoadingScreen.SetActive(true);
-        yield return SceneManager.LoadSceneAsync(stageName, LoadSceneMode.Additive);
+
+        //// Unload last level
+        //Scene old = SceneManager.GetSceneByName(currentLevel);
+        //if (old.isLoaded)
+        //{
+        //    yield return SceneManager.UnloadSceneAsync(old);
+        //}
+
+        // Load new level
+        currentLevel = stageName;
+        yield return SceneManager.LoadSceneAsync(stageName);
         LoadingScreen.SetActive(false);
+
+        // Deactivate loading screen
         Loading = false;
         LoadMenu(MenuState.HeadsUpDisplay);
 
         Background.SetActive(false);
-        
+
         // Send a refresh signal
         if (Refresh != null)
         {
             Refresh();
+        }
+        if (UIDeathTracker.ActiveInScene)
+        {
+            UIDeathTracker.ActiveInScene.Hide();
+        }
+        if (UICameraFlash.ActiveInScene)
+        {
+            UICameraFlash.ActiveInScene.Hide();
         }
     }
 }
