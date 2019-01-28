@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,8 +25,6 @@ public class DroneMovement : MonoBehaviour
 
     public bool UseGravity;
     public Vector3 Gravity { get; private set; }
-
-    public bool SkipLerpRotation { get; set; }
 
     public Vector3 TargetForce
     {
@@ -137,9 +135,7 @@ public class DroneMovement : MonoBehaviour
             yawRotation = Quaternion.Euler(0, yawRotation.eulerAngles.y, 0);
             // Combine rotation
             Quaternion rotate = tiltRotation * yawRotation;
-            transform.rotation = SkipLerpRotation
-                ? rotate
-                : Quaternion.Slerp(transform.rotation, rotate, 3.0f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotate, 3.0f * Time.deltaTime);
         }
 
         if (UseGravity)

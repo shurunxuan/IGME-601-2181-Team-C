@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -64,7 +64,7 @@ public class DrawPatrolRoute : Editor
                         Handles.color = Color.blue;
 
                     // Draw a cube which shows the position
-                    Handles.CubeHandleCap(i, property.GetArrayElementAtIndex(i).vector3Value, Quaternion.identity, 0.1f, EventType.Repaint);
+                    Handles.CubeHandleCap(i, property.GetArrayElementAtIndex(i).vector3Value, Quaternion.identity, 1f, EventType.Repaint);
                     //Handles.DrawWireCube(property.GetArrayElementAtIndex(i).vector3Value, 0.1f * Vector3.one);
                 }
             }

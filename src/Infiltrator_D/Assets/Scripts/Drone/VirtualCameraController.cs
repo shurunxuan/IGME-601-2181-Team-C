@@ -23,22 +23,25 @@ public class VirtualCameraController : MonoBehaviour
     [Header("Third Person")]
     public float HorizontalViewSpeedThirdPerson;
     public float VerticalViewSpeedThirdPerson;
+    public float ThirdPersonLowestAngle;
+    public float ThirdPersonHighestAngle;
     [Header("First Person")]
     public float HorizontalViewSpeedFirstPerson;
     public float VerticalViewSpeedFirstPerson;
 
     [Header("Collision Detect")]
-    public float ThirdPersonLowestAngle;
-    public float ThirdPersonHighestAngle;
-    public float RaycastDensity;
+    public float CollisionRadius;
     public LayerMask IgnoreLayer;
+    public float RaycastDensity;
 
     private Vector3 firstPersonForward;
     private bool useFirstPerson;
     private CinemachineBrain cinemachineBrain;
-    private float cameraDistance;
     private MeshRenderer[] renderers;
-    private Rigidbody followingObjectRigidbody;
+
+    private bool firstPersonCameraRequested;
+    private bool thirdPersonCameraCollided;
+    private bool lineOfSightIsBroken;
 
     public Vector3 LookAtDirection
     {
@@ -51,9 +54,8 @@ public class VirtualCameraController : MonoBehaviour
         firstPersonForward = FirstPersonPosition.forward;
         useFirstPerson = false;
         cinemachineBrain = gameObject.GetComponent<CinemachineBrain>();
-        cameraDistance = ThirdPersonVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.magnitude;
         renderers = FollowingObject.gameObject.GetComponentsInChildren<MeshRenderer>();
-        followingObjectRigidbody = FollowingObject.gameObject.GetComponent<Rigidbody>();
+        lineOfSightIsBroken = false;
     }
 
     // Update is called once per frame
@@ -82,97 +84,52 @@ public class VirtualCameraController : MonoBehaviour
         float horizontalViewSpeed = useFirstPerson ? HorizontalViewSpeedFirstPerson : HorizontalViewSpeedThirdPerson;
         float verticalViewSpeed = useFirstPerson ? VerticalViewSpeedFirstPerson : VerticalViewSpeedThirdPerson;
 
-        // Pitch angle restriction
-        float lowestAngle = ThirdPersonLowestAngle;
-        float highestAngle = ThirdPersonHighestAngle;
-
-        // Yaw angle restriction
-        float horizontalDistance = -1.0f;
-
-        if (!useFirstPerson)
+        // See if something breaks the line of sight
+        // As long as we can see one part of the drone, we don't need to toggle between cameras.
+        // We need to do raycast in two directions to prevent the camera being stuck in something like the walls.
+        foreach (var meshRenderer in renderers)
         {
-            // Calculate the pitch angle restriction according to the surrounding
-            Ray upRay = new Ray(FollowingObject.gameObject.transform.position, Vector3.up);
-            Ray downRay = new Ray(FollowingObject.gameObject.transform.position, Vector3.down);
+            // Raycast from camera to player
+            Ray lineOfSight = new Ray(ThirdPersonVirtualCamera.transform.position, meshRenderer.gameObject.transform.position - ThirdPersonVirtualCamera.transform.position);
             RaycastHit hitInfo;
-            if (Physics.Raycast(upRay, out hitInfo, float.PositiveInfinity, ~IgnoreLayer))
-            {
-                float height = hitInfo.point.y - FirstPersonPosition.position.y - 2f;
-                float angle = (Mathf.PI / 2 + Mathf.Asin(height / cameraDistance)) * Mathf.Rad2Deg;
-                highestAngle = Mathf.Min(angle, ThirdPersonHighestAngle);
-            }
+            Debug.DrawRay(lineOfSight.origin, lineOfSight.direction);
+            lineOfSightIsBroken = Physics.Raycast(lineOfSight, out hitInfo,
+                Vector3.Distance(ThirdPersonVirtualCamera.transform.position,
+                    meshRenderer.gameObject.transform.position));
 
-            if (Physics.Raycast(downRay, out hitInfo, float.PositiveInfinity, ~IgnoreLayer))
-            {
-                float height = hitInfo.point.y - FirstPersonPosition.position.y;
-                float angle = (Mathf.PI / 2 + Mathf.Asin(height / cameraDistance)) * Mathf.Rad2Deg;
-                lowestAngle = Mathf.Max(angle, ThirdPersonLowestAngle);
-            }
+            // Make sure that it's not the player that the ray hit
+            if (lineOfSightIsBroken)
+                lineOfSightIsBroken = hitInfo.collider.gameObject.layer != LayerMask.NameToLayer("Player");
 
-            // Calculate the yaw angle restriction
-            float direction = 0.0f;
-            if (Mathf.Abs(horizontalCamera) > 0.001f) direction = horizontalCamera / Mathf.Abs(horizontalCamera);
-            else if (followingObjectRigidbody.velocity.magnitude > 0.001f)
-            {
-                direction = Vector3.Dot(-transform.right, followingObjectRigidbody.velocity);
-                direction /= Mathf.Abs(direction);
-            }
-            if (Mathf.Abs(direction) > 0.9f)
-            {
-                Ray horizontalRay = new Ray(transform.position, -transform.right * direction);
+            // Raycast from player to camera
+            lineOfSight = new Ray(meshRenderer.gameObject.transform.position, ThirdPersonVirtualCamera.transform.position - meshRenderer.gameObject.transform.position);
+            Debug.DrawRay(lineOfSight.origin, lineOfSight.direction);
+            lineOfSightIsBroken = lineOfSightIsBroken || Physics.Raycast(lineOfSight, out hitInfo,
+                                      Vector3.Distance(ThirdPersonVirtualCamera.transform.position,
+                                          meshRenderer.gameObject.transform.position));
 
-                if (Physics.Raycast(horizontalRay, out hitInfo, float.PositiveInfinity, ~IgnoreLayer))
-                {
-                    float distance = Vector3.Distance(hitInfo.point, transform.position);
-                    horizontalDistance = 2.0f - distance;
-                }
-            }
-
+            // One part of the player can be seen
+            if (!lineOfSightIsBroken)
+                break;
         }
 
-        // Restrict the pitch angle of firstPersonForward
-        // The firstPersonForward is used by both FirstPersonVCam and ThirdPersonVCam
-        // Both Virtual Cameras will look in this direction
-        float currentAngle = Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude);
-        if (currentAngle < Mathf.Deg2Rad * lowestAngle)
+        // Find obstacles near third person camera
+        thirdPersonCameraCollided = false;
+        for (float i = 0; i < Mathf.PI * 2; i += Mathf.PI * 2 / RaycastDensity)
         {
-            Vector3 newFirstPersonForward = new Vector3(firstPersonForward.x, 0, firstPersonForward.z);
-            newFirstPersonForward.y = newFirstPersonForward.magnitude / Mathf.Tan(Mathf.Deg2Rad * lowestAngle);
-            newFirstPersonForward = newFirstPersonForward.normalized;
-            firstPersonForward = Vector3.Slerp(firstPersonForward, newFirstPersonForward, 20f * Time.fixedDeltaTime);
-        }
-        else if (currentAngle > Mathf.Deg2Rad * highestAngle)
-        {
-            Vector3 newFirstPersonForward = new Vector3(firstPersonForward.x, 0, firstPersonForward.z);
-            newFirstPersonForward.y = newFirstPersonForward.magnitude / Mathf.Tan(Mathf.Deg2Rad * highestAngle);
-            newFirstPersonForward = newFirstPersonForward.normalized;
-            firstPersonForward = Vector3.Slerp(firstPersonForward, newFirstPersonForward, 20f * Time.fixedDeltaTime);
-        }
-            firstPersonForward = Quaternion.AngleAxis(horizontalCamera * horizontalViewSpeed, Vector3.up) * firstPersonForward;
-
-        if (horizontalDistance > 0)
-        {
-            // Restrict the yaw angle of firstPersonForward
-            Vector3 newFirstPersonForward = firstPersonForward;
-            // The rotation angle should be very small thus we can use an approximate
-            newFirstPersonForward = Quaternion.AngleAxis(horizontalDistance * Mathf.Rad2Deg,
-                                        Vector3.down * (horizontalCamera / Mathf.Abs(horizontalCamera))) *
-                                    newFirstPersonForward;
-            firstPersonForward = Vector3.Slerp(firstPersonForward, newFirstPersonForward, 20f * Time.fixedDeltaTime);
-        }
-        else
-        {
+            Ray ray = new Ray(ThirdPersonVirtualCamera.transform.position, new Vector3(Mathf.Cos(i), 0, Mathf.Sin(i)));
+            thirdPersonCameraCollided = thirdPersonCameraCollided || Physics.Raycast(ray, CollisionRadius, ~IgnoreLayer);
+            Debug.DrawRay(ray.origin, ray.direction);
+            if (thirdPersonCameraCollided) break;
+            ray = new Ray(ThirdPersonVirtualCamera.transform.position, new Vector3(0, Mathf.Sin(i), Mathf.Cos(i)));
+            thirdPersonCameraCollided = thirdPersonCameraCollided || Physics.Raycast(ray, CollisionRadius, ~IgnoreLayer);
+            Debug.DrawRay(ray.origin, ray.direction);
+            if (thirdPersonCameraCollided) break;
         }
 
-        firstPersonForward = Quaternion.AngleAxis(-verticalCamera * verticalViewSpeed, Vector3.Cross(Vector3.up, firstPersonForward)) * firstPersonForward;
-        Debug.Log("horizontalDistance = " + horizontalDistance);
-        //Debug.Log("Curr: " + Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude) * Mathf.Rad2Deg);
-        FirstPersonPosition.LookAt(FirstPersonPosition.position + Vector3.Slerp(FirstPersonPosition.forward, firstPersonForward, 30f * Time.deltaTime));
-    }
+        useFirstPerson = firstPersonCameraRequested || lineOfSightIsBroken || thirdPersonCameraCollided;
 
-    public void SetFirstPerson(bool value)
-    {
-        if (value)
+        if (useFirstPerson)
         {
             // Activate First Person Camera
             FirstPersonVirtualCamera.Priority = 10;
@@ -184,9 +141,42 @@ public class VirtualCameraController : MonoBehaviour
             ThirdPersonVirtualCamera.Priority = 10;
             FirstPersonVirtualCamera.Priority = -1;
         }
+        
+        firstPersonForward = Quaternion.AngleAxis(horizontalCamera * horizontalViewSpeed, Vector3.up) * firstPersonForward;
+        firstPersonForward = Quaternion.AngleAxis(-verticalCamera * verticalViewSpeed, Vector3.Cross(Vector3.up, firstPersonForward)) * firstPersonForward;
 
-        useFirstPerson = value;
-        FollowingObject.SkipLerpRotation = value;
+        // Restrict the pitch angle of firstPersonForward
+        // The firstPersonForward is used by both FirstPersonVCam and ThirdPersonVCam
+        // Both Virtual Cameras will look in this direction
+        float currentAngle = Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude);
+        if (currentAngle < Mathf.Deg2Rad * ThirdPersonLowestAngle)
+        {
+            Vector3 newFirstPersonForward = new Vector3(firstPersonForward.x, 0, firstPersonForward.z);
+            newFirstPersonForward.y = newFirstPersonForward.magnitude / Mathf.Tan(Mathf.Deg2Rad * ThirdPersonLowestAngle);
+            newFirstPersonForward = newFirstPersonForward.normalized;
+            firstPersonForward = Vector3.Slerp(firstPersonForward, newFirstPersonForward, 20f * Time.fixedDeltaTime);
+        }
+        else if (currentAngle > Mathf.Deg2Rad * ThirdPersonHighestAngle)
+        {
+            Vector3 newFirstPersonForward = new Vector3(firstPersonForward.x, 0, firstPersonForward.z);
+            newFirstPersonForward.y = newFirstPersonForward.magnitude / Mathf.Tan(Mathf.Deg2Rad * ThirdPersonHighestAngle);
+            newFirstPersonForward = newFirstPersonForward.normalized;
+            firstPersonForward = Vector3.Slerp(firstPersonForward, newFirstPersonForward, 20f * Time.fixedDeltaTime);
+        }
+
+
+        //Debug.Log("Curr: " + Mathf.Acos(firstPersonForward.y / firstPersonForward.magnitude) * Mathf.Rad2Deg);
+        FirstPersonPosition.LookAt(FirstPersonPosition.position + Vector3.Slerp(FirstPersonPosition.forward, firstPersonForward, 30f * Time.deltaTime));
+    }
+
+    public void SetFirstPerson(bool value)
+    {
+        firstPersonCameraRequested = value;
+    }
+
+    public void SetThirdPersonCameraCollision(bool value)
+    {
+        thirdPersonCameraCollided = value;
     }
 
     void OnDrawGizmos()
