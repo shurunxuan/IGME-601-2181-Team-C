@@ -1,4 +1,4 @@
-﻿using Cinemachine;
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -92,21 +92,17 @@ public class VirtualCameraController : MonoBehaviour
             // Raycast from camera to player
             Ray lineOfSight = new Ray(ThirdPersonVirtualCamera.transform.position, meshRenderer.gameObject.transform.position - ThirdPersonVirtualCamera.transform.position);
             RaycastHit hitInfo;
-            Debug.DrawRay(lineOfSight.origin, lineOfSight.direction);
+
             lineOfSightIsBroken = Physics.Raycast(lineOfSight, out hitInfo,
                 Vector3.Distance(ThirdPersonVirtualCamera.transform.position,
-                    meshRenderer.gameObject.transform.position));
-
-            // Make sure that it's not the player that the ray hit
-            if (lineOfSightIsBroken)
-                lineOfSightIsBroken = hitInfo.collider.gameObject.layer != LayerMask.NameToLayer("Player");
+                    meshRenderer.gameObject.transform.position), ~IgnoreLayer);
 
             // Raycast from player to camera
             lineOfSight = new Ray(meshRenderer.gameObject.transform.position, ThirdPersonVirtualCamera.transform.position - meshRenderer.gameObject.transform.position);
-            Debug.DrawRay(lineOfSight.origin, lineOfSight.direction);
+
             lineOfSightIsBroken = lineOfSightIsBroken || Physics.Raycast(lineOfSight, out hitInfo,
                                       Vector3.Distance(ThirdPersonVirtualCamera.transform.position,
-                                          meshRenderer.gameObject.transform.position));
+                                          meshRenderer.gameObject.transform.position), ~IgnoreLayer);
 
             // One part of the player can be seen
             if (!lineOfSightIsBroken)
@@ -118,12 +114,13 @@ public class VirtualCameraController : MonoBehaviour
         for (float i = 0; i < Mathf.PI * 2; i += Mathf.PI * 2 / RaycastDensity)
         {
             Ray ray = new Ray(ThirdPersonVirtualCamera.transform.position, new Vector3(Mathf.Cos(i), 0, Mathf.Sin(i)));
-            thirdPersonCameraCollided = thirdPersonCameraCollided || Physics.Raycast(ray, CollisionRadius, ~IgnoreLayer);
-            Debug.DrawRay(ray.origin, ray.direction);
+            thirdPersonCameraCollided = Physics.Raycast(ray, CollisionRadius, ~IgnoreLayer);
+
             if (thirdPersonCameraCollided) break;
+
             ray = new Ray(ThirdPersonVirtualCamera.transform.position, new Vector3(0, Mathf.Sin(i), Mathf.Cos(i)));
-            thirdPersonCameraCollided = thirdPersonCameraCollided || Physics.Raycast(ray, CollisionRadius, ~IgnoreLayer);
-            Debug.DrawRay(ray.origin, ray.direction);
+            thirdPersonCameraCollided = Physics.Raycast(ray, CollisionRadius, ~IgnoreLayer);
+
             if (thirdPersonCameraCollided) break;
         }
 
