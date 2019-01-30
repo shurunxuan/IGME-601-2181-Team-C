@@ -56,6 +56,11 @@ public class UITextManager : MonoBehaviour {
 
     public void Show(string data, Color col)
     {
+        if(!this.isActiveAndEnabled)
+        {
+            return;
+        }
+
         Transition();
         text[index].enabled = true;
         text[index].text = data;

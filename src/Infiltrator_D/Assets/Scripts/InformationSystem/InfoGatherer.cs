@@ -25,11 +25,11 @@ public class InfoGatherer : MonoBehaviour {
     {
         if (!info.Contains(newInfo))
         {
+            info.Add(newInfo);
             if (InfoNotifier != null)
             {
                 InfoNotifier(this, newInfo, true);
             }
-            info.Add(newInfo);
             return true;
         }
         if (InfoNotifier != null)

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,10 +10,12 @@ public class MissionConfirmMenu : MonoBehaviour {
     public Text MissionDescription;
 
     private string missionScene;
+    private MissionInfo info;
 
     public void Confirm()
     {
         MenuManager.ActiveManager.LoadStage(missionScene);
+        transform.root.GetComponentInChildren<ObjectiveManager>().SetUp(info);
     }
 
     public void SetUp(MissionInfo mission)
@@ -21,6 +23,7 @@ public class MissionConfirmMenu : MonoBehaviour {
         MissionTitle.text = mission.Title;
         MissionDescription.text = mission.Description;
         missionScene = mission.Scene;
+        info = mission;
     }
 
 }
