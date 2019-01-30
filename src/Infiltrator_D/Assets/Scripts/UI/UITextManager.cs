@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,9 +26,17 @@ public class UITextManager : MonoBehaviour {
     private RectTransform pos;
 
     public static UITextManager ActiveInScene;
+    
+    // Info message properties
+    public Color NewInfoColor;
+    public Color RepeatInfoColor;
+    public string InfoPrefix;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake () {
+
+        InfoGatherer.InfoNotifier += OnInfoGather;
+
         ActiveInScene = this;
         text = new List<Text>(GetComponentsInChildren<Text>());
         foreach(Text obj in text)
@@ -88,6 +96,11 @@ public class UITextManager : MonoBehaviour {
             text[(index + inUse - 1) % text.Count].enabled = false;
             inUse--;
         } while (inUse > 0);
+    }
+
+    private void OnInfoGather(InfoGatherer gatherer, string info, bool isNew)
+    {
+        Show(InfoPrefix + info, isNew ? NewInfoColor : RepeatInfoColor);
     }
 
 }
