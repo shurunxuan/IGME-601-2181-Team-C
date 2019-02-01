@@ -1,4 +1,4 @@
-﻿using Cinemachine;
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,7 +45,6 @@ public class VirtualCameraController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         firstPersonForward = FirstPersonPosition.forward;
         useFirstPerson = false;
         cinemachineBrain = gameObject.GetComponent<CinemachineBrain>();

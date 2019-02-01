@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DemoScenes/Sprint4DemoScene.unity
     guid: 92a67f8f3bdd4c24e973fc1f5004cc74
+  - enabled: 1
+    path: Assets/Scenes/Menu&UI/EMPTYSCENE.unity
+    guid: ef86760150007364aac8706055e09352
   m_configObjects: {}

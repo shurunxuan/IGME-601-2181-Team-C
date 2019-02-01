@@ -25,6 +25,9 @@ public class MenuManager : MonoBehaviour
         MissionBrief = 8
     }
 
+    // Unity UI Event System
+    public GameObject EventSystem;
+
     // List of menu/ui subobjects
     public GameObject Background;
     public GameObject MainMenu;
@@ -44,10 +47,13 @@ public class MenuManager : MonoBehaviour
 
     private string currentLevel;
 
+
     // Hides all menus and UIs and goes to start menu
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(EventSystem);
+
         ActiveManager = this;
         Background.SetActive(false);
         MainMenu.SetActive(false);
@@ -104,6 +110,7 @@ public class MenuManager : MonoBehaviour
                 PauseMenu.SetActive(false);
                 break;
             case MenuState.HeadsUpDisplay:
+                Cursor.lockState = CursorLockMode.None;
                 HeadsUpDisplay.SetActive(false);
                 break;
             case MenuState.StartMenu:
@@ -139,6 +146,7 @@ public class MenuManager : MonoBehaviour
                 PauseMenu.SetActive(true);
                 break;
             case MenuState.HeadsUpDisplay:
+                Cursor.lockState = CursorLockMode.Locked;
                 HeadsUpDisplay.SetActive(true);
                 break;
             case MenuState.StartMenu:
@@ -163,6 +171,11 @@ public class MenuManager : MonoBehaviour
     {
         // Loads scene async with a loading screen
         StartCoroutine(LoadStageHelper(stageName));
+    }
+
+    public void UnloadStage()
+    {
+        SceneManager.LoadSceneAsync("EMPTYSCENE");
     }
 
     public void ReloadStage()

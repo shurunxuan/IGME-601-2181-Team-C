@@ -38,6 +38,7 @@ public class ObjectiveManager : MonoBehaviour {
 
         // On completion
         MenuManager.ActiveManager.LoadMenu((int)MenuManager.MenuState.MissionEndMenu);
+        MenuManager.ActiveManager.UnloadStage();
     }
 
 }
