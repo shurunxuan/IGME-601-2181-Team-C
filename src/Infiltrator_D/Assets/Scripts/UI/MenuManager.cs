@@ -176,6 +176,7 @@ public class MenuManager : MonoBehaviour
     public void UnloadStage()
     {
         SceneManager.LoadSceneAsync("EMPTYSCENE");
+        Background.SetActive(true);
     }
 
     public void ReloadStage()
