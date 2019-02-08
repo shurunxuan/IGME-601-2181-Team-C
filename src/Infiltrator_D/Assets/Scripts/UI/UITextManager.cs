@@ -1,9 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UITextManager : MonoBehaviour {
+public class UITextManager : MonoBehaviour
+{
 
     // Distance between elements
     public float Spread;
@@ -23,28 +24,27 @@ public class UITextManager : MonoBehaviour {
     // The number of text components in use
     private int inUse;
 
-    private RectTransform pos;
-
     public static UITextManager ActiveInScene;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake()
+    {
         ActiveInScene = this;
         text = new List<Text>(GetComponentsInChildren<Text>());
-        foreach(Text obj in text)
+        foreach (Text obj in text)
         {
             obj.enabled = false;
             obj.CrossFadeAlpha(0, 0, true);
         }
 
-        pos = GetComponent<RectTransform>();
-        Transition();   
+        Transition();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void Show(string data, Color col)
     {

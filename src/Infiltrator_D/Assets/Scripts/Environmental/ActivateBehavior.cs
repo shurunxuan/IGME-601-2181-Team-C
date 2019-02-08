@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class ActivateBehavior : EnvironmentBehavior {
+public class ActivateBehavior : EnvironmentBehavior
+{
 
     // Object to Activate
     public GameObject Track;
@@ -14,17 +10,17 @@ public class ActivateBehavior : EnvironmentBehavior {
     public bool Reversible;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        if(Track == null)
+        if (Track == null)
         {
             Track = gameObject;
         }
         Activate(false);
         // Since this script will not act until it is activated, we don't need to update it every frame
         enabled = false;
-	}
-	
+    }
+
     public override void Activate()
     {
         Activate(Reversible ? !Track.activeSelf : true);

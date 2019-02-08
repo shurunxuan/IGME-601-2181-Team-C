@@ -1,8 +1,8 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TopSecretInfo : MonoBehaviour {
+public class TopSecretInfo : MonoBehaviour
+{
 
     public enum InfoType
     {
@@ -10,48 +10,48 @@ public class TopSecretInfo : MonoBehaviour {
     }
 
     // Static info handler
-    private static List<string> allInfo;
+    private static List<string> _allInfo;
 
     // Personal info
-    public string info;
-    public InfoType type;
+    public string Info;
+    public InfoType Type;
 
     static TopSecretInfo()
     {
-        allInfo = new List<string>();
+        _allInfo = new List<string>();
     }
 
     private void Awake()
     {
-       
+
     }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         // Ensure this piece of info is tracked
-        if (!allInfo.Contains(info))
+        if (!_allInfo.Contains(Info))
         {
-            allInfo.Add(info);
+            _allInfo.Add(Info);
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-		
-	}
+
+    }
 
 
     // STATIC METHODS
 
     public static void ClearInfo()
     {
-        allInfo.Clear();
+        _allInfo.Clear();
     }
 
     public static int InfoCount()
     {
-        return allInfo.Count;
+        return _allInfo.Count;
     }
 }

@@ -1,4 +1,3 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,28 +23,28 @@ public class EnvironmentDetector : MonoBehaviour
 
     public void Trigger()
     {
-        for (int i = 0; i < Events.Count; i++)
+        foreach (var e in Events)
         {
-            if (Events[i] != null)
-                Events[i].Activate();
+            if (e != null)
+                e.Activate();
         }
     }
 
     public void Trigger(bool state)
     {
-        for (int i = 0; i < Events.Count; i++)
+        foreach (var e in Events)
         {
-            if (Events[i] != null)
-                Events[i].Activate(state);
+            if (e != null)
+                e.Activate(state);
         }
     }
 
     public void Trigger(int state)
     {
-        for (int i = 0; i < Events.Count; i++)
+        foreach (var e in Events)
         {
-            if (Events[i] != null)
-                Events[i].Activate(state);
+            if (e != null)
+                e.Activate(state);
         }
     }
 }

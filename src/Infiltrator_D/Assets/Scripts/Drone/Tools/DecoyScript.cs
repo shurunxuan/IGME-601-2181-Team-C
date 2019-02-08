@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DecoyScript : MonoBehaviour {
-    
+public class DecoyScript : MonoBehaviour
+{
+
     // Collider for the sound emitted on collision
     public GameObject SoundSource;
     // The period for which the sound is active after collision
@@ -16,7 +15,7 @@ public class DecoyScript : MonoBehaviour {
     private float timer;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         timer = 0;
         SoundSource.SetActive(false);
@@ -36,7 +35,7 @@ public class DecoyScript : MonoBehaviour {
         }
         // Check if lifespan is up
         LifeSpan -= Time.deltaTime;
-        if(LifeSpan <= 0)
+        if (LifeSpan <= 0)
         {
             Destroy(gameObject);
         }

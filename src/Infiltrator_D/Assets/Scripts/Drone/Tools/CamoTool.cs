@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CamoTool : ToolComponent
@@ -5,7 +6,7 @@ public class CamoTool : ToolComponent
 
     // Cost of maintaining the cloak
     [SerializeField]
-    public float energyCostPerSecond;
+    public float EnergyCostPerSecond;
 
     // Time to transition from fully cloaked to fully uncloaked or vice-versa
     [SerializeField]
@@ -39,7 +40,7 @@ public class CamoTool : ToolComponent
         float tDir = ToggledOn ? 1 : -1;
         transitionState += tDir * transitionSpeed * Time.deltaTime;
         transitionState = Mathf.Clamp01(transitionState);
-        if (oldState != transitionState)
+        if (Math.Abs(oldState - transitionState) > 0.001f)
         {
             SetCloakMaterial(transitionState);
         }
@@ -48,7 +49,7 @@ public class CamoTool : ToolComponent
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (ToggledOn && !Energy.TryExpend(energyCostPerSecond * Time.fixedDeltaTime))
+        if (ToggledOn && !Energy.TryExpend(EnergyCostPerSecond * Time.fixedDeltaTime))
         {
             Cancel();
         }

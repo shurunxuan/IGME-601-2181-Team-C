@@ -14,10 +14,10 @@ public class TrajectoryIndicator : MonoBehaviour
     public float PredictionStep;
 
     // The indicator for the landing position
-    public PositionIndicator positionIndicator;
+    public PositionIndicator PositionIndicator;
 
     // The layer mask for what we can collide with
-    public LayerMask detectionLayer;
+    public LayerMask DetectionLayer;
 
     // Keep tracking the current camera direction
     public Transform CameraDirection;
@@ -29,9 +29,9 @@ public class TrajectoryIndicator : MonoBehaviour
     void Awake()
     {
         predictedTrajectory = GetComponent<LineRenderer>();
-        if (positionIndicator != null)
+        if (PositionIndicator != null)
         {
-            positionIndicator.Disappear();
+            PositionIndicator.Disappear();
         }
         Disappear();
     }
@@ -41,9 +41,9 @@ public class TrajectoryIndicator : MonoBehaviour
     {
         transform.eulerAngles = CameraDirection.eulerAngles;
         // Clear pos indicator
-        if (positionIndicator != null)
+        if (PositionIndicator != null)
         {
-            positionIndicator.Disappear();
+            PositionIndicator.Disappear();
         }
         // Predict the trajectory of the shot
         if (predictedTrajectory != null)
@@ -58,12 +58,12 @@ public class TrajectoryIndicator : MonoBehaviour
                 vel += grav * PredictionStep;
                 RaycastHit hit;
                 float dist = vel.magnitude * PredictionStep;
-                if (Physics.Raycast(pos, vel, out hit, dist, detectionLayer))
+                if (Physics.Raycast(pos, vel, out hit, dist, DetectionLayer))
                 {
                     positions.Add(hit.point);
-                    if (positionIndicator != null)
+                    if (PositionIndicator != null)
                     {
-                        positionIndicator.Appear(hit.point, hit.normal);
+                        PositionIndicator.Appear(hit.point, hit.normal);
                     }
                     break;
                 }
@@ -79,10 +79,10 @@ public class TrajectoryIndicator : MonoBehaviour
     // Disappear from game
     public void Disappear()
     {
-        if (positionIndicator != null)
+        if (PositionIndicator != null)
         {
-            positionIndicator.Disappear();
-            positionIndicator.enabled = false;
+            PositionIndicator.Disappear();
+            PositionIndicator.enabled = false;
         }
         if (predictedTrajectory != null)
         {
@@ -94,9 +94,9 @@ public class TrajectoryIndicator : MonoBehaviour
     // Appear 
     public void Appear()
     {
-        if (positionIndicator != null)
+        if (PositionIndicator != null)
         {
-            positionIndicator.enabled = true;
+            PositionIndicator.enabled = true;
         }
         if (predictedTrajectory != null)
         {

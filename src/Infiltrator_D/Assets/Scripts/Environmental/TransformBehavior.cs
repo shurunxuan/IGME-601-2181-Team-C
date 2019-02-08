@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class TransformBehavior : EnvironmentBehavior {
+public class TransformBehavior : EnvironmentBehavior
+{
 
     // Transforma to interpolate between
     public Transform StartLocation;
@@ -21,20 +17,20 @@ public class TransformBehavior : EnvironmentBehavior {
     private float lerp;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         // Since this script will not act until it is activated, we don't need to update it every frame
         enabled = false;
         transform.position = StartLocation.position;
         transform.rotation = StartLocation.rotation;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         // Update lerp based on delta time with respect to period
         lerp += (state ? 1 : -1) * Time.deltaTime / Period;
-        
+
         // Prevent overflow
         if (lerp > 1)
         {
@@ -60,7 +56,7 @@ public class TransformBehavior : EnvironmentBehavior {
     public override void Activate(bool state)
     {
         // Check for quick out
-        if(this.state == state)
+        if (this.state == state)
         {
             return;
         }

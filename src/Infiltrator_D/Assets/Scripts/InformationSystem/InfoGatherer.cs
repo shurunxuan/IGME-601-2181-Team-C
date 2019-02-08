@@ -1,8 +1,8 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InfoGatherer : MonoBehaviour {
+public class InfoGatherer : MonoBehaviour
+{
 
     // Colors for info messages
     public Color NewInfoColor;
@@ -12,15 +12,17 @@ public class InfoGatherer : MonoBehaviour {
 
     private List<string> info;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         info = new List<string>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     // Adds info only if it is new
     public bool AddInfo(string newInfo)
@@ -43,7 +45,7 @@ public class InfoGatherer : MonoBehaviour {
     // Percentage of info gathered
     public float GetInfoPercentage()
     {
-        if(TopSecretInfo.InfoCount() <= 0)
+        if (TopSecretInfo.InfoCount() <= 0)
         {
             return 1;
         }

@@ -1,5 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnergyComponent : MonoBehaviour
@@ -15,7 +13,7 @@ public class EnergyComponent : MonoBehaviour
     private float energy;
     public float CurrentEnergy { get { return energy; } }
 
-    private const string cheatCommand = "infinite";
+    private const string CheatCommand = "infinite";
     private int cheatCommandPtr = 0;
 
     // Use this for initialization
@@ -31,17 +29,17 @@ public class EnergyComponent : MonoBehaviour
         {
             energy = Capacity;
         }
-        
+
         // Cheating Command
         if (Input.anyKeyDown)
         {
             string inputString = Input.inputString;
             if (inputString.Length == 0) return;
             char key = inputString[0];
-            if (key == cheatCommand.ToLower()[cheatCommandPtr])
+            if (key == CheatCommand.ToLower()[cheatCommandPtr])
             {
                 cheatCommandPtr++;
-                if (cheatCommandPtr == cheatCommand.Length)
+                if (cheatCommandPtr == CheatCommand.Length)
                 {
                     Infinite = !Infinite;
                     cheatCommandPtr = 0;

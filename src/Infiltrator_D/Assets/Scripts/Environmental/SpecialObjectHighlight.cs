@@ -1,6 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
 
 public class SpecialObjectHighlight : MonoBehaviour
@@ -63,7 +60,7 @@ public class SpecialObjectHighlight : MonoBehaviour
                 currentWidth = 0.0f;
                 diff = -diff;
             }
-            
+
             propertyBlock.SetFloat("_Outline", currentWidth);
             meshRenderer.SetPropertyBlock(propertyBlock);
         }

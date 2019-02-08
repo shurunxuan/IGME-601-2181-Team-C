@@ -1,10 +1,10 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 // This script allows us to declare death and rewrite the death message
-public class UIDeathTracker : MonoBehaviour {
+public class UIDeathTracker : MonoBehaviour
+{
 
     // Ways to die
     public enum DeathTypes
@@ -25,13 +25,15 @@ public class UIDeathTracker : MonoBehaviour {
     public static UIDeathTracker ActiveInScene { get; private set; }
 
     // Use this for initialization
-    void Awake() {
+    void Awake()
+    {
         ActiveInScene = this;
         gameObject.SetActive(false);
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
     }
 
@@ -39,7 +41,7 @@ public class UIDeathTracker : MonoBehaviour {
     public void Show(DeathTypes dType)
     {
         gameObject.SetActive(true);
-        DeathMessage.text = OnDeathMessages[(int) dType];
+        DeathMessage.text = OnDeathMessages[(int)dType];
         UIReticuleController.ActiveInScene.Show(-1);
     }
 

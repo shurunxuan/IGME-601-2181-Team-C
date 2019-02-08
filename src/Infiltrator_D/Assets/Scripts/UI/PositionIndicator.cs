@@ -1,8 +1,8 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PositionIndicator : MonoBehaviour {
+public class PositionIndicator : MonoBehaviour
+{
 
     // Radius of expanded circle
     public float InnerRadius;
@@ -27,7 +27,8 @@ public class PositionIndicator : MonoBehaviour {
     private float timer;
 
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
         line = GetComponent<LineRenderer>();
         line.loop = true;
         inner = new List<Vector3>();
@@ -43,7 +44,8 @@ public class PositionIndicator : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         timer = (timer - Time.deltaTime + Period) % Period;
         List<Vector3> positions = new List<Vector3>();
         for (int i = 0; i < VertexCount; i++)

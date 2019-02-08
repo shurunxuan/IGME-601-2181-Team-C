@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MissionConfirmMenu : MonoBehaviour {
+public class MissionConfirmMenu : MonoBehaviour
+{
 
     // Text forms to fill in
     public Text MissionTitle;

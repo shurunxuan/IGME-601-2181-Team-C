@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +6,7 @@ using UnityEngine.UI;
 public class UIInfoTracker : MonoBehaviour
 {
 
-    public InfoGatherer info;
+    public InfoGatherer Info;
     private Slider slider;
 
     // Use this for initialization
@@ -21,9 +19,9 @@ public class UIInfoTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (info != null)
+        if (Info != null)
         {
-            slider.value = info.GetInfoPercentage();
+            slider.value = Info.GetInfoPercentage();
         }
     }
 
@@ -31,9 +29,9 @@ public class UIInfoTracker : MonoBehaviour
     void OnRefresh()
     {
         slider = GetComponent<Slider>();
-        if (info == null)
+        if (Info == null)
         {
-            info = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<InfoGatherer>();
+            Info = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<InfoGatherer>();
         }
     }
 

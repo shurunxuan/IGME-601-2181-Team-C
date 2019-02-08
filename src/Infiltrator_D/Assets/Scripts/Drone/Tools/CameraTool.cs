@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class CameraTool : ToolComponent
@@ -18,7 +17,7 @@ public class CameraTool : ToolComponent
     public CameraToolState State { get; private set; }
 
     // Linked Components
-    private InfoGatherer _info;
+    private InfoGatherer info;
 
     // Use this for initialization
     void Start()
@@ -35,7 +34,7 @@ public class CameraTool : ToolComponent
     public override void Assign(EnergyComponent energy)
     {
         base.Assign(energy);
-        _info = energy.GetComponent<InfoGatherer>();
+        info = energy.GetComponent<InfoGatherer>();
     }
 
     // Enter first person mode. If we are already in First person mode, try to capture info.
@@ -50,9 +49,7 @@ public class CameraTool : ToolComponent
                 break;
             case CameraToolState.Aiming:
                 TryCaptureInfo();
-                // Cancels after the flash animation
                 UICameraFlash.ActiveInScene.Show();
-                //StartCoroutine(CancelAfter(UICameraFlash.ActiveInScene.Show()));
                 break;
             default:
                 break;
@@ -78,7 +75,7 @@ public class CameraTool : ToolComponent
     private bool TryCaptureInfo()
     {
         // Ensure neccesary components are connected
-        if (_info == null || CameraAim == null)
+        if (info == null || CameraAim == null)
         {
             Debug.Log("Missing connected components on camera tool.");
             return false;
@@ -90,10 +87,10 @@ public class CameraTool : ToolComponent
         {
             // Check for visual info
             TopSecretInfo inf = hit.collider.GetComponent<TopSecretInfo>();
-            if (inf != null && inf.type == TopSecretInfo.InfoType.Visual)
+            if (inf != null && inf.Type == TopSecretInfo.InfoType.Visual)
             {
                 // Visual info was found, feed it to the InfoGatherer
-                return _info.AddInfo(inf.info);
+                return info.AddInfo(inf.Info);
             }
         }
         return false;
@@ -102,12 +99,5 @@ public class CameraTool : ToolComponent
     public override string GetName()
     {
         return "Camera Tool";
-    }
-
-    // Cancels after a delay
-    private IEnumerator CancelAfter(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        Cancel();
     }
 }

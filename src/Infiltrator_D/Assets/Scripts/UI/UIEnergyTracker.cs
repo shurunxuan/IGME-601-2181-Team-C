@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +6,7 @@ using UnityEngine.UI;
 public class UIEnergyTracker : MonoBehaviour
 {
 
-    public EnergyComponent energy;
+    public EnergyComponent Energy;
     private Slider slider;
 
     // Use this for initialization
@@ -21,9 +19,9 @@ public class UIEnergyTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (energy != null)
+        if (Energy != null)
         {
-            slider.value = energy.CurrentEnergy / energy.Capacity;
+            slider.value = Energy.CurrentEnergy / Energy.Capacity;
         }
     }
 
@@ -31,9 +29,9 @@ public class UIEnergyTracker : MonoBehaviour
     void OnRefresh()
     {
         slider = GetComponent<Slider>();
-        if (energy == null)
+        if (Energy == null)
         {
-            energy = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<EnergyComponent>();
+            Energy = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponentInChildren<EnergyComponent>();
         }
     }
 
