@@ -1,5 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CamoTool : ToolComponent
@@ -38,7 +36,7 @@ public class CamoTool : ToolComponent
     private void Update()
     {
         float oldState = transitionState;
-        float tDir = _toggledOn ? 1 : -1;
+        float tDir = ToggledOn ? 1 : -1;
         transitionState += tDir * transitionSpeed * Time.deltaTime;
         transitionState = Mathf.Clamp01(transitionState);
         if (oldState != transitionState)
@@ -50,7 +48,7 @@ public class CamoTool : ToolComponent
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (_toggledOn && !_energy.TryExpend(energyCostPerSecond * Time.fixedDeltaTime))
+        if (ToggledOn && !Energy.TryExpend(energyCostPerSecond * Time.fixedDeltaTime))
         {
             Cancel();
         }
@@ -59,9 +57,9 @@ public class CamoTool : ToolComponent
     // Go into cloaked mode
     protected override void Activate()
     {
-        if (!_toggledOn)
+        if (!ToggledOn)
         {
-            _toggledOn = true;
+            ToggledOn = true;
             SetLayers(transform.root, 15);
         }
         else
@@ -73,7 +71,7 @@ public class CamoTool : ToolComponent
     // This tool does not require anything done on cancel
     public override void Cancel()
     {
-        _toggledOn = false;
+        ToggledOn = false;
         SetLayers(transform.root, 9);
     }
 

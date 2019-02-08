@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
@@ -48,7 +46,7 @@ public class ChargePointTool : ToolComponent
         droneMovement = gameObject.GetComponent<DroneMovement>();
         droneRigidbody = gameObject.GetComponent<Rigidbody>();
         droneInfoGatherer = gameObject.GetComponent<InfoGatherer>();
-        if(DroneConnectionPoint == null)
+        if (DroneConnectionPoint == null)
         {
             DroneConnectionPoint = transform;
         }
@@ -61,7 +59,7 @@ public class ChargePointTool : ToolComponent
         {
             if (finishedConnecting)
             {
-                _energy.Charge(ChargeRate * Time.deltaTime);
+                Energy.Charge(ChargeRate * Time.deltaTime);
             }
         }
         else
@@ -207,7 +205,7 @@ public class ChargePointTool : ToolComponent
     private void TryHack()
     {
         // Sanity check for being connected
-        if(connected == null)
+        if (connected == null)
         {
             return;
         }

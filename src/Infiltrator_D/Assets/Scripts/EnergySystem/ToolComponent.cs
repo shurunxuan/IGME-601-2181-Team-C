@@ -1,6 +1,3 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ToolComponent : MonoBehaviour
@@ -8,10 +5,16 @@ public abstract class ToolComponent : MonoBehaviour
 
     // Cost of initially using the tool
     public float InitialEnergyCost;
-    protected EnergyComponent _energy;
+    protected EnergyComponent Energy;
 
-    // Toggled on allows child classes to negate the energy cost assosiated with the tool
-    protected bool _toggledOn;
+    // Toggled on allows child classes to negate the energy cost associated with the tool
+    protected bool ToggledOn;
+
+    // Tool Icon
+    public Sprite Icon;
+
+    // Property of the tool: need aiming
+    public bool NeedAiming;
 
     // Use this for initialization
     void Start()
@@ -28,13 +31,13 @@ public abstract class ToolComponent : MonoBehaviour
     // Used by player to ensure that the correct energy component is assigned.
     public virtual void Assign(EnergyComponent energy)
     {
-        _energy = energy;
+        Energy = energy;
     }
 
     // Player Controller will use this to request activation
     public bool TryActivate()
     {
-        if (CanActivate() && (_toggledOn || _energy.TryExpend(InitialEnergyCost)))
+        if (CanActivate() && (ToggledOn || Energy.TryExpend(InitialEnergyCost)))
         {
             Activate();
             return true;

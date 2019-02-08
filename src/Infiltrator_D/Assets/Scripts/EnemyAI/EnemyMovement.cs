@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Threading;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -84,7 +82,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Alertness:" + Alertness);
+        //Debug.Log("Alertness:" + Alertness);
         //Enemy behaviour can be modified depending upon the current state of enemy.
         switch (State)
         {
@@ -156,12 +154,12 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         //check if player is in sight and update the behaviour
-        Debug.Log("Enemy State=" + State);
+        //Debug.Log("Enemy State=" + State);
         if (State != EnemyState.CHASE)
         {
             if (sight.isPlayerVisible(out target) || hearing.Hear(transform.position, out target))
             {
-                
+
                 Alertness += 0.5f;
                 if (Alertness >= 50 && (target != null && target.gameObject.tag == "Player"))
                 {

@@ -1,9 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIToolTracker : MonoBehaviour {
+public class UIToolTracker : MonoBehaviour
+{
 
     // Seconds for which the icon is solid
     public float SolidPeriod;
@@ -21,7 +22,8 @@ public class UIToolTracker : MonoBehaviour {
     public static UIToolTracker ActiveInScene;
 
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
         ActiveInScene = this;
 
         for (int i = 0; i < ToolIcons.Count; i++)
@@ -30,10 +32,11 @@ public class UIToolTracker : MonoBehaviour {
             ToolIcons[i].CrossFadeAlpha(0, FadePeriod, false);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     // Logic for displaying an icon
