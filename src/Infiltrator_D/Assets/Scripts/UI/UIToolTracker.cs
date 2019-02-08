@@ -24,9 +24,9 @@ public class UIToolTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MaskedImageTransform.localPosition = new Vector3(0.0f,
-            Mathf.Lerp(0.0f, -100.0f, currentTool.CooldownPercentage()),
-            0.0f);
+        float percentage = Mathf.Lerp(0.0f, -100.0f, currentTool.CooldownPercentage());
+        if (float.IsNaN(percentage)) percentage = -100.0f;
+        MaskedImageTransform.localPosition = new Vector3(0.0f, percentage, 0.0f);
     }
 
     public void SetCurrentTool(ToolComponent tool)
