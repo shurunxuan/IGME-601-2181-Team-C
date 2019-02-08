@@ -7,7 +7,7 @@ public class UIToolTracker : MonoBehaviour
     private ToolComponent currentTool;
     private Image icon;
 
-    // The most recently awoken DeathTracker
+    // The most recently awoken ToolTracker
     public static UIToolTracker ActiveInScene { get; private set; }
 
     void Awake()
