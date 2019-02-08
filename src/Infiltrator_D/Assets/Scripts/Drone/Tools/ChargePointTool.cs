@@ -171,6 +171,12 @@ public class ChargePointTool : ToolComponent
     // For the camera tool, cancel just resets the camera to third person and fixes its state
     public override void Cancel()
     {
+        // If there is any highlighted objects, 
+        // we want to stop highlighting it.
+        if (closestChargePointHighlight != null)
+        {
+            closestChargePointHighlight.LookedAt = false;
+        }
         Disconnect();
     }
 

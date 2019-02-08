@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DecoyTool : ToolComponent {
+public class DecoyTool : ToolComponent
+{
 
     // Transform used to aim and position the shot
     public Transform Muzzle;
 
     // The device launched by the tool
     public GameObject DecoyDevice;
-    
+
     // The speed at which the decoy leaves the muzzle
     public float MuzzleSpeed;
 
@@ -18,6 +17,9 @@ public class DecoyTool : ToolComponent {
 
     // The rigidbody of the drone, used to create relative velocity
     private Rigidbody rigid;
+
+    // Tracking if the tool is activated (aiming)
+    private bool activated;
 
     // Use this for initialization
     void Awake()
@@ -28,40 +30,39 @@ public class DecoyTool : ToolComponent {
             indicator.MuzzleSpeed = MuzzleSpeed;
         }
         rigid = GetComponentInParent<Rigidbody>();
+        activated = false;
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-        
-	}
+
+    }
 
     // Launch a decoy pellet
     protected override void Activate()
     {
-        GameObject obj = Instantiate(DecoyDevice);
-        obj.transform.SetPositionAndRotation(Muzzle.position, Muzzle.rotation);
-        Rigidbody objRigid = obj.GetComponent<Rigidbody>();
-        objRigid.velocity = rigid.velocity + (Muzzle.forward * MuzzleSpeed);
+        if (activated)
+        {
+            // If already activated, shoot!
+            GameObject obj = Instantiate(DecoyDevice);
+            obj.transform.SetPositionAndRotation(Muzzle.position, Muzzle.rotation);
+            Rigidbody objRigid = obj.GetComponent<Rigidbody>();
+            objRigid.velocity = rigid.velocity + (Muzzle.forward * MuzzleSpeed);
+        }
+        else
+        {
+            // Or, show the aiming indicator
+            activated = true;
+            indicator.Appear();
+        }
     }
 
     // This tool does not require anything done on cancel
     public override void Cancel()
     {
-        
-    }
-
-    // Indicator should only display when active
-    public override void SetCurrent(bool state)
-    {
-        if(state)
-        {
-            indicator.Appear();
-        }
-        else
-        {
-            indicator.Disappear();
-        }
+        activated = false;
+        indicator.Disappear();
     }
 
     public override string GetName()

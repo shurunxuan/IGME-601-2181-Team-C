@@ -1,65 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIToolTracker : MonoBehaviour
 {
+    public RectTransform MaskedImageTransform;
+    private ToolComponent currentTool;
+    private Image icon;
 
-    // Seconds for which the icon is solid
-    public float SolidPeriod;
+    // The most recently awoken DeathTracker
+    public static UIToolTracker ActiveInScene { get; private set; }
 
-    // Seconds over which the icon fades
-    public float FadePeriod;
-
-    // The list of Tool Icons on the UI
-    public List<Image> ToolIcons;
-
-    // Active index
-    private int index;
-
-    // The most recently added UIToolTracker
-    public static UIToolTracker ActiveInScene;
-
-    // Use this for initialization
     void Awake()
     {
         ActiveInScene = this;
-
-        for (int i = 0; i < ToolIcons.Count; i++)
-        {
-            ToolIcons[i].enabled = false;
-            ToolIcons[i].CrossFadeAlpha(0, FadePeriod, false);
-        }
     }
+
+    void Start()
+    {
+        icon = gameObject.GetComponent<Image>();
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-
+        MaskedImageTransform.localPosition = new Vector3(0.0f,
+            Mathf.Lerp(0.0f, -100.0f, currentTool.CooldownPercentage()),
+            0.0f);
     }
 
-    // Logic for displaying an icon
-    public void Show(int index)
+    public void SetCurrentTool(ToolComponent tool)
     {
-        if (ToolIcons[this.index].enabled)
-        {
-            ToolIcons[this.index].enabled = false;
-            ToolIcons[index].CrossFadeAlpha(1, 0, false);
-        }
-        ToolIcons[index].enabled = true;
-        this.index = index;
-        StopAllCoroutines();
-        StartCoroutine(Fade());
-    }
-
-    // Logic for fading out the icon
-    private IEnumerator Fade()
-    {
-        ToolIcons[index].CrossFadeAlpha(1, FadePeriod, false);
-        yield return new WaitForSeconds(SolidPeriod);
-        ToolIcons[index].CrossFadeAlpha(0, FadePeriod, false);
-        yield return new WaitForSeconds(FadePeriod);
-        ToolIcons[index].enabled = false;
+        currentTool = tool;
+        icon.sprite = currentTool.Icon;
     }
 }

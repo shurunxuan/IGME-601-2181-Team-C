@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public WeaponWheelController WeaponWheel;
     public List<ToolComponent> Tools;
     public VirtualCameraController CameraController;
+    public float WeaponWheelTimeScale;
 
     // Component links
     private DroneMovement movement;
@@ -20,9 +21,6 @@ public class PlayerController : MonoBehaviour
     // Instead of the tools list in the inspector,
     // we maintain this list for tool changing logic.
     private List<ToolComponent> allTools;
-    // Tool Selection
-    private int selectedTool;
-    private bool toolSet;
     private bool isAiming;
     // Weapon Wheel Things
     private float holdButtonTimer;
@@ -32,10 +30,7 @@ public class PlayerController : MonoBehaviour
     private List<Vector2> directions;
     private Vector2 directionalInputIntegral;
 
-    public int CurrentTool
-    {
-        get { return toolSet ? selectedTool : -1; }
-    }
+    public int CurrentTool { get; private set; }
 
     // Tracks if we died
     private bool live;
@@ -57,8 +52,7 @@ public class PlayerController : MonoBehaviour
         cameraTool = GetComponentInChildren<CameraTool>();
         cameraTool.Assign(energy);
 
-        selectedTool = 0;
-        toolSet = false;
+        CurrentTool = 0;
 
         // Link the tools to the energy component
         foreach (var t in Tools)
@@ -79,6 +73,7 @@ public class PlayerController : MonoBehaviour
             Tools[1]
         };
 
+        UIToolTracker.ActiveInScene.SetCurrentTool(allTools[CurrentTool]);
         holdButtonTimer = WeaponWheelHoldButtonTime;
         weaponWheelShowing = false;
         currentWheelSelection = -1;
@@ -118,8 +113,8 @@ public class PlayerController : MonoBehaviour
                 live = false;
                 if (Tools.Count > 0)
                 {
-                    Tools[selectedTool].Cancel();
-                    Tools[selectedTool].SetCurrent(false);
+                    Tools[CurrentTool].Cancel();
+                    Tools[CurrentTool].SetCurrent(false);
                     UIDeathTracker.ActiveInScene.Show(UIDeathTracker.DeathTypes.EnergyLoss);
                 }
             }
@@ -128,23 +123,8 @@ public class PlayerController : MonoBehaviour
         // Tool logic
         if (live)
         {
-            //if (Input.GetButton("Cancel"))
-            //{
-            //    chargeTool.Cancel();
-            //    cameraTool.Cancel();
-            //    if (toolSet)
-            //    {
-            //        if (tools.Count > 0)
-            //        {
-            //            tools[selectedTool].Cancel();
-            //            tools[selectedTool].SetCurrent(false);
-            //        }
-            //        toolSet = false;
-            //    }
-            //}
-
             // Allow movement off of charge points
-            if (chargeTool.Connected && !Input.GetButton("ChargeTool") && Input.GetAxisRaw("Up") > 0)
+            if (chargeTool.Connected && !Input.GetButton("UseTool") && Input.GetAxisRaw("Up") > 0)
             {
                 chargeTool.Cancel();
             }
@@ -169,7 +149,7 @@ public class PlayerController : MonoBehaviour
                     WeaponWheel.gameObject.SetActive(true);
 
                     // Change Time
-                    Time.timeScale = 0.1f;
+                    Time.timeScale = WeaponWheelTimeScale;
 
                     // Stop camera movement
                     CameraController.enabled = false;
@@ -186,9 +166,15 @@ public class PlayerController : MonoBehaviour
                 // Select Tool
                 if (currentWheelSelection >= 0)
                 {
-                    // This is always true?
-                    toolSet = true;
-                    selectedTool = currentWheelSelection;
+                    CurrentTool = currentWheelSelection;
+
+                    for (int i = 0; i < 4; ++i)
+                    {
+                        allTools[i].Cancel();
+                        allTools[i].SetCurrent(i == CurrentTool);
+                    }
+
+                    UIToolTracker.ActiveInScene.SetCurrentTool(allTools[CurrentTool]);
                 }
                 // Reset
                 currentWheelSelection = -1;
@@ -205,17 +191,17 @@ public class PlayerController : MonoBehaviour
                 float wheelX = Input.GetAxis("WeaponWheelX");
                 float wheelY = Input.GetAxis("WeaponWheelY");
 
-                // Gradually drag this input to (0, 0)
-                directionalInputIntegral = Vector2.Lerp(directionalInputIntegral, new Vector2(0.0f, 0.0f), 20.0f * Time.deltaTime);
-
-                // Angle
+                // Integral it
                 Vector2 delta = new Vector2(wheelX, wheelY);
                 directionalInputIntegral += delta;
+
+                // Limit the input
                 if (directionalInputIntegral.magnitude > 1.0f)
                     directionalInputIntegral.Normalize();
-                if (directionalInputIntegral.magnitude > 0.1f)
+
+                // Has directional input
+                if (directionalInputIntegral.magnitude > 0.8f)
                 {
-                    // Has directional input
                     delta.Normalize();
                     float maxDot = -1.0f;
 
@@ -239,68 +225,32 @@ public class PlayerController : MonoBehaviour
                 WeaponWheel.Selecting(currentWheelSelection);
             }
 
-            // Camera tool is a core tool
-            //if (Input.GetButtonDown("CameraTool"))
-            //{
-            //    cameraTool.TryActivate();
-            //    chargeTool.Cancel();
-            //    if (tools.Count > 0)
-            //    {
-            //        tools[selectedTool].Cancel();
-            //        tools[selectedTool].SetCurrent(false);
-            //        toolSet = false;
-            //    }
-            //}
-
-            // Charge point tool is a core tool
-            //if (Input.GetButtonDown("ChargeTool"))
-            //{
-            //    chargeTool.TryActivate();
-            //    cameraTool.Cancel();
-            //    if (tools.Count > 0 && chargeTool.Connected)
-            //    {
-            //        tools[selectedTool].Cancel();
-            //        tools[selectedTool].SetCurrent(false);
-            //        toolSet = false;
-            //    }
-            //}
-
-            // Use the currently equipped non-core tool
+            // Use the currently equipped tool
             if (Input.GetButtonDown("UseTool"))
             {
-                //cameraTool.Cancel();
-                //chargeTool.Cancel();
-                //if (toolSet && tools.Count > 0)
-                //{
-                //    tools[selectedTool].TryActivate();
-                //}
-                //else
-                //{
-                //    // If no tool is set, set the last tool set
-                //    toolSet = true;
-                //    tools[selectedTool].SetCurrent(true);
-                //    UIToolTracker.ActiveInScene.Show(selectedTool);
-                //}
+                if ((Input.GetButton("ReadyTool") && allTools[CurrentTool].NeedAiming) || !allTools[CurrentTool].NeedAiming)
+                {
+                    allTools[CurrentTool].TryActivate();
+                }
             }
 
-            // Aim the currently equipped non-core tool
-            isAiming = Input.GetButtonDown("ReadyTool");
-            if (isAiming && allTools[selectedTool].NeedAiming)
+            // Aim the currently equipped tool
+            if (Input.GetButtonDown("ReadyTool") && allTools[CurrentTool].NeedAiming)
             {
-                //cameraTool.Cancel();
-                //chargeTool.Cancel();
-                //if (toolSet && tools.Count > 0)
-                //{
-                //    tools[selectedTool].TryActivate();
-                //}
-                //else
-                //{
-                //    // If no tool is set, set the last tool set
-                //    toolSet = true;
-                //    tools[selectedTool].SetCurrent(true);
-                //    UIToolTracker.ActiveInScene.Show(selectedTool);
-                //}
+                allTools[CurrentTool].TryActivate();
+            }
+            // Cancel aiming
+            if (Input.GetButtonUp("ReadyTool") && allTools[CurrentTool].NeedAiming)
+            {
+                allTools[CurrentTool].Cancel();
+            }
+
+            for (int i = 0; i < 4; ++i)
+            {
+                allTools[i].Cooldown();
             }
         }
+
+
     }
 }

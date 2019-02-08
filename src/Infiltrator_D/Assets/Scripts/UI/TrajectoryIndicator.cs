@@ -1,8 +1,8 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrajectoryIndicator : MonoBehaviour {
+public class TrajectoryIndicator : MonoBehaviour
+{
 
     // The speed at which the projectile leaves the muzzle
     public float MuzzleSpeed;
@@ -19,13 +19,17 @@ public class TrajectoryIndicator : MonoBehaviour {
     // The layer mask for what we can collide with
     public LayerMask detectionLayer;
 
+    // Keep tracking the current camera direction
+    public Transform CameraDirection;
+
     // Line for drawing projectory
     private LineRenderer predictedTrajectory;
 
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
         predictedTrajectory = GetComponent<LineRenderer>();
-        if(positionIndicator != null)
+        if (positionIndicator != null)
         {
             positionIndicator.Disappear();
         }
@@ -33,7 +37,9 @@ public class TrajectoryIndicator : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
+        transform.eulerAngles = CameraDirection.eulerAngles;
         // Clear pos indicator
         if (positionIndicator != null)
         {

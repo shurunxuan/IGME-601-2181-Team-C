@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
-public class CameraTool : ToolComponent {
+public class CameraTool : ToolComponent
+{
 
     public enum CameraToolState
     {
@@ -21,14 +21,16 @@ public class CameraTool : ToolComponent {
     private InfoGatherer _info;
 
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public override void Assign(EnergyComponent energy)
     {
@@ -49,7 +51,8 @@ public class CameraTool : ToolComponent {
             case CameraToolState.Aiming:
                 TryCaptureInfo();
                 // Cancels after the flash animation
-                StartCoroutine(CancelAfter(UICameraFlash.ActiveInScene.Show()));
+                UICameraFlash.ActiveInScene.Show();
+                //StartCoroutine(CancelAfter(UICameraFlash.ActiveInScene.Show()));
                 break;
             default:
                 break;
@@ -75,7 +78,7 @@ public class CameraTool : ToolComponent {
     private bool TryCaptureInfo()
     {
         // Ensure neccesary components are connected
-        if(_info == null || CameraAim == null)
+        if (_info == null || CameraAim == null)
         {
             Debug.Log("Missing connected components on camera tool.");
             return false;

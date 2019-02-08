@@ -16,6 +16,10 @@ public abstract class ToolComponent : MonoBehaviour
     // Property of the tool: need aiming
     public bool NeedAiming;
 
+    // Property of the tool: cooldown
+    public float CoolDownTime;
+    private float coolDownTimer;
+
     // Use this for initialization
     void Start()
     {
@@ -37,12 +41,31 @@ public abstract class ToolComponent : MonoBehaviour
     // Player Controller will use this to request activation
     public bool TryActivate()
     {
-        if (CanActivate() && (ToggledOn || Energy.TryExpend(InitialEnergyCost)))
+        if (coolDownTimer < 0)
         {
-            Activate();
-            return true;
+            if (CanActivate() && (ToggledOn || Energy.TryExpend(InitialEnergyCost)))
+            {
+                Activate();
+                coolDownTimer = CoolDownTime;
+                return true;
+            }
         }
         return false;
+    }
+
+    // This is called by PlayerController.Update()
+    public void Cooldown()
+    {
+        // Tool cooldown
+        coolDownTimer -= Time.deltaTime;
+        // i use this strange number because I want to make sure it is negative.
+        if (coolDownTimer < -0.001f) coolDownTimer = -0.001f;
+    }
+
+    public float CooldownPercentage()
+    {
+        if (coolDownTimer < 0) return 0.0f;
+        return coolDownTimer / CoolDownTime;
     }
 
     // Abstract implementation
