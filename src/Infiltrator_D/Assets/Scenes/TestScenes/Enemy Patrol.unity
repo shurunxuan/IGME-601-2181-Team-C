@@ -161,6 +161,16 @@ Prefab:
       propertyPath: Gun
       value: 
       objectReference: {fileID: 234119493}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: State
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114553846227780352, guid: ff37e01f496933e45831d72e62b33c12,
+        type: 2}
+      propertyPath: Alertness
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff37e01f496933e45831d72e62b33c12, type: 2}
   m_IsPrefabAsset: 0
@@ -485,7 +495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &648350183
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -670,7 +680,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.8333333
+  m_VoxelSize: 0.5
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 7114563c702effb4baae26534805e7d7, type: 2}
 --- !u!4 &790107253
