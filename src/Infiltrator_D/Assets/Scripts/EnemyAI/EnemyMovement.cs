@@ -19,7 +19,8 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private List<Action> stateHandlers = new List<Action>();
-
+    [SerializeField]
+    private Transform headTransform;
 
     //basic movement parameters
     [Header("Movement Parameters")]
@@ -75,7 +76,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         
-        sight = new EnemySight(DetectionRadius, transform, PlayerMask, ObstacleMask);
+        sight = new EnemySight(DetectionRadius, headTransform, PlayerMask, ObstacleMask);
         hearing = new EnemyHearingAbility(DetectionRadius, MaxHearingDistance, Agent);
         Agent.speed = Speed;
         //Uncomment following method when we need to manage animations in our script.
