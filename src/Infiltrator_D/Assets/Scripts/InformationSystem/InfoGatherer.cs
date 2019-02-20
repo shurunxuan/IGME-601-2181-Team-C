@@ -1,14 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void InfoGatherNotify(InfoGatherer gatherer, string info, bool isNew);
+
 public class InfoGatherer : MonoBehaviour {
 
-    // Colors for info messages
-    public Color NewInfoColor;
-    public Color RepeatInfoColor;
-
-    public string Prefix;
+    public static event InfoGatherNotify InfoNotifier;
 
     private List<string> info;
 
@@ -27,11 +25,17 @@ public class InfoGatherer : MonoBehaviour {
     {
         if (!info.Contains(newInfo))
         {
-            UITextManager.ActiveInScene.Show(Prefix + newInfo, NewInfoColor);
             info.Add(newInfo);
+            if (InfoNotifier != null)
+            {
+                InfoNotifier(this, newInfo, true);
+            }
             return true;
         }
-        UITextManager.ActiveInScene.Show(Prefix + newInfo, RepeatInfoColor);
+        if (InfoNotifier != null)
+        {
+            InfoNotifier(this, newInfo, false);
+        }
         return false;
     }
 

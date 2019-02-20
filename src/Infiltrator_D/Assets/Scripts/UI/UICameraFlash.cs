@@ -31,6 +31,11 @@ public class UICameraFlash : MonoBehaviour
     // Displays a flash, returns the duration
     public float Show()
     {
+        if (!this.isActiveAndEnabled)
+        {
+            return 0;
+        }
+
         StartCoroutine(CauseFlash());
         return Duration;
     }
@@ -38,6 +43,10 @@ public class UICameraFlash : MonoBehaviour
     // Hides the flash
     public void Hide()
     {
+        if (!this.isActiveAndEnabled)
+        {
+            return;
+        }
         StopAllCoroutines();
         flash.CrossFadeAlpha(0, 0, true);
     }

@@ -50,7 +50,6 @@ public class VirtualCameraController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         firstPersonForward = FirstPersonPosition.forward;
         useFirstPerson = false;
         cinemachineBrain = gameObject.GetComponent<CinemachineBrain>();
